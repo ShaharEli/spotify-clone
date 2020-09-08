@@ -15,11 +15,18 @@ function Header() {
 
     })
     return (
-       <animated.header style={fade}>
+       <animated.header id="header" style={fade}>
          <Link style={{color:"blue",textDecoration:"none"}} to="/">
            <div className="title">
                <span>
                    Home
+               </span>
+           </div>
+           </Link>
+           <Link style={{color:"blue",textDecoration:"none"}} to="/about">
+           <div className="title">
+               <span>
+                   About
                </span>
            </div>
            </Link>

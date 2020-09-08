@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
+import About from './components/about/About';
 
 ReactDOM.render(
     <>
@@ -13,10 +14,10 @@ ReactDOM.render(
       </Route>
       <Route path="/send">
         <Send/>
-      </Route>
-      <Route path="/login">
-        <Login/>
-      </Route> */}
+</Route> */}
+      <Route path="/about">
+        <About/>
+      </Route> 
       <Route path="/">
       <App />
       </Route>
