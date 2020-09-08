@@ -22,18 +22,14 @@ connection.connect((err) =>{
     if (err) throw err;
     console.log("Connected to my sql!");
 });
-// connection.query("SELECT * FROM artists",  (err, result, fields)=> {
-//     if (err) throw err;
-//     console.log(result);
-//   });
 
 app.post("/songs",(req,res)=>{
     if (!req.body){
         res.status(400).send("content missing")
     }
-    const { youtube_link, album_id, artist_id, title, length, track_number, lyrics,created_at ,  upload_at} = req.body;
-    const queryString = `INSERT INTO songs (youtube_link, album_id, artist_id, title, length, track_number,lyrics,upload_at,created_at) VALUES ("${youtube_link}", "${album_id}" , "${artist_id}", "${title}", "${length}", "${track_number}","${lyrics}","${created_at}" , "${upload_at}")`;
-    connection.query(queryString, function (err, result) {
+    const {body} = req;
+    const queryString = `INSERT INTO songs SET ?`;
+    connection.query(queryString,body ,function (err, result) {
         if (err) {
             // Throw your error output here.
             console.log("An error occurred.");
@@ -46,20 +42,15 @@ app.post("/songs",(req,res)=>{
 })
 
 
+
 app.post("/artist",(req,res)=>{
     if (!req.body){
         res.status(400).send("content missing")
     }
-    const {name,cover_img, uploaded_at} =req.body
-    const sql = `INSERT INTO artists 
-            (
-                name, cover_img, uploaded_at
-            )
-            VALUES
-            (
-                ?, ?, ?
-            )`;
-    connection.query(sql, [name , cover_img, uploaded_at], function (err, data) {
+    const {body} =req
+    const queryString = `INSERT INTO artists 
+            SET ?`;
+    connection.query(queryString,body, function (err, data) {
     if (err) {
         console.log(err);
     } else {
