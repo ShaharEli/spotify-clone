@@ -2,4 +2,11 @@
     display: flex;
     width: 50%;
     flex-grow: 1;
+    height: 40vh;
+    overflow: hidden; 
+    justify-content: center;
+}
+#artists:hover{
+    overflow-y: scroll; 
+
 }

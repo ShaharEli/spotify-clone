@@ -1,0 +1,22 @@
+.artists{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    background-color: cornflowerblue;
+    margin-bottom: 10px;
+    padding-left:10px ;
+    padding-right:10px ;
+    text-align: center;
+    height: 7vh;
+
+}
+
+
+
+
+
+.artistsImages{
+    height: 30px;
+    height: 30px;
+}
