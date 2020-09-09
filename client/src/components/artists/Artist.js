@@ -23,13 +23,13 @@ function Artist() {
     }, [])
 
     return (
+        
         <div id="artists">
-            <div>
-            <ul style={{width:"100%"}}>
+            <div style={{width:"80%"}}>
+            <h2 id="artistsTitle">Artists</h2>
             {
-            artists.map((artist,index)=><li style={{listStyle:"none"}}><ArtistItem key={artist.id} artist={artist} /></li>)
+            artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
             } 
-            </ul>
             </div>  
         </div>
     )

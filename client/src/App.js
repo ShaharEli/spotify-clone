@@ -15,7 +15,6 @@ function App() {
       <Artist />
       <Playlists />
       <Albums />
-     
     </div>
     </>
   );

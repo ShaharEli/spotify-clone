@@ -1,6 +1,5 @@
 .artists{
     display: flex;
-    width: 100%;
     align-items: center;
     justify-content: space-between;
     background-color: cornflowerblue;
@@ -9,14 +8,10 @@
     padding-right:10px ;
     text-align: center;
     height: 7vh;
-
 }
-
-
-
 
 
 .artistsImages{
     height: 30px;
-    height: 30px;
+    width: 30px;
 }
