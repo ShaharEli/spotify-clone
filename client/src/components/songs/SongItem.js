@@ -6,7 +6,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 // import CancelIcon from '@material-ui/icons/Cancel';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
-import {WhatsappShareButton} from "react-share";
   function getModalStyle() {  
     return {
       top:"10vh",
@@ -60,17 +59,16 @@ function SongItem({song}) {
       };
       const body = (
         <div  style={modalStyle} className={classes.paper}>
-        {/* <CancelIcon onClick={handleClose} style={{cursor:"pointer",position:"absolute",right:10}} /> */}
         <div className ="playSong">
         <iframe title={title} style={{width:"60vw",height:"60vh", frameBorder:"0",}} src={link} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
         
         </div>
         </div>
       );
-
-    return (
+      
+      return (
         <div className="songs">
-            <div><PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
+            <div className="songInfo"><PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
                 onClose={handleClose}
@@ -80,12 +78,12 @@ function SongItem({song}) {
                 {body}
                 
             </Modal>
-            <div className="songName">{title}</div>
-            <div>{length}</div>
-            <div>upload date: {date}</div>
-            <div>album: {album}</div>
-            <div>artist: {artist}</div>
-            <WhatsappShareButton />
+             <div className="songInfo">{title}</div>
+            <div className="songInfo">{length}</div>
+            <div className="songInfo">upload date: {date}</div>
+            <div className="songInfo">album: {album}</div>
+            <div className="songInfo">artist: {artist }</div>
+            
         </div>
     )
 }

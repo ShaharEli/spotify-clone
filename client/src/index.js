@@ -17,7 +17,7 @@ ReactDOM.render(
       <Route path="/playlists">
         <Header />
         <Playlists />
-    </Route> 
+    </Route>  
     <Route path="/artists">
         <Header />
         <Artist />
