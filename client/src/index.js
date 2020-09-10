@@ -14,9 +14,6 @@ ReactDOM.render(
     <>
     <Router>
     <Switch>
-      {/* <Route path="/sign">
-        <Sign/>
-</Route> */}
       <Route path="/playlists">
         <Header />
         <Playlists />

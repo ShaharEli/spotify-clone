@@ -5,14 +5,13 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import CancelIcon from '@material-ui/icons/Cancel';
-
   
   function getModalStyle() {  
     return {
       top:"5%",
-      left:"8%",
-      width: "80vw",
-      height:"80vh"
+      left:"17.5vw",
+      width: "65vw",
+      height:"65vh"
     };
   }
   
@@ -26,6 +25,7 @@ import CancelIcon from '@material-ui/icons/Cancel';
       padding: theme.spacing(2, 4, 3),
     },
   }));
+
 function SongItem({song}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
@@ -46,6 +46,8 @@ function SongItem({song}) {
     //     }
     //     getLyrics()
     // }, [])
+        
+    
 
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
@@ -62,8 +64,8 @@ function SongItem({song}) {
         <CancelIcon onClick={handleClose} style={{cursor:"pointer",position:"absolute",right:10}} />
         <div className ="playSong">
         <iframe title={title} style={{width:"60vw",height:"60vh", frameBorder:"0",}} src={link} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
+        
         </div>
-
         </div>
       );
 
@@ -77,6 +79,7 @@ function SongItem({song}) {
                 aria-describedby="simple-modal-description"
             >
                 {body}
+                
             </Modal>
             <div className="songName">{title}</div>
             <div>{length}</div>

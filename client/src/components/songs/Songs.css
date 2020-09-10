@@ -6,7 +6,11 @@
 	max-height: 90vh;
     overflow: hidden; 
     justify-content: center;
-    width: 100%;
+	width: 100%;
+	background-color:#e7a61a ;
+	-webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
 }
 
 #songs:hover{

@@ -125,7 +125,7 @@ app.post("/album",(req,res)=>{
 })
 
 app.get("/albums",(req,res)=>{
-    connection.query("SELECT * FROM albums",  (err, result, fields) =>{
+    connection.query("select albums.*,artists.name as artist from albums join artists on artists.id=artist_id",  (err, result, fields) =>{
         if (err) throw err;
         res.json(result);
       });

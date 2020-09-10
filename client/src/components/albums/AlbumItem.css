@@ -1,4 +1,4 @@
-.artists{
+.albums{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,7 +12,7 @@
 }
 
 
-.artistsImages{
+.albumsImages{
     height: 30px;
     width: 30px;
 }
