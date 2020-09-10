@@ -1,0 +1,23 @@
+.playlists{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    margin-bottom: 10px;
+    padding-left:10px ;
+    padding-right:10px ;
+    text-align: center;
+    height: 7vh;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+    border-radius:4px;
+
+}
+
+
+.playlistsImages{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border:2px solid black;
+    margin-top: 4px;
+}
