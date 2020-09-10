@@ -30,7 +30,34 @@ function Header() {
                </span>
            </div>
            </Link>
-               
+           <Link style={{color:"blue",textDecoration:"none"}} to="/songs">
+           <div className="title">
+               <span>
+                   Songs
+               </span>
+           </div>
+           </Link>
+           <Link style={{color:"blue",textDecoration:"none"}} to="/albums">
+           <div className="title">
+               <span>
+                   Albums
+               </span>
+           </div>
+           </Link>
+           <Link style={{color:"blue",textDecoration:"none"}} to="/artists">
+           <div className="title">
+               <span>
+                   Artists
+               </span>
+           </div>
+           </Link>
+           <Link style={{color:"blue",textDecoration:"none"}} to="/playlists">
+           <div className="title">
+               <span>
+                   Playlists
+               </span>
+           </div>
+           </Link>
        </animated.header>
     )
 }

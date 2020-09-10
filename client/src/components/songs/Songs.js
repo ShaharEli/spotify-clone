@@ -1,8 +1,10 @@
 import React,{useEffect, useState} from 'react'
-import "./Artist.css"
+import "./Songs.css"
 import axios from 'axios'
-import ArtistItem from "./ArtistItem"
-function Artist() {
+import SongItem from './SongItem'
+
+
+const Songs = () => {
     function generateTime() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -11,32 +13,30 @@ function Artist() {
         today = `${yyyy}-${mm}-${dd}`;
         return `${today}`;
       }
-    
-    const [artists,setArtists] =useState([])
+    const [songs,setSongs] =useState([])
     useEffect(() => {
         const fetch= async ()=>{
-            const {data} = await axios.get("/artists")
-            data.map(artist=> {
-                if(artist.uploaded_at===null){
-                    artist.uploaded_at=generateTime()
+            const {data} = await axios.get("/songs")
+            data.map(song=> {
+                if(song.upload_at===null){
+                    song.upload_at=generateTime()
                 } 
-                return artist})
-            setArtists(data)
+                return song})
+            setSongs(data)
         }
         fetch()
     }, [])
-
     return (
-        
-        <div id="artists">
+    
+        <div id="songs">
             <div style={{width:"80%"}}>
-            <h2 id="artistsTitle">Artists</h2>
+            <h2 id="songsTitle">Songs</h2>
             {
-            artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
+            songs.map((song)=><SongItem key={song.id} song={song} />)
             } 
             </div>  
         </div>
     )
 }
 
-export default Artist
+export default Songs

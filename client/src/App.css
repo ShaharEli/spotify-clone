@@ -6,5 +6,15 @@
   align-items:stretch;
   align-content:stretch;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
+  background-color: darkgrey;
+  padding-top: 15px;
+}
+.section{
+  background-color:#e7a61a ;
+  width: 45%;
+  height: 45%;
+  -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
+-moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
+box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
 }

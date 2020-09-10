@@ -1,23 +1,35 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
-import Liked from './components/liked/Liked';
+import Songs from './components/songs/Songs';
 import Artist from './components/artists/Artist';
 import Playlists from './components/playlists/Playlists';
 import Albums from './components/albums/Albums';
-// list of most, artists, playlists, albums
 function App() {
   return (
     <>
     <Header />
     <div className="App">
-      <Liked />
+      <div className="section" >
+      <Songs />
+      </div>
+      <div className="section">
       <Artist />
+      </div>
+      <div className="section">
       <Playlists />
+      </div>
+      <div className="section">
       <Albums />
+      </div>
     </div>
     </>
   );
 }
 
 export default App;
+
+
+
+
+
