@@ -2,6 +2,12 @@ import React from 'react'
 import "./Header.css"
 import {Link} from "react-router-dom";
 import {useSpring, animated} from 'react-spring'
+import AudiotrackIcon from '@material-ui/icons/Audiotrack';
+import HomeIcon from '@material-ui/icons/Home';
+import QueueMusicIcon from '@material-ui/icons/QueueMusic';
+import InfoIcon from '@material-ui/icons/Info';
+import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
+import PersonIcon from '@material-ui/icons/Person';
 function Header() {
     const fade = useSpring({
         from:{
@@ -10,52 +16,58 @@ function Header() {
         },
         to:{
             transform:"translateY(0)",
-            opacity:1
+            opacity:0.9
         },delay:0,config:{duration:700}
 
     })
     return (
        <animated.header id="header" style={fade}>
-         <Link style={{color:"blue",textDecoration:"none"}} to="/">
+         <Link style={{color:"white",textDecoration:"none"}} to="/">
            <div className="title">
                <span>
-                   Home
+                   Home &nbsp;
                </span>
+               <HomeIcon/>
            </div>
            </Link>
-           <Link style={{color:"blue",textDecoration:"none"}} to="/about">
+           <Link style={{color:"white",textDecoration:"none"}} to="/about">
            <div className="title">
                <span>
-                   About
+                   About &nbsp;
                </span>
+               <InfoIcon />
+
            </div>
            </Link>
-           <Link style={{color:"blue",textDecoration:"none"}} to="/songs">
+           <Link style={{color:"white",textDecoration:"none"}} to="/songs">
            <div className="title">
-               <span>
+               
                    Songs
-               </span>
+                   <AudiotrackIcon/>
+
+               
            </div>
            </Link>
-           <Link style={{color:"blue",textDecoration:"none"}} to="/albums">
+           <Link style={{color:"white",textDecoration:"none"}} to="/albums">
            <div className="title">
                <span>
-                   Albums
+                   Albums &nbsp;
                </span>
+               <LibraryMusicIcon />
            </div>
            </Link>
-           <Link style={{color:"blue",textDecoration:"none"}} to="/artists">
+           <Link style={{color:"white",textDecoration:"none"}} to="/artists">
            <div className="title">
                <span>
-                   Artists
+                   Artists &nbsp;
                </span>
+               <PersonIcon />
            </div>
            </Link>
-           <Link style={{color:"blue",textDecoration:"none"}} to="/playlists">
+           <Link style={{color:"white",textDecoration:"none"}} to="/playlists">
            <div className="title">
-               <span>
-                   Playlists
-               </span>
+                   <span>Playlists &nbsp; </span>
+                   <QueueMusicIcon/>
            </div>
            </Link>
        </animated.header>

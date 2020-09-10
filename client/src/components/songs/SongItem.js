@@ -1,28 +1,27 @@
 import React from 'react'
 import "./SongItem.css"
 // import solenolyrics from "solenolyrics"
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+// import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import CancelIcon from '@material-ui/icons/Cancel';
-  
+// import CancelIcon from '@material-ui/icons/Cancel';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import {WhatsappShareButton} from "react-share";
   function getModalStyle() {  
     return {
-      top:"5%",
-      left:"17.5vw",
-      width: "65vw",
-      height:"65vh"
+      top:"10vh",
+      left:"22.5vw",
+      width: "55vw",
+      height:"50vh"
     };
   }
   
   const useStyles = makeStyles((theme) => ({
     paper: {
-        margin:"auto",
+        // margin:"auto",
       position: 'absolute',
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      backgroundColor: "transparent",
+  
     },
   }));
 
@@ -61,7 +60,7 @@ function SongItem({song}) {
       };
       const body = (
         <div  style={modalStyle} className={classes.paper}>
-        <CancelIcon onClick={handleClose} style={{cursor:"pointer",position:"absolute",right:10}} />
+        {/* <CancelIcon onClick={handleClose} style={{cursor:"pointer",position:"absolute",right:10}} /> */}
         <div className ="playSong">
         <iframe title={title} style={{width:"60vw",height:"60vh", frameBorder:"0",}} src={link} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
         
@@ -71,7 +70,7 @@ function SongItem({song}) {
 
     return (
         <div className="songs">
-            <div><PlayArrowIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayArrowIcon></div>
+            <div><PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
                 onClose={handleClose}
@@ -86,6 +85,7 @@ function SongItem({song}) {
             <div>upload date: {date}</div>
             <div>album: {album}</div>
             <div>artist: {artist}</div>
+            <WhatsappShareButton />
         </div>
     )
 }

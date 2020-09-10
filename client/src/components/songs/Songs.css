@@ -7,14 +7,17 @@
     overflow: hidden; 
     justify-content: center;
 	width: 100%;
-	background-color:#e7a61a ;
-	-webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
-  -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
-  box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
+	background-color:#FDB515 ;
+	border-radius: 7px;
+
+ 
 }
 
 #songs:hover{
-    overflow-y: scroll; 
+	overflow-y: scroll; 
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+
 }
 
 #songsTitle{
@@ -32,13 +35,13 @@
 #songs::-webkit-scrollbar
 {
    
-	width: 11px;
+	width: 5px;
 	background-color: #F5F5F5;
 }
 
 #songs::-webkit-scrollbar-thumb
 {
-    border-radius: 10px;    
+    border-radius: 5px;    
 	background-color: #FFF;
 	background-image: -webkit-gradient(linear,
 									   40% 0%,
