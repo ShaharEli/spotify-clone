@@ -45,3 +45,8 @@
 									   from(#e7a61a),
 									   to(#ccb025))
 }
+
+.searchDiv{
+	display: flex;
+	justify-content: center;
+}

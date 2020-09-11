@@ -9,6 +9,10 @@
 	background-color:#FDB515 ;
 	border-radius:7px
 }
+.searchDiv{
+	display: flex;
+	justify-content: center;
+}
 
 #playlists:hover{
 	overflow-y: scroll; 

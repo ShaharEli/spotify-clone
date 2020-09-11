@@ -24,6 +24,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
   }));
 
 function SongItem({song}) {
+  
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
     const date = song.upload_at.slice(0,10)

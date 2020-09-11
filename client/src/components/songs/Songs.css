@@ -12,7 +12,10 @@
 
  
 }
-
+.searchDiv{
+	display: flex;
+	justify-content: center;
+}
 #songs:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;

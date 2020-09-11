@@ -2,9 +2,9 @@ import React,{useEffect, useState} from 'react'
 import "./Songs.css"
 import axios from 'axios'
 import SongItem from './SongItem'
+import TextField from '@material-ui/core/TextField';
 
-
-const Songs = () => {
+const Songs = ({search}) => {
     function generateTime() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -14,6 +14,7 @@ const Songs = () => {
         return `${today}`;
       }
     const [songs,setSongs] =useState([])
+    const [songsUnfiltered,setSongsUnfiltered] =useState([])
     useEffect(() => {
         (async ()=>{
             const {data} = await axios.get("/songs")
@@ -23,18 +24,30 @@ const Songs = () => {
                 } 
                 return song})
             setSongs(data)
+            setSongsUnfiltered(data)
         })()
     }, [])
+    const handleChange=(e)=>{
+        setSongs(songsUnfiltered.filter(song=>{
+             return song.title.toLowerCase().includes(e.target.value.toLowerCase())
+        }))
+    }
     return (
-    
+        <>
+
         <div id="songs">
             <div style={{width:"80%"}}>
+            {search&&
+            <div className="searchDiv">
+            <TextField style={{marginTop: 10,textAlign:"center" }} variant="outlined" id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
+            </div>}
             <h2 id="songsTitle">Songs</h2>
             {
             songs.map((song)=><SongItem key={song.id} song={song} />)
             } 
             </div>  
         </div>
+        </>
     )
 }
 

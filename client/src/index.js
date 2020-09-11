@@ -21,19 +21,19 @@ ReactDOM.render(
       </Route>
       <Route path="/playlists">
         <Header />
-        <Playlists />
+        <Playlists search={true} />
     </Route>  
     <Route path="/artists">
         <Header />
-        <Artist />
+        <Artist search={true} />
     </Route> 
       <Route path="/albums">
         <Header />
-        <Albums />
+        <Albums search={true} />
     </Route> 
       <Route path="/songs">
         <Header />
-        <Songs />
+        <Songs search={true} />
     </Route> 
       <Route path="/about">
         <About/>

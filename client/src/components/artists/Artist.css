@@ -10,6 +10,10 @@
 	max-height: 89.5vh;
 
 }
+.searchDiv{
+	display: flex;
+	justify-content: center;
+}
 
 #artists:hover{
 	overflow-y: scroll; 
