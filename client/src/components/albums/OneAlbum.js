@@ -51,7 +51,7 @@ function OneAlbum() {
         <h3>{album[0].upload_at}</h3>
         {
             album.map(album=>{
-                const song = {upload_at:album.song_upload_date,title:album.song,artist:album.artist,length:album.length,youtube_link:album.youtube_link,truck_number:album.truck_number}
+                const song = {artist_id:album.artist_id,upload_at:album.song_upload_date,title:album.song,artist:album.artist,length:album.length,youtube_link:album.youtube_link,truck_number:album.truck_number}
                 return <SongItem key={album.song} song={song} />
             })
         }

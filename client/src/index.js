@@ -10,6 +10,7 @@ import Albums from './components/albums/Albums';
 import Artist from './components/artists/Artist';
 import Playlists from './components/playlists/Playlists';
 import OneAlbum from './components/albums/OneAlbum';
+import OnePlaylist from './components/playlists/OnePlaylist';
 
 ReactDOM.render(
     <>
@@ -18,6 +19,10 @@ ReactDOM.render(
       <Route path="/album/:id">
         <Header />
         <OneAlbum />
+      </Route>
+      <Route path="/playlist/:id">
+        <Header />
+        <OnePlaylist />
       </Route>
       <Route path="/playlists">
         <Header />
