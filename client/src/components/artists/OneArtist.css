@@ -1,0 +1,16 @@
+.coverImg{
+    height:  240px;
+    border-radius: 20px;
+    width: 250px;
+    border:1px solid black
+    
+}
+.oneArtist{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+

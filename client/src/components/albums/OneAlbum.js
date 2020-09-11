@@ -3,6 +3,7 @@ import "./OneAlbum.css"
 import {useParams} from "react-router-dom"
 import axios from "axios"
 import SongItem from '../songs/SongItem'
+import { Link } from 'react-router-dom'
 function OneAlbum() {
     const {id} =useParams()
     const [album,setAlbum] = useState([])
@@ -29,8 +30,9 @@ function OneAlbum() {
                 }
                 return album})
             setAlbum(data)
-        })()
+            })()
     }, [id])
+    
     
     return (
         album.length>0&&
@@ -40,12 +42,14 @@ function OneAlbum() {
             album[0].name
             }
         </h2>
+        <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album[0].artist_id}`}>
         <h3>
             By &nbsp;
             {
             album[0].artist
             }
         </h3>
+        </Link>
         
             <img className="coverImg" alt="" src={album[0].cover_img}/>
         <h3>{album[0].upload_at}</h3>

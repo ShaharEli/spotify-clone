@@ -12,7 +12,9 @@ function AlbumItem({album}) {
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
             </Link>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album.artist_id}`}>
             <div>{artist}</div>
+            </Link>
             <div className="albumsDate">{date}</div>
         </div>
     )

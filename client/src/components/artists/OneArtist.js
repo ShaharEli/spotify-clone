@@ -19,8 +19,10 @@ function OneArtist() {
             const {data} = await axios.get(`/artist/${id}`)
             data.map(artist=> {
                 if(artist.artist_date===null){
-                    artist.upload_at=generateTime()
-                } 
+                    artist.artist_date=generateTime()
+                } else{
+                    artist.artist_date=artist.artist_date.slice(0,10)
+                }
                 if(artist.upload_at===null){
                     artist.upload_at=generateTime()
                 }
@@ -41,8 +43,9 @@ function OneArtist() {
         <h3>{artist[0].artist_date}</h3>
         {
             artist.map(song=>{
-                const songData = {artist_id:song.artist_id,upload_at:song.upload_at,title:song.title,artist:song.name,length:song.length,youtube_link:song.youtube_link}
-                return <SongItem key={song.title} song={songData} />
+                console.log(song);
+                const songData = {album:song.album_name,artist_id:song.artist_id, upload_at:song.upload_at, title:song.title,artist:song.name,length:song.length,youtube_link:song.youtube_link,album_id:song.album_id}
+                return <SongItem key={song.title} song={songData} maxWidth={true} />
             })
         }
         </div>

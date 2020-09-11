@@ -1,5 +1,6 @@
 import React from 'react'
 import "./ArtistItem.css"
+import { Link } from 'react-router-dom'
 function ArtistItem({artist}) {
     const name = artist.name
     const image =artist.cover_img
@@ -7,7 +8,9 @@ function ArtistItem({artist}) {
     return (
         <div className="artists">
             <div><img className="artistsImages" src={image} alt="" /></div>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${artist.id}`}>
             <div className="artistsName">{name}</div>
+            </Link>
             <div className="artistsDate">{date}</div>
         </div>
     )

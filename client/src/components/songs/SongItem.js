@@ -96,8 +96,9 @@ function SongItem({song,maxWidth}) {
             {album}
             </div>
             </Link>
+            <Link  style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
             <div className="songInfo">artist: {artist}</div>
-           
+            </Link>
             </>
             :<><div></div></>}
 
