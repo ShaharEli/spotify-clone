@@ -1,6 +1,5 @@
 import React from 'react'
 import "./TopSong.css"
-import ShareIcon from '@material-ui/icons/Share';
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -78,7 +77,7 @@ function TopSong({song}) {
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
             <div className="songInfo">artist: {artist}</div>
             </Link>
-            <Share />
+            <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
             </>
 
         </div>

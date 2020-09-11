@@ -1,11 +1,7 @@
 import React, { useState } from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
-import ShareIcon from '@material-ui/icons/Share';
 // import solenolyrics from "solenolyrics"
-import { WhatsappShareButton,FacebookMessengerIcon, EmailShareButton,FacebookMessengerShareButton,
-  WhatsappIcon,EmailIcon
-} from "react-share"
 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
