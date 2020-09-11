@@ -2,9 +2,8 @@ import "./Albums.css"
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import AlbumItem from "./AlbumItem"
-import TextField from '@material-ui/core/TextField';
 
-function Albums() {
+function TopAlbums() {
     function generateTime() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -19,7 +18,7 @@ function Albums() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/albums")
+            const {data} = await axios.get("/top_albums")
             data.map(album=> {
                 if(album.upload_at===null){
                     album.upload_at=generateTime()
@@ -29,24 +28,15 @@ function Albums() {
                 } 
                 return album})
             setAlbums(data)
-            setUnfiltredAlbums(data)
         })()
     }, [])
 
-    const handleChange=(e)=>{
-        setAlbums(unfiltredAlbums.filter(album=>{
-             return album.name.toLowerCase().includes(e.target.value.toLowerCase())
-        }))
-    }
 
     return (
         
         <div id="albums">
             <div style={{width:"80%"}}>
-            <div className="searchDiv">
-            <TextField style={{marginTop: 10,textAlign:"center" }} variant="outlined" id="searchInput" autoComplete="off" label="Search album" onChange={(e) => handleChange(e)} />
-            </div>
-            <h2 id="albumsTitle">Albums</h2>
+            <h2 id="albumsTitle">Top Albums</h2>
             {
             albums.map((album,index)=><AlbumItem key={album.id} album={album} />)
             } 
@@ -55,4 +45,4 @@ function Albums() {
     )
 }
 
-export default Albums
+export default TopAlbums

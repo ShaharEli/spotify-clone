@@ -2,9 +2,8 @@ import React,{useEffect, useState} from 'react'
 import "./Artist.css"
 import axios from 'axios'
 import ArtistItem from "./ArtistItem"
-import TextField from '@material-ui/core/TextField';
 
-function Artist() {
+function TopArtists() {
     function generateTime() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -15,33 +14,23 @@ function Artist() {
       }
     
     const [artists,setArtists] =useState([])
-    const [unfilteredArtists,setUnfilteredArtists] =useState([])
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/artists")
+            const {data} = await axios.get("/top_artists")
             data.map(artist=> {
                 if(artist.uploaded_at===null){
                     artist.uploaded_at=generateTime()
                 } 
                 return artist})
             setArtists(data)
-            setUnfilteredArtists(data)
         })()
     }, [])
-    const handleChange=(e)=>{
-        setArtists(unfilteredArtists.filter(artist=>{
-             return artist.name.toLowerCase().includes(e.target.value.toLowerCase())
-        }))
-    }
     return (
         
         <div id="artists">
             <div style={{width:"80%"}}>
-            <div className="searchDiv">
-            <TextField style={{marginTop: 10,textAlign:"center" }} variant="outlined" id="searchInput" autoComplete="off" label="Search artist" onChange={(e) => handleChange(e)} />
-            </div>
-            <h2 id="artistsTitle">Artists</h2>
+            <h2 id="artistsTitle">Top Artists</h2>
             {
             artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
             } 
@@ -50,4 +39,4 @@ function Artist() {
     )
 }
 
-export default Artist
+export default TopArtists

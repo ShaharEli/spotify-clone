@@ -1,10 +1,6 @@
 import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
-// import solenolyrics from "solenolyrics"
-// import { WhatsappShareButton,FacebookMessengerIcon, EmailShareButton,FacebookMessengerShareButton,
-//   WhatsappIcon,EmailIcon
-// } from "react-share"
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -16,7 +12,6 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
       height:"50vh"
     };
   }
-
   
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,30 +22,14 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
     },
   }));
 
-function SongItem({song}) {
-    const shareUrl = song.youtube_link;
-    const shareTitle = song.title;
+function TopSong({song}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
     const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
     const length = song.length
-    // const [lyrics,setLyrics] = useState("")
-    // useEffect(() => {
-    //     const getLyrics=async ()=>{
-    //         try{
-    //             const data =await solenolyrics.requestLyricsFor(title);
-    //             setLyrics(data)
-    //         }
-    //         catch(e){
-    //             setLyrics("")
-    //         }
-    //     }
-    //     getLyrics()
-    // }, [])
         
-    
 
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
@@ -72,10 +51,9 @@ function SongItem({song}) {
       );
       
       return (
-        <div className={album?"songs":"albumSongs"}>
+        <div className={"songs"}>
             <div className="songInfo">
-              {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
-              <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
+            <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
                 onClose={handleClose}
@@ -87,7 +65,6 @@ function SongItem({song}) {
             </Modal>
              <div className="songInfo">{title}</div>
             <div className="songInfo">{length}</div>
-            {album?
             <>
             <div className="songInfo">upload date: {date}</div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
@@ -97,12 +74,10 @@ function SongItem({song}) {
             </div>
             </Link>
             <div className="songInfo">artist: {artist}</div>
-           
             </>
-            :<><div></div></>}
 
         </div>
     )
 }
 
-export default SongItem
+export default TopSong
