@@ -14,8 +14,6 @@ function TopAlbums() {
       }
     
     const [albums,setAlbums] =useState([])
-    const [unfiltredAlbums,setUnfiltredAlbums] =useState([])
-
     useEffect(() => {
         (async ()=>{
             const {data} = await axios.get("/top_albums")
@@ -38,7 +36,7 @@ function TopAlbums() {
             <div style={{width:"80%"}}>
             <h2 id="albumsTitle">Top Albums</h2>
             {
-            albums.map((album,index)=><AlbumItem key={album.id} album={album} />)
+            albums.map((album)=><AlbumItem key={album.id} album={album} />)
             } 
             </div>  
         </div>

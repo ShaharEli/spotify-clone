@@ -28,8 +28,8 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
   }));
 
 function SongItem({song,maxWidth}) {
-    const shareUrl = song.youtube_link;
-    const shareTitle = song.title;
+    // const shareUrl = song.youtube_link;
+    // const shareTitle = song.title;
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
     const date = song.upload_at.slice(0,10)

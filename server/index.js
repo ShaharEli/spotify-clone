@@ -253,7 +253,8 @@ app.get("/artists",(req,res)=>{
 })
 
 app.get("/artist/:id",(req,res)=>{
-    connection.query(`SELECT * FROM artists WHERE id= ${req.params.id}`,  (err, result) =>{
+    connection.query(`select songs.*,artists.name,artists.cover_img,artists.uploaded_at as artist_date from songs join artists on songs.artist_id=artists.id where songs.artist_id=${req.params.id}`
+    ,  (err, result) =>{
         if (err) throw err;
         res.json(result);
       });

@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import "./Songs.css"
 import axios from 'axios'
-import SongItem from './SongItem'
 import TopSong from './TopSong'
 
 const TopSongs = () => {
@@ -35,7 +34,6 @@ const TopSongs = () => {
             <h2 id="songsTitle">Top Songs</h2>
             {
             songs.map((song)=>{
-                console.log(song)
             return <TopSong key={song.id} song={song} />})
             } 
             </div>  

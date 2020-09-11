@@ -1,10 +1,6 @@
 import React from 'react';
 import './App.css';
 import Header from './components/header/Header';
-import Songs from './components/songs/Songs';
-import Artist from './components/artists/Artist';
-import Playlists from './components/playlists/Playlists';
-import Albums from './components/albums/Albums';
 import TopSongs from './components/songs/TopSongs';
 import TopAlbums from './components/albums/TopAlbums';
 import TopPlaylists from './components/playlists/TopPlaylists';
