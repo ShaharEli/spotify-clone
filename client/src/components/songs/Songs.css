@@ -52,3 +52,15 @@
 									   from(#e7a61a),
 									   to(#e7a61a))
 }
+
+@media only screen and (max-width: 323px) {
+	#songs{
+	  justify-content: flex-start;
+  }
+	.searchDiv{
+		width: 100vw;
+		display: flex;
+		justify-content: center;
+	}
+
+}

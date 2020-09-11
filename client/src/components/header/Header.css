@@ -37,7 +37,7 @@ header{
   
 }
 
-@media only screen and (max-width: 380px) {
+@media only screen and (max-width: 680px) {
     header{
       font-size: 13px;
     }
@@ -45,16 +45,14 @@ header{
   } 
 
 
-  @media only screen and (max-width: 350px) {
-
+  @media only screen and (max-width: 605px) {
     header{
       font-size: 12px;
     }
   
-  
   }
   
-  @media only screen and (max-width: 310px) {
+  @media only screen and (max-width: 585px) {
  
     header{
     font-size: 10px;
@@ -62,15 +60,37 @@ header{
     
   }
   
-  @media only screen and (max-width: 275px) {
+  @media only screen and (max-width: 540px) {
  
     header{
         font-size: 8px;
         }
     
   }
-  @media only screen and (max-width: 243px) {
+  @media only screen and (max-width: 503px) {
     header{
         font-size: 6px;
         }
+  }
+  @media only screen and (max-width: 459px) {
+    header{
+        font-size: 5px;
+        }
+  }
+  @media only screen and (max-width: 439px) {
+    header{
+        font-size: 0px;
+        }
+  }
+  @media only screen and (max-width: 332px) {
+    header{
+        font-size: 0px;
+        }
+        .title{
+          padding: 2px;
+        }
+        .title:hover{
+          padding:3px;
+        }
+
   }

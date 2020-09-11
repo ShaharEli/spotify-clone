@@ -21,3 +21,9 @@
     border:2px solid black;
     margin-top: 4px;
 }
+
+@media only screen and (max-width: 365px) {
+    .albums{
+        font-size: 12px;
+    }
+  }

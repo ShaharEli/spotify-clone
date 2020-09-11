@@ -1,5 +1,5 @@
 import React from 'react'
-import "./SongItem.css"
+import "./TopSong.css"
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -51,7 +51,7 @@ function TopSong({song}) {
       );
       
       return (
-        <div className={"songs"}>
+        <div className="topSongs">
             <div className="songInfo">
             <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 

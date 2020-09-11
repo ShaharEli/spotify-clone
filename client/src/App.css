@@ -1,4 +1,5 @@
 .App{
+  margin-top: 20px;
   display: flex;
   width: 100vw;
   height:  80vh;
@@ -13,7 +14,7 @@
 .section{
   background-color:#e7a61a ;
   width: 47%;
-  height: 45%;
+  height: 47%;
   -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
