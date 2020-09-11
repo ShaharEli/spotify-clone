@@ -1,13 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
+import ShareIcon from '@material-ui/icons/Share';
 // import solenolyrics from "solenolyrics"
-// import { WhatsappShareButton,FacebookMessengerIcon, EmailShareButton,FacebookMessengerShareButton,
-//   WhatsappIcon,EmailIcon
-// } from "react-share"
+import { WhatsappShareButton,FacebookMessengerIcon, EmailShareButton,FacebookMessengerShareButton,
+  WhatsappIcon,EmailIcon
+} from "react-share"
+
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import Share from './Share';
   function getModalStyle() {  
     return {
       top:"10vh",
@@ -28,30 +31,14 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
   }));
 
 function SongItem({song,maxWidth}) {
-    // const shareUrl = song.youtube_link;
-    // const shareTitle = song.title;
+
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
     const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
     const length = song.length
-    // const [lyrics,setLyrics] = useState("")
-    // useEffect(() => {
-    //     const getLyrics=async ()=>{
-    //         try{
-    //             const data =await solenolyrics.requestLyricsFor(title);
-    //             setLyrics(data)
-    //         }
-    //         catch(e){
-    //             setLyrics("")
-    //         }
-    //     }
-    //     getLyrics()
-    // }, [])
         
-    
-
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -98,12 +85,17 @@ function SongItem({song,maxWidth}) {
             </Link>
             <Link  style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
             <div className="songInfo">artist: {artist}</div>
-            </Link>
+            </Link> 
+            <Share link={song.youtube_link} songName={song.title} artistName={song.artist}/>
             </>
-            :<><div></div></>}
-
+            :
+            <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
+            }
         </div>
     )
 }
+
+
+
 
 export default SongItem

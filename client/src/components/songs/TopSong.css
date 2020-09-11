@@ -9,11 +9,15 @@
     box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
     border-radius:4px;
     display: grid;
-    grid-template-columns: 0.3fr 0.8fr 0.5fr 1fr 1.5fr 0.7fr;
+    grid-template-columns: 0.3fr 0.8fr 0.5fr 1fr 1.5fr 0.7fr 0.3fr;
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
+.share{
+  display: flex;
+  align-items: center;
+ }
 
 .playSong{
     width: 100%;
