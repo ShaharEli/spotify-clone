@@ -27,7 +27,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
     },
   }));
 
-function SongItem({song}) {
+function SongItem({song,maxWidth}) {
     const shareUrl = song.youtube_link;
     const shareTitle = song.title;
     const title = song.title
@@ -72,7 +72,7 @@ function SongItem({song}) {
       );
       
       return (
-        <div className={album?"songs":"albumSongs"}>
+        <div className={album?"songs":"albumSongs"} style={maxWidth&&{maxWidth:"40vw"}} >
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>

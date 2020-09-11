@@ -28,7 +28,7 @@
   grid-template-columns: 1fr 1fr 1fr ;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
-  background-color: #FDB515;
+  background-color: white;
 }
 .playSong{
     width: 100%;

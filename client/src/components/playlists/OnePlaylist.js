@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-// import "./OneAlbum.css"
+import "./OnePlaylist.css"
 import {useParams} from "react-router-dom"
 import axios from "axios"
 import SongItem from '../songs/SongItem'
+
 function OnePlaylist() {
     const {id} =useParams()
     const [playlist,setPlaylist] = useState([])
@@ -45,7 +46,7 @@ function OnePlaylist() {
         {
             playlist.map(playlist=>{
                 const song = {upload_at:playlist.upload_at,title:playlist.title,artist:playlist.artist,length:playlist.length,youtube_link:playlist.youtube_link,album:playlist.album,album_id:playlist.album_id}
-                return <SongItem key={playlist.title} song={song} />
+                return <SongItem key={playlist.title} song={song} maxWidth={true} />
             })
         }
         </div>
