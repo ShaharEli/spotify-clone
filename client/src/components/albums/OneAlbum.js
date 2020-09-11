@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import "./OneAlbum.css"
 import {useParams} from "react-router-dom"
 import axios from "axios"
+import SongItem from '../songs/SongItem'
 function OneAlbum() {
     const {id} =useParams()
     const [album,setAlbum] = useState([])
@@ -33,13 +34,27 @@ function OneAlbum() {
     
     return (
         album.length>0&&
-        <div>
+        <div className="oneAlbum">
         <h2>
             {
             album[0].name
             }
         </h2>
-            <img src
+        <h3>
+            By &nbsp;
+            {
+            album[0].artist
+            }
+        </h3>
+        
+            <img className="coverImg" alt="" src={album[0].cover_img}/>
+        <h3>{album[0].upload_at}</h3>
+        {
+            album.map(album=>{
+                const song = {upload_at:album.song_upload_date,title:album.song,artist:album.artist,length:album.length,youtube_link:album.youtube_link,truck_number:album.truck_number}
+                return <SongItem key={album.song} song={song} />
+            })
+        }
         </div>
 
     )

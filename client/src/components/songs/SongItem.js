@@ -1,10 +1,9 @@
 import React from 'react'
 import "./SongItem.css"
+import { Link } from 'react-router-dom'
 // import solenolyrics from "solenolyrics"
-// import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-// import CancelIcon from '@material-ui/icons/Cancel';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
   function getModalStyle() {  
     return {
@@ -67,8 +66,10 @@ function SongItem({song}) {
       );
       
       return (
-        <div className="songs">
-            <div className="songInfo"><PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
+        <div className={album?"songs":"albumSongs"}>
+            <div className="songInfo">
+              {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
+              <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
                 onClose={handleClose}
@@ -80,10 +81,19 @@ function SongItem({song}) {
             </Modal>
              <div className="songInfo">{title}</div>
             <div className="songInfo">{length}</div>
+            {album?
+            <>
             <div className="songInfo">upload date: {date}</div>
-            <div className="songInfo">album: {album}</div>
-            <div className="songInfo">artist: {artist }</div>
-            
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
+            <div className="songInfo">album name: 
+            &nbsp;
+            {album}
+            </div>
+            </Link>
+            <div className="songInfo">artist: {artist}</div>
+            </>
+            :<><div></div></>}
+
         </div>
     )
 }
