@@ -9,11 +9,16 @@ import Header from './components/header/Header';
 import Albums from './components/albums/Albums';
 import Artist from './components/artists/Artist';
 import Playlists from './components/playlists/Playlists';
+import OneAlbum from './components/albums/OneAlbum';
 
 ReactDOM.render(
     <>
     <Router>
     <Switch>
+      <Route path="/album/:id">
+        <Header />
+        <OneAlbum />
+      </Route>
       <Route path="/playlists">
         <Header />
         <Playlists />

@@ -132,7 +132,7 @@ app.get("/albums",(req,res)=>{
 })
 
 app.get("/album/:id",(req,res)=>{
-    connection.query(`SELECT * FROM albums WHERE id= ${req.params.id}`,  (err, result, fields) =>{
+    connection.query(`select albums.*,artists.name as artist,songs.title as song,songs.youtube_link as youtube_link,songs.length as length,songs.track_number as truck_number,songs.upload_at as song_upload_date from albums join artists on artists.id=artist_id join songs on songs.album_id=albums.id where albums.id=${req.params.id}`,  (err, result, fields) =>{
         if (err) throw err;
         res.json(result);
       });

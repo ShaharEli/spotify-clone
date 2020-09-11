@@ -30,15 +30,6 @@ function Header() {
                <HomeIcon/>
            </div>
            </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/about">
-           <div className="title">
-               <span>
-                   About &nbsp;
-               </span>
-               <InfoIcon />
-
-           </div>
-           </Link>
            <Link style={{color:"white",textDecoration:"none"}} to="/songs">
            <div className="title">
                
@@ -68,6 +59,14 @@ function Header() {
            <div className="title">
                    <span>Playlists &nbsp; </span>
                    <QueueMusicIcon/>
+           </div>
+           </Link>
+           <Link style={{color:"white",textDecoration:"none"}} to="/about">
+           <div className="title">
+               <span>
+                   About &nbsp;
+               </span>
+               <InfoIcon />
            </div>
            </Link>
        </animated.header>

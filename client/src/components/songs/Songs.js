@@ -15,7 +15,7 @@ const Songs = () => {
       }
     const [songs,setSongs] =useState([])
     useEffect(() => {
-        const fetch= async ()=>{
+        (async ()=>{
             const {data} = await axios.get("/songs")
             data.map(song=> {
                 if(song.upload_at===null){
@@ -23,8 +23,7 @@ const Songs = () => {
                 } 
                 return song})
             setSongs(data)
-        }
-        fetch()
+        })()
     }, [])
     return (
     

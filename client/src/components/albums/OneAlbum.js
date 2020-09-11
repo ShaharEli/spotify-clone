@@ -1,8 +1,10 @@
-import "./Albums.css"
-import React,{useEffect, useState} from 'react'
-import axios from 'axios'
-import AlbumItem from "./AlbumItem"
-function Albums() {
+import React, { useState, useEffect } from 'react'
+import "./OneAlbum.css"
+import {useParams} from "react-router-dom"
+import axios from "axios"
+function OneAlbum() {
+    const {id} =useParams()
+    const [album,setAlbum] = useState([])
     function generateTime() {
         let today = new Date();
         const dd = String(today.getDate()).padStart(2, '0');
@@ -11,11 +13,9 @@ function Albums() {
         today = `${yyyy}-${mm}-${dd}`;
         return `${today}`;
       }
-    
-    const [albums,setAlbums] =useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/albums")
+            const {data} = await axios.get(`/album/${id}`)
             data.map(album=> {
                 if(album.upload_at===null){
                     album.upload_at=generateTime()
@@ -23,23 +23,26 @@ function Albums() {
                 if(album.created_at===null){
                     album.created_at=generateTime()
                 } 
+                if(album.song_upload_date===null){
+                    album.song_upload_date=generateTime()
+                }
                 return album})
-            setAlbums(data)
+            setAlbum(data)
         })()
-        
-    }, [])
-
+    }, [id])
+    
     return (
-        
-        <div id="albums">
-            <div style={{width:"80%"}}>
-            <h2 id="albumsTitle">Albums</h2>
+        album.length>0&&
+        <div>
+        <h2>
             {
-            albums.map((album,index)=><AlbumItem key={album.id} album={album} />)
-            } 
-            </div>  
+            album[0].name
+            }
+        </h2>
+            <img src
         </div>
+
     )
 }
 
-export default Albums
+export default OneAlbum

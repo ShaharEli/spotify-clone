@@ -14,7 +14,7 @@ function Artist() {
     
     const [artists,setArtists] =useState([])
     useEffect(() => {
-        const fetch= async ()=>{
+        (async ()=>{
             const {data} = await axios.get("/artists")
             data.map(artist=> {
                 if(artist.uploaded_at===null){
@@ -22,8 +22,7 @@ function Artist() {
                 } 
                 return artist})
             setArtists(data)
-        }
-        fetch()
+        })()
     }, [])
 
     return (

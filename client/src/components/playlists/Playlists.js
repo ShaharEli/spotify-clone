@@ -14,7 +14,7 @@ function Playlists() {
     
     const [playlists,setPlaylists] =useState([])
     useEffect(() => {
-        const fetch= async ()=>{
+        (async ()=>{
             const {data} = await axios.get("/playlists")
             data.map(playlist=> {
                 if(playlist.uploaded_at===null){
@@ -24,8 +24,7 @@ function Playlists() {
 
             setPlaylists(data)
 
-        }
-        fetch()
+        })()
     }, [])
 
     return (
