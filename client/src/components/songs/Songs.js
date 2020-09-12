@@ -3,7 +3,6 @@ import "./Songs.css"
 import axios from 'axios'
 import SongItem from './SongItem'
 import TextField from '@material-ui/core/TextField';
-import {motion} from 'framer-motion'
 
 const Songs = () => {
     function generateTime() {
@@ -44,19 +43,10 @@ const Songs = () => {
             <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="songsTitle">Songs</h2>
-            <motion.div
-                    initial={{opacity:0,y:"-50%"}}
-                    animate={{opacity:1,y:0}}
-                    exit={{opacity:0}}
-                    transition={{
-                        default: { duration: 0.6 },
-                        delay:0.3
-                    }}
-            >
+
             {
-            songs.map((song)=><SongItem key={song.id} song={song} />)
+            songs.map((song,index)=><SongItem key={song.id} song={song} index={index} />)
             } 
-            </motion.div>
             </div>  
         </div>
         </>

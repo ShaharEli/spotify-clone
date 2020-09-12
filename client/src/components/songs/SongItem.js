@@ -2,6 +2,7 @@ import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
 // import solenolyrics from "solenolyrics"
+import {motion} from 'framer-motion'
 
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
@@ -26,7 +27,7 @@ import Share from './Share';
     },
   }));
 
-function SongItem({song,maxWidth}) {
+function SongItem({song,maxWidth,index}) {
 
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/")
@@ -55,7 +56,15 @@ function SongItem({song,maxWidth}) {
       );
       
       return (
-        <div className={album?"songs":"albumSongs"} style={maxWidth&&{maxWidth:"40vw"}} >
+        <motion.div 
+        initial={{opacity:0,x:"-100%"}}
+        animate={{opacity:1,x:0}}
+        exit={{opacity:0}}
+        transition={{
+            default: { duration: 0.6 },
+            delay:index/10
+        }}
+        className={album?"songs":"albumSongs"} style={maxWidth&&{maxWidth:"40vw"}} >
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
@@ -87,7 +96,7 @@ function SongItem({song,maxWidth}) {
             :
             <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
             }
-        </div>
+        </motion.div>
     )
 }
 
