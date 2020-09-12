@@ -8,7 +8,7 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import InfoIcon from '@material-ui/icons/Info';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import PersonIcon from '@material-ui/icons/Person';
-function Header() {
+function Header({animate}) {
     const fade = useSpring({
         from:{
             transform:"translateY(-10vh)",
@@ -21,7 +21,7 @@ function Header() {
 
     })
     return (
-       <animated.header id="header" style={fade}>
+       <animated.header id="header" style={animate&&fade}>
          <Link style={{color:"white",textDecoration:"none"}} to="/">
            <div className="title">
                <span>

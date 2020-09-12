@@ -12,12 +12,10 @@ import Playlists from './components/playlists/Playlists';
 import OneAlbum from './components/albums/OneAlbum';
 import OnePlaylist from './components/playlists/OnePlaylist';
 import OneArtist from './components/artists/OneArtist';
-import {AnimatePresence} from 'framer-motion'
 
 ReactDOM.render(
     <>
     <Router>
-    <AnimatePresence>
     <Switch>
       <Route path="/album/:id">
         <Header />
@@ -51,10 +49,10 @@ ReactDOM.render(
         <About/>
       </Route> 
       <Route path="/">
+    <Header animate={true}/>
       <App />
       </Route>
     </Switch>
-    </AnimatePresence>
     </Router>
   </>,
   document.getElementById('root')
