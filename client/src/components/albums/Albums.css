@@ -10,7 +10,7 @@
 	border-radius:7px
 }
 
-#albums:hover{
+#albums, #topAlbums:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -21,20 +21,20 @@
     font-size: 30px;
 }
 
-#albums::-webkit-scrollbar-track
+#albums, #topAlbums::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#albums::-webkit-scrollbar
+#albums, #topAlbums::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#albums::-webkit-scrollbar-thumb
+#albums, #topAlbums::-webkit-scrollbar-thumb
 {
     border-radius: 10px;    
 	background-color: #FFF;

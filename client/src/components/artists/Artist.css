@@ -15,7 +15,7 @@
 	justify-content: center;
 }
 
-#artists:hover{
+#artists, #topArtists:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -26,20 +26,20 @@
     font-size: 30px;
 }
 
-#artists::-webkit-scrollbar-track
+#artists, #topArtists::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#artists::-webkit-scrollbar
+#artists, #topArtists::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#artists::-webkit-scrollbar-thumb
+#artists, #topArtists::-webkit-scrollbar-thumb
 {
     border-radius: 10px;    
 	background-color: #FFF;

@@ -16,7 +16,7 @@
 	display: flex;
 	justify-content: center;
 }
-#songs:hover{
+#songs, #topSongs:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -28,20 +28,20 @@
     font-size: 30px;
 }
 
-#songs::-webkit-scrollbar-track
+#songs, #topSongs::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#songs::-webkit-scrollbar
+#songs, #topSongs::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#songs::-webkit-scrollbar-thumb
+#songs, #topSongs::-webkit-scrollbar-thumb
 {
     border-radius: 5px;    
 	background-color: #FFF;

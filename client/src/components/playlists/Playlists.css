@@ -14,7 +14,7 @@
 	justify-content: center;
 }
 
-#playlists:hover{
+#playlists, #topPlaylists:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -25,20 +25,20 @@
     font-size: 30px;
 }
 
-#playlists::-webkit-scrollbar-track
+#playlists, #topPlaylists::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#playlists::-webkit-scrollbar
+#playlists, #topPlaylists::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#playlists::-webkit-scrollbar-thumb
+#playlists, #topPlaylists::-webkit-scrollbar-thumb
 {
     border-radius: 10px;    
 	background-color: #FFF;
