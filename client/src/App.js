@@ -15,10 +15,10 @@ function App() {
       <div  className="section">
       <TopArtists />
       </div>
-      <div   data-aos={window.window.innerWidth<650&&"fade-up-right"} className="section">
+      <div    className="section">
       <TopPlaylists />
       </div>
-      <div data-aos={window.window.innerWidth<650&&"fade-up-left"} className="section">
+      <div  className="section">
       <TopAlbums />
       </div>
     </div>
