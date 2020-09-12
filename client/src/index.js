@@ -12,6 +12,11 @@ import Playlists from './components/playlists/Playlists';
 import OneAlbum from './components/albums/OneAlbum';
 import OnePlaylist from './components/playlists/OnePlaylist';
 import OneArtist from './components/artists/OneArtist';
+import AOS from 'aos';
+import 'aos/dist/aos.css'; // You can also use <link> for styles
+AOS.init({offset: 120,
+  delay: 0,
+  duration: 1000,});
 
 ReactDOM.render(
     <>

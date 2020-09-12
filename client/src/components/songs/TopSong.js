@@ -52,7 +52,8 @@ function TopSong({song}) {
       );
       
       return (
-        <div className="topSongs">
+        <div className="topSongs"         
+        >
             <div className="songInfo">
             <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 

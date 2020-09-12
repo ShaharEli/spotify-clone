@@ -32,7 +32,7 @@ export default function Share({link, songName, artistName}) {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div className="share">
+    <div className="share" >
     <motion.div 
     animate={{rotate:720}}
     transition={{
