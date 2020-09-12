@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
 // import solenolyrics from "solenolyrics"

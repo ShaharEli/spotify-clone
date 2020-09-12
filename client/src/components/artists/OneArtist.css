@@ -15,4 +15,9 @@
 }
 
 
-
+     
+@media only screen and (max-width: 300px) {
+	#oneArtist{
+		overflow-y:scroll
+	}
+}

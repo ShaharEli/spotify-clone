@@ -19,7 +19,6 @@ function OnePlaylist() {
         (async ()=>{
             const {data} = await axios.get(`/playlist/${id}`)
             data.map(playlist=> {
-                console.log(playlist);
             if(playlist.playlist_date===null){
                 playlist.playlist_date=generateTime()
             }
