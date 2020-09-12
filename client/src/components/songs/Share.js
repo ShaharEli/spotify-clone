@@ -1,4 +1,5 @@
 import React from 'react';
+import {motion} from 'framer-motion'
 import { makeStyles } from '@material-ui/core/styles';
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
@@ -31,7 +32,13 @@ export default function Share({link, songName, artistName}) {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <div className="share">
+    <motion.div className="share"
+    animate={{rotate:720}}
+    transition={{
+        default: { duration: 0.6 },
+        delay:0.6
+    }}
+    >
       <span style={{cursor:"pointer"}} aria-describedby={id}  onClick={handleClick}>
       <ShareIcon style={{fontSize:16}} />
       </span>
@@ -76,6 +83,6 @@ export default function Share({link, songName, artistName}) {
               </FacebookShareButton>
             </Typography>
       </Popover>
-    </div>
+    </motion.div>
   );
 }

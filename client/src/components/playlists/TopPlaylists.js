@@ -2,6 +2,7 @@ import "./Playlists.css"
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import PlaylistItem from "./PlaylistItem"
+import {motion} from 'framer-motion'
 
 function TopPlaylists() {
     function generateTime() {
@@ -34,9 +35,18 @@ function TopPlaylists() {
         <div id="topPlaylists">
             <div style={{width:"80%"}}>
             <h2 id="playlistsTitle">Top Playlists</h2>
+            <motion.div
+                    initial={{opacity:0,x:"-100%"}}
+                    animate={{opacity:1,x:0}}
+                    exit={{opacity:0}}
+                    transition={{
+                        default: { duration: 0.9 },
+                    }}
+            >
             {
             playlists.map((playlist,index)=><PlaylistItem key={playlist.id} playlist={playlist} />)
             } 
+            </motion.div>
             </div>  
         </div>
     )

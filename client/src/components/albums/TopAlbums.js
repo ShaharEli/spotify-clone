@@ -2,6 +2,7 @@ import "./Albums.css"
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import AlbumItem from "./AlbumItem"
+import {motion} from 'framer-motion'
 
 function TopAlbums() {
     function generateTime() {
@@ -35,9 +36,18 @@ function TopAlbums() {
         <div id="topAlbums">
             <div style={{width:"80%"}}>
             <h2 id="albumsTitle">Top Albums</h2>
+            <motion.div
+                    initial={{opacity:0,x:"100%"}}
+                    animate={{opacity:1,x:0}}
+                    exit={{opacity:0}}
+                    transition={{
+                        default: { duration: 0.9 },
+                    }}
+            >
             {
             albums.map((album)=><AlbumItem key={album.id} album={album} />)
             } 
+            </motion.div>
             </div>  
         </div>
     )

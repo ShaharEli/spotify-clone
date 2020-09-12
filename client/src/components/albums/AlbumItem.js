@@ -1,6 +1,8 @@
 import React from 'react'
 import "./AlbumItem.css"
 import { Link } from 'react-router-dom'
+
+
 function AlbumItem({album}) {
     const name = album.name
     const image =album.cover_img

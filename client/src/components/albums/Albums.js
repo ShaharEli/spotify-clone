@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import AlbumItem from "./AlbumItem"
 import TextField from '@material-ui/core/TextField';
+import {motion} from 'framer-motion'
 
 function Albums() {
     function generateTime() {
@@ -40,15 +41,24 @@ function Albums() {
     }
 
     return (
-        <div id="albums">
+        <div id="albums"  >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10,textAlign:"center" }}  id="searchInput" autoComplete="off" label="Search album" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="albumsTitle">Albums</h2>
+            <motion.div
+                    initial={{opacity:0,y:"-100%"}}
+                    animate={{opacity:1,y:0}}
+                    exit={{opacity:0}}
+                    transition={{
+                        default: { duration: 0.9 },
+                    }}
+            >
             {
             albums.map((album,index)=><AlbumItem key={album.id} album={album} />)
             } 
+            </motion.div>
             </div>  
         </div>
     )

@@ -3,6 +3,7 @@ import "./Artist.css"
 import axios from 'axios'
 import ArtistItem from "./ArtistItem"
 import TextField from '@material-ui/core/TextField';
+import {motion} from 'framer-motion'
 
 function Artist() {
     function generateTime() {
@@ -42,9 +43,18 @@ function Artist() {
             <TextField style={{marginTop: 10,textAlign:"center" }}  id="searchInput" autoComplete="off" label="Search artist" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="artistsTitle">Artists</h2>
+            <motion.div
+                    initial={{opacity:0,y:"-100%"}}
+                    animate={{opacity:1,y:0}}
+                    exit={{opacity:0}}
+                    transition={{
+                        default: { duration: 0.9 },
+                    }}
+            >
             {
             artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
             } 
+            </motion.div>
             </div>  
         </div>
     )

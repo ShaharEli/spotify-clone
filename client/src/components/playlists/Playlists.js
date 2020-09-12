@@ -3,6 +3,7 @@ import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import PlaylistItem from "./PlaylistItem"
 import TextField from '@material-ui/core/TextField';
+import {motion} from 'framer-motion'
 
 function Playlists() {
     function generateTime() {
@@ -44,9 +45,18 @@ function Playlists() {
             <TextField style={{marginTop: 10,textAlign:"center" }} id="searchInput" autoComplete="off" label="Search playlist" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="playlistsTitle">Playlists</h2>
+            <motion.div
+                    initial={{opacity:0,y:"-100%"}}
+                    animate={{opacity:1,y:0}}
+                    exit={{opacity:0}}
+                    transition={{
+                        default: { duration: 0.9 },
+                    }}
+            >
             {
             playlists.map((playlist,index)=><PlaylistItem key={playlist.id} playlist={playlist} />)
             } 
+            </motion.div>
             </div>  
         </div>
     )
