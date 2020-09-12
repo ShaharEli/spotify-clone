@@ -41,7 +41,7 @@ function Playlists() {
         <div id="playlists">
             <div style={{width:"80%"}}>
             <div className="searchDiv">
-            <TextField style={{marginTop: 10,textAlign:"center" }} variant="outlined" id="searchInput" autoComplete="off" label="Search playlist" onChange={(e) => handleChange(e)} />
+            <TextField style={{marginTop: 10,textAlign:"center" }} id="searchInput" autoComplete="off" label="Search playlist" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="playlistsTitle">Playlists</h2>
             {

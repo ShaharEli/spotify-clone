@@ -39,7 +39,7 @@ function OneArtist() {
             artist[0].name
             }
         </h2>
-        <img className="coverImg" alt="" src={artist[0].cover_img}/>
+        <img className="artistCoverImg" alt="" src={artist[0].cover_img}/>
         <h3>{artist[0].artist_date}</h3>
         {
             artist.map(song=>{
