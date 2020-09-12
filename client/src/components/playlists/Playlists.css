@@ -9,6 +9,9 @@
 	background-color:#FDB515 ;
 	border-radius:7px
 }
+#playlists{
+	height: 100vh;
+}
 .searchDiv{
 	display: flex;
 	justify-content: center;

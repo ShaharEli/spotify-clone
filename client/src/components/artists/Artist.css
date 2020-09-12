@@ -8,7 +8,9 @@
 	background-color:#FDB515 ;
 	border-radius: 7px;
 	max-height: 89.5vh;
-
+}
+#artists{
+	height: 100vh;
 }
 .searchDiv{
 	display: flex;

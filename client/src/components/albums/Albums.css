@@ -9,7 +9,9 @@
 	background-color:#FDB515 ;
 	border-radius:7px
 }
-
+#albums{
+	height: 100vh;
+}
 #albums:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;

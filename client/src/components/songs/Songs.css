@@ -9,8 +9,10 @@
 	width: 100%;
 	background-color:#FDB515 ;
 	border-radius: 7px;
-
- 
+}
+#songs{
+    height: 100vh;
+	
 }
 .searchDiv{
 	display: flex;
