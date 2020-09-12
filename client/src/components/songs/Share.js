@@ -32,7 +32,8 @@ export default function Share({link, songName, artistName}) {
   const id = open ? 'simple-popover' : undefined;
 
   return (
-    <motion.div className="share"
+    <div className="share">
+    <motion.div 
     animate={{rotate:720}}
     transition={{
         default: { duration: 0.6 },
@@ -84,5 +85,6 @@ export default function Share({link, songName, artistName}) {
             </Typography>
       </Popover>
     </motion.div>
+    </div>
   );
 }
