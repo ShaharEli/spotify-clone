@@ -29,7 +29,7 @@ const TopSongs = () => {
     return (
         <>
 
-        <div id="songs">
+        <div id="topSongs">
             <div style={{width:"80%"}}>
             <h2 id="songsTitle">Top Songs</h2>
             {

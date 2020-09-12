@@ -1,5 +1,5 @@
 
-#songs{
+#songs, #topSongs{
     display: flex;
     flex-grow: 1;
     height: 100%;
@@ -30,7 +30,6 @@
 
 #songs::-webkit-scrollbar-track
 {
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
@@ -63,4 +62,9 @@
 		justify-content: center;
 	}
 
+}
+@media only screen and (max-width: 650px) {
+	#topSongs{
+		overflow-y:scroll
+	}
 }

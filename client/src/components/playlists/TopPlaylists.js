@@ -31,7 +31,7 @@ function TopPlaylists() {
 
     return (
         
-        <div id="playlists">
+        <div id="topPlaylists">
             <div style={{width:"80%"}}>
             <h2 id="playlistsTitle">Top Playlists</h2>
             {

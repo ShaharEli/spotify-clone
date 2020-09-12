@@ -28,7 +28,7 @@ function TopArtists() {
     }, [])
     return (
         
-        <div id="artists">
+        <div id="topArtists">
             <div style={{width:"80%"}}>
             <h2 id="artistsTitle">Top Artists</h2>
             {

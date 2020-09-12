@@ -1,4 +1,4 @@
-#playlists{
+#playlists, #topPlaylists{
     display: flex;
     flex-grow: 1;
 	height: 100%;
@@ -48,4 +48,10 @@
 									   75% 84%,
 									   from(#e7a61a),
 									   to(#ccb025))
+}
+
+@media only screen and (max-width: 650px) {
+	#topPlaylists{
+		overflow-y:scroll
+	}
 }

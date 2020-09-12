@@ -33,7 +33,7 @@ export default function Share({link, songName, artistName}) {
   return (
     <div className="share">
       <span style={{cursor:"pointer"}} aria-describedby={id}  onClick={handleClick}>
-      <ShareIcon />
+      <ShareIcon style={{fontSize:16}} />
       </span>
       <Popover
         id={id}

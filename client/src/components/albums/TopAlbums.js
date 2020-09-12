@@ -32,7 +32,7 @@ function TopAlbums() {
 
     return (
         
-        <div id="albums">
+        <div id="topAlbums">
             <div style={{width:"80%"}}>
             <h2 id="albumsTitle">Top Albums</h2>
             {
