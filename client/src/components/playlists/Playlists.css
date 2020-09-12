@@ -14,31 +14,57 @@
 	justify-content: center;
 }
 
-#playlists, #topPlaylists:hover{
+#playlists:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
-
+#topPlaylists:hover{
+	overflow-y: scroll; 
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
 #playlistsTitle{
     text-align: center;
     font-size: 30px;
 }
 
-#playlists, #topPlaylists::-webkit-scrollbar-track
+#playlists::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+#topPlaylists::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#playlists, #topPlaylists::-webkit-scrollbar
+#playlists::-webkit-scrollbar
+{
+   
+	width: 5px;
+	background-color: #F5F5F5;
+}
+#topPlaylists::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#playlists, #topPlaylists::-webkit-scrollbar-thumb
+#playlists::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;    
+	background-color: #FFF;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#e7a61a),
+									   to(#ccb025))
+}
+
+#topPlaylists::-webkit-scrollbar-thumb
 {
     border-radius: 10px;    
 	background-color: #FFF;

@@ -10,7 +10,12 @@
 	border-radius:7px
 }
 
-#albums, #topAlbums:hover{
+#albums:hover{
+	overflow-y: scroll; 
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+#topAlbums:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -21,20 +26,44 @@
     font-size: 30px;
 }
 
-#albums, #topAlbums::-webkit-scrollbar-track
+#albums::-webkit-scrollbar-track
+{
+	background-color: #F5F5F5;
+	border-radius: 10px;
+}
+ #topAlbums::-webkit-scrollbar-track
 {
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
 
-#albums, #topAlbums::-webkit-scrollbar
+
+
+#albums::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
 
-#albums, #topAlbums::-webkit-scrollbar-thumb
+#topAlbums::-webkit-scrollbar
+{
+   
+	width: 5px;
+	background-color: #F5F5F5;
+}
+
+#albums::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;    
+	background-color: #FFF;
+	background-image: -webkit-gradient(linear,
+									   40% 0%,
+									   75% 84%,
+									   from(#e7a61a),
+									   to(#ccb025))
+}
+#topAlbums::-webkit-scrollbar-thumb
 {
     border-radius: 10px;    
 	background-color: #FFF;
