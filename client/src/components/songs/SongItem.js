@@ -28,9 +28,9 @@ import Share from './Share';
   }));
 
 function SongItem({song,maxWidth,index}) {
-
+    
     const title = song.title
-    const link =song.youtube_link.replace("watch?v=","embed/")
+    const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
