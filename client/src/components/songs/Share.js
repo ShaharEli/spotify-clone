@@ -78,7 +78,7 @@ export default function Share({link, songName, artistName}) {
               </EmailShareButton>
               <FacebookShareButton style={{outline:0}} 
                 url={link}
-                title={`Check out ${songName} by ${artistName}:`}
+                quote={`Check out ${songName} by ${artistName}:`}
                 className={classes.socialMediaButton}>
                  <FacebookIcon size={36} />
               </FacebookShareButton>
