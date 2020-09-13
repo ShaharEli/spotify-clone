@@ -44,7 +44,8 @@ function OnePlaylist() {
         <h3>{playlist[0].playlist_date}</h3>
         {
             playlist.map(playlist=>{
-                const song = {upload_at:playlist.upload_at,title:playlist.title,artist:playlist.artist,length:playlist.length,youtube_link:playlist.youtube_link,album:playlist.album,album_id:playlist.album_id}
+                console.log(playlist)
+                const song = {artist_id:playlist.artist_id,upload_at:playlist.upload_at,title:playlist.title,artist:playlist.artist,length:playlist.length,youtube_link:playlist.youtube_link,album:playlist.album,album_id:playlist.album_id}
                 return <SongItem key={playlist.title} song={song} maxWidth={true} />
             })
         }
