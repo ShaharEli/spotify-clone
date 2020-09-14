@@ -12,12 +12,16 @@ import Playlists from './components/playlists/Playlists';
 import OneAlbum from './components/albums/OneAlbum';
 import OnePlaylist from './components/playlists/OnePlaylist';
 import OneArtist from './components/artists/OneArtist';
+import AddSong from './components/songs/AddSong';
 
 
 ReactDOM.render(
     <>
     <Router>
     <Switch>
+    <Route path="/addSong">
+        <AddSong />
+      </Route>
       <Route path="/album/:id">
         <Header />
         <OneAlbum />

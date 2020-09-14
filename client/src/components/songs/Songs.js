@@ -2,7 +2,9 @@ import React,{useEffect, useState} from 'react'
 import "./Songs.css"
 import axios from 'axios'
 import SongItem from './SongItem'
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
+import { Link } from 'react-router-dom';
 
 const Songs = () => {
     function generateTime() {
@@ -43,6 +45,12 @@ const Songs = () => {
             <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="songsTitle">Songs</h2>
+            <div style={{width:"100%",display:"flex",justifyContent:"flex-end",marginBottom:10}}>
+            <Link style={{color:"black"}} to="/addSong">
+            <AddCircleOutlineIcon/>
+            </Link>
+            </div>
+
 
             {
             songs.map((song,index)=><SongItem key={song.id} song={song} index={index} />)

@@ -41,6 +41,7 @@ function TopSong({song}) {
     
       const handleClose = () => {
         setOpen(false);
+        
       };
       const body = (
         <div  style={modalStyle} className={classes.paper}>

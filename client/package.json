@@ -15,9 +15,11 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-select": "^3.1.0",
     "react-share": "^4.2.1",
     "react-spring": "^8.0.27",
-    "solenolyrics": "^5.0.0"
+    "solenolyrics": "^5.0.0",
+    "sweetalert2": "^10.0.2"
   },
   "proxy": "http://localhost:8080/",
   "scripts": {
