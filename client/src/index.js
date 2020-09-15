@@ -13,13 +13,19 @@ import OneAlbum from './components/albums/OneAlbum';
 import OnePlaylist from './components/playlists/OnePlaylist';
 import OneArtist from './components/artists/OneArtist';
 import AddSong from './components/songs/AddSong';
+import NotFound from './NotFound/NotFound';
+import OneSong from './components/songs/OneSong';
 
 
 ReactDOM.render(
     <>
     <Router>
     <Switch>
-    <Route path="/addSong">
+      <Route path="/song/:id">
+        <Header />
+        <OneSong />
+      </Route>
+    <Route exact path="/addSong">
         <AddSong />
       </Route>
       <Route path="/album/:id">
@@ -34,28 +40,32 @@ ReactDOM.render(
         <Header />
         <OneArtist />
       </Route>
-      <Route path="/playlists">
+      <Route exact path="/playlists">
         <Header />
         <Playlists  />
     </Route>  
-    <Route path="/artists">
+    <Route exact path="/artists">
         <Header />
         <Artist  />
     </Route> 
-      <Route path="/albums">
+      <Route exact path="/albums">
         <Header />
         <Albums />
     </Route> 
-      <Route path="/songs">
+      <Route exact path="/songs">
         <Header />
         <Songs  />
     </Route> 
-      <Route path="/about">
+      <Route exact  path="/about">
         <About/>
       </Route> 
-      <Route path="/">
+      <Route exact path="/">
     <Header animate={true}/>
       <App />
+      </Route>
+      <Route path="*">
+        <Header />
+        <NotFound />
       </Route>
     </Switch>
     </Router>

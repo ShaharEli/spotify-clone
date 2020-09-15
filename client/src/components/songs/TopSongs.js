@@ -45,7 +45,7 @@ const TopSongs = () => {
             >
             {
             songs.map((song)=>{
-            return <TopSong key={song.id} song={song} />})
+            return <TopSong query={["all_songs",song.id]} key={song.id} song={song} />})
             } 
             </motion.div>
             </div>  

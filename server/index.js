@@ -132,7 +132,7 @@ app.get("/albums",(req,res)=>{
 })
 
 app.get("/album/:id",(req,res)=>{
-    connection.query(`select albums.*,artists.name as artist,songs.title as song,songs.youtube_link as youtube_link,songs.length as length,songs.track_number as truck_number,songs.upload_at as song_upload_date from albums join artists on artists.id=artist_id join songs on songs.album_id=albums.id where albums.id=${req.params.id}`,  (err, result, fields) =>{
+    connection.query(`select albums.*,songs.id as song_id,artists.name as artist,songs.title as song,songs.youtube_link as youtube_link,songs.length as length,songs.track_number as truck_number,songs.upload_at as song_upload_date from albums join artists on artists.id=artist_id join songs on songs.album_id=albums.id where albums.id=${req.params.id}`,  (err, result, fields) =>{
         if (err) throw err;
         res.json(result);
       });
@@ -192,7 +192,7 @@ app.get("/playlists",(req,res)=>{
 })
 
 app.get("/playlist/:id",(req,res)=>{
-    connection.query(`SELECT songs.*, albums.name AS album,artists.name AS artist,playlists.name AS playlist,playlists.uploaded_at as playlist_date,playlists.cover_img FROM songs JOIN artists ON artists.id=songs.artist_id JOIN albums ON albums.id=songs.album_id JOIN list_of_songs ON list_of_songs.song_id=songs.id JOIN playlists ON playlists.id=${req.params.id} WHERE list_of_songs.playlist_id=${req.params.id}`
+    connection.query(`SELECT songs.*, albums.name AS album,artists.name AS artist,playlists.name AS playlist,playlists.id as playlist_id,playlists.uploaded_at as playlist_date,playlists.cover_img FROM songs JOIN artists ON artists.id=songs.artist_id JOIN albums ON albums.id=songs.album_id JOIN list_of_songs ON list_of_songs.song_id=songs.id JOIN playlists ON playlists.id=${req.params.id} WHERE list_of_songs.playlist_id=${req.params.id}`
     ,  (err, result, fields) =>{
         if (err) throw err;
         res.json(result);

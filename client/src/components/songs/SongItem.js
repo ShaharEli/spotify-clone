@@ -27,7 +27,7 @@ import Share from './Share';
     },
   }));
 
-function SongItem({song,maxWidth,index}) {
+function SongItem({song,maxWidth,index,query}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const date = song.upload_at.slice(0,10)
@@ -76,7 +76,10 @@ function SongItem({song,maxWidth,index}) {
                 {body}
                 
             </Modal>
+            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/song/${song.id}?all_songs=true`} style={{textDecoration:"none",color:"black"}}>
              <div className="songInfo">{title}</div>
+            </Link>
+
             <div className="songInfo">{length}</div>
             {album?
             <>

@@ -50,9 +50,7 @@ function AddSong() {
     },[])
 
     const classes = useStyles();
-    const handleOpen = () => {
-        setOpen(true);
-      };
+    
     
       const handleClose = () => {
         setOpen(false);

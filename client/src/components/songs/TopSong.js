@@ -23,7 +23,7 @@ import Share from './Share';
     },
   }));
 
-function TopSong({song}) {
+function TopSong({song,query}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const date = song.upload_at.slice(0,10)
@@ -66,7 +66,9 @@ function TopSong({song}) {
                 {body}
                 
             </Modal>
+            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div className="songInfo">{title}</div>
+            </Link>
             <div className="songInfo">{length}</div>
             <>
             <div className="songInfo">upload date: {date}</div>
@@ -79,7 +81,7 @@ function TopSong({song}) {
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
             <div className="songInfo">artist: {artist}</div>
             </Link>
-            <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
+            <Share link={song.youtube_link}  songName={song.title} artistName={song.artist} />
             </>
 
         </div>
