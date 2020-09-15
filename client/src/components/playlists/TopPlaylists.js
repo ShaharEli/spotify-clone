@@ -1,8 +1,9 @@
 import "./Playlists.css"
 import React,{useEffect, useState} from 'react'
 import axios from 'axios'
-import PlaylistItem from "./PlaylistItem"
 import {motion} from 'framer-motion'
+import Carousel from 'react-elastic-carousel';
+import TopPlaylist from "./TopPlaylist"
 
 function TopPlaylists() {
     function generateTime() {
@@ -33,8 +34,7 @@ function TopPlaylists() {
     return (
         
         <div id="topPlaylists">
-            <div style={{width:"80%"}}>
-            <h2 id="playlistsTitle">Top Playlists</h2>
+            <div style={{width:"80%"}} >
             <motion.div
                     initial={{opacity:0,x:"-100%"}}
                     animate={{opacity:1,x:0}}
@@ -43,9 +43,11 @@ function TopPlaylists() {
                         default: { duration: 0.9 },
                     }}
             >
+             <Carousel itemsToShow={8} itemPadding={[10]}>
             {
-            playlists.map((playlist,index)=><PlaylistItem key={playlist.id} playlist={playlist} />)
+            playlists.map((playlist,index)=><TopPlaylist key={playlist.id} playlist={playlist} />)
             } 
+            </Carousel>
             </motion.div>
             </div>  
         </div>

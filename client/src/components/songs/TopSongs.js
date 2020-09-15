@@ -3,6 +3,7 @@ import "./Songs.css"
 import axios from 'axios'
 import TopSong from './TopSong'
 import {motion} from 'framer-motion'
+import Carousel from 'react-elastic-carousel';
 
 
 const TopSongs = () => {
@@ -33,7 +34,6 @@ const TopSongs = () => {
 
         <div id="topSongs">
             <div style={{width:"80%"}}>
-            <h2 id="songsTitle">Top Songs</h2>
             <motion.div
                     initial={{opacity:0,x:"-100%"}}
                     animate={{opacity:1,x:0}}
@@ -43,10 +43,12 @@ const TopSongs = () => {
 
                     }}
             >
+             <Carousel itemsToShow={8} itemPadding={[10]}>
             {
             songs.map((song)=>{
             return <TopSong query={["all_songs",song.id]} key={song.id} song={song} />})
             } 
+            </Carousel>   
             </motion.div>
             </div>  
         </div>

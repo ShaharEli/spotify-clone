@@ -29,7 +29,7 @@ function TopSong({song,query}) {
     const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
-    const length = song.length
+    const length = song.length.slice(3,10)
         
 
     const classes = useStyles();
@@ -55,7 +55,10 @@ function TopSong({song,query}) {
       return (
         <div className="topSongs"         
         >
-            <div className="songInfo">
+            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
+             <div >{title}</div>
+            </Link>
+            <div className="topSongInfo">
             <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
@@ -66,24 +69,19 @@ function TopSong({song,query}) {
                 {body}
                 
             </Modal>
-            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
-             <div className="songInfo">{title}</div>
-            </Link>
-            <div className="songInfo">{length}</div>
-            <>
-            <div className="songInfo">upload date: {date}</div>
+            <div className="mainTopSong">
+            <div >{length}</div>
+            <div >{date}</div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
-            <div className="songInfo">album name: 
+            album: 
             &nbsp;
             {album}
-            </div>
             </Link>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
-            <div className="songInfo">artist: {artist}</div>
+            artist: {artist}
             </Link>
-            <Share link={song.youtube_link}  songName={song.title} artistName={song.artist} />
-            </>
-
+            <Share  link={song.youtube_link}  songName={song.title} artistName={song.artist} />
+            </div>
         </div>
     )
 }

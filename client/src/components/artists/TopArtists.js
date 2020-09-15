@@ -3,6 +3,8 @@ import "./Artist.css"
 import axios from 'axios'
 import ArtistItem from "./ArtistItem"
 import {motion} from 'framer-motion'
+import Carousel from 'react-elastic-carousel';
+import TopArtist from './TopArtist'
 
 function TopArtists() {
     function generateTime() {
@@ -31,7 +33,6 @@ function TopArtists() {
         
         <div id="topArtists">
             <div style={{width:"80%"}}>
-            <h2 id="artistsTitle">Top Artists</h2>
             <motion.div
                     initial={{opacity:0,x:"100%"}}
                     animate={{opacity:1,x:0}}
@@ -40,9 +41,11 @@ function TopArtists() {
                         default: { duration: 0.9 },
                     }}
             >
+             <Carousel itemsToShow={8} itemPadding={[10]}>
             {
-            artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
+            artists.map((artist,index)=><TopArtist key={artist.id} artist={artist} />)
             } 
+            </Carousel>
             </motion.div>
             </div>  
         </div>

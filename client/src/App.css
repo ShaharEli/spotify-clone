@@ -10,15 +10,13 @@
   justify-content: space-around;
   background-color: #2072BB;
   padding-top: 15px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 .section{
-  background-color:#e7a61a ;
-  width: 47%;
-  height: 47%;
-  -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
--moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.75);
-border-radius: 10px;
+  width: 95vw;
+  height: 30vh;
+ 
 
 }
 

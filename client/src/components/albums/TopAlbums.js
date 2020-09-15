@@ -3,6 +3,8 @@ import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import AlbumItem from "./AlbumItem"
 import {motion} from 'framer-motion'
+import Carousel from 'react-elastic-carousel';
+import TopAlbum from "./TopAlbum"
 
 function TopAlbums() {
     function generateTime() {
@@ -35,7 +37,6 @@ function TopAlbums() {
         
         <div id="topAlbums">
             <div style={{width:"80%"}}>
-            <h2 id="albumsTitle">Top Albums</h2>
             <motion.div
                     initial={{opacity:0,x:"100%"}}
                     animate={{opacity:1,x:0}}
@@ -44,9 +45,11 @@ function TopAlbums() {
                         default: { duration: 0.9 },
                     }}
             >
+             <Carousel itemsToShow={8} itemPadding={[10]}>
             {
-            albums.map((album)=><AlbumItem key={album.id} album={album} />)
+            albums.map((album)=><TopAlbum key={album.id} album={album} />)
             } 
+            </Carousel>
             </motion.div>
             </div>  
         </div>
