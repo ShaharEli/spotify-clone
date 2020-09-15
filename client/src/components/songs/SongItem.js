@@ -62,7 +62,6 @@ function SongItem({song,maxWidth,index,query,oneSongProp}) {
         </div>
         </div>
       );
-      
       return (
         <motion.div 
         initial={{opacity:0,x:"-100%"}}

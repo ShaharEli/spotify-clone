@@ -10,10 +10,11 @@ import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
 
-function useQuery() {
+function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
+
     let query = useQuery();
     const {id} = useParams()
     const [song, setSong] = useState({})
@@ -23,8 +24,7 @@ function OneSong() {
 
 
     useEffect(()=>{
-        (
-            async ()=>{
+            (async ()=>{
                 try{
                     let {data}= await axios.get(`/song/${id}`)
                     setSong(data[0])
@@ -40,7 +40,7 @@ function OneSong() {
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
                         setList(data.data)
                     }
-                    else if(query.get("all_songs")){
+                    else{
                         data =  await axios.get(`/top_songs`)
                         setList(data.data)
                     }
@@ -49,7 +49,7 @@ function OneSong() {
                 setLoading(false)
             }
         )()
-    },[])
+    },[id])
     useEffect(()=>{
         (async()=>{
             try{
@@ -71,9 +71,9 @@ function OneSong() {
             <div className="queue">
                 <h2>Queue</h2>
                 {
-                    list.map(item=>{
+                    list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem key={item.song} oneSongProp={true} song={item} />
+                        return <SongItem key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>
