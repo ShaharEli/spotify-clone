@@ -1,7 +1,6 @@
 import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
-// import solenolyrics from "solenolyrics"
 import {motion} from 'framer-motion'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,7 +19,6 @@ import Share from './Share';
   
   const useStyles = makeStyles((theme) => ({
     paper: {
-        // margin:"auto",
       position: 'absolute',
       backgroundColor: "transparent",
   
