@@ -1,9 +1,37 @@
 .oneSong{
     display: flex;
     justify-content: space-around;
+    overflow: hidden;
+
 }
 .queue{
     width: 48vw;
     height: 85vh;
     overflow-y: scroll;
+    padding-left: 2vw;
+    overflow-x: hidden;
 }
+.playOneSong{
+    width:45vw;
+    height:70vh;
+   
+}
+@media only screen and (max-width: 600px) {
+    .oneSong{
+        flex-direction: column;
+        width: 97vw;
+        height: 140vh;
+        justify-content: space-between;
+    }
+    .queue{
+        width: 93vw;
+        height: 60vh;
+        overflow-y: scroll;
+    }
+    .playOneSong{
+        width: 93vw;
+        height: 60vh;
+    }
+
+  }
+  

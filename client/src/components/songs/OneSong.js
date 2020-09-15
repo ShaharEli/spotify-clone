@@ -61,11 +61,11 @@ function OneSong() {
     return (
         song.title?
         <div className="oneSong">
-            <div style={{width:"45vw",height:"70vh",paddingLeft:"2.5vw"}}>
+            <div  className="playOneSong">  
             <h2>{song.title} </h2>
             <span style={{fontSize:12}}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={{fontSize:12}}>album: &nbsp;{song.album}</span>
-         <iframe title={song.title} style={{width:"100%",height:"50%", frameBorder:"0",}} src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
+         <iframe title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}} src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
             <div style={{width:"100%",height:"50%",overflowY:"scroll"}}>{lyrics}</div>
          </div>
             <div className="queue">
