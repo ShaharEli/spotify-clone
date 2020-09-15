@@ -28,7 +28,6 @@ import Share from './Share';
   }));
 
 function SongItem({song,maxWidth,index}) {
-    
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const date = song.upload_at.slice(0,10)
@@ -104,3 +103,6 @@ function SongItem({song,maxWidth,index}) {
 
 
 export default SongItem
+
+
+
