@@ -74,11 +74,7 @@
 	}
 
 }
-@media only screen and (max-width: 650px) {
-	#topSongs{
-		overflow-y:scroll
-	}
-}
+
 @media only screen and (max-width: 300px) {
 	#songs{
 		overflow-y:scroll
