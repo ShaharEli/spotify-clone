@@ -62,7 +62,7 @@ function OneSong() {
         song.title?
         <div className="oneSong">
             <div  className="playOneSong">  
-            <h2>{song.title} </h2>
+            <h2>{song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
             <span style={{fontSize:12}}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={{fontSize:12}}>album: &nbsp;{song.album}</span>
          <iframe title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}} src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
