@@ -1,0 +1,9 @@
+.oneSong{
+    display: flex;
+    justify-content: space-around;
+}
+.queue{
+    width: 48vw;
+    height: 85vh;
+    overflow-y: scroll;
+}

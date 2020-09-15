@@ -26,11 +26,22 @@ import Share from './Share';
   
     },
   }));
+  function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
 
-function SongItem({song,maxWidth,index,query}) {
+function SongItem({song,maxWidth,index,query,oneSongProp}) {
+  
+  const styles=oneSongProp?{minWidth:0,width:"90%"}:
+    maxWidth&&{maxWidth:"40vw"} 
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
-    const date = song.upload_at.slice(0,10)
+    const date = song.upload_at?song.upload_at.slice(0,10) : generateTime()
     const album =song.album
     const artist = song.artist
     const length = song.length
@@ -63,7 +74,7 @@ function SongItem({song,maxWidth,index,query}) {
             default: { duration: 0.6 },
             delay:index/10
         }}
-        className={album?"songs":"albumSongs"} style={maxWidth&&{maxWidth:"40vw"}} >
+        className={album?"songs":"albumSongs"} style={styles} >
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>

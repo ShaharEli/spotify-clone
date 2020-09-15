@@ -70,7 +70,7 @@ function OneAlbum() {
         {
             album.map(album=>{
                 const song = {id:album.song_id,artist_id:album.artist_id,upload_at:album.song_upload_date,title:album.song,artist:album.artist,length:album.length,youtube_link:album.youtube_link,truck_number:album.truck_number}
-                return <SongItem key={album.song} query={["ablum",id]} song={song} />
+                return <SongItem key={album.song} query={["album",id]} song={song} />
             })
         }
         </div>

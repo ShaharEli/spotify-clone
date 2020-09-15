@@ -1,9 +1,9 @@
 import React from 'react'
-import image from "./notfound.jpeg"
+import image from "./notfound.png"
 function NotFound() {
     return (
-        <div>
-            <img style={{width:"99vw",height:"100vh"}} alt="404 not found" src={image} />
+        <div style={{display:"flex",justifyContent:"center",width:"99vw"}}>
+            <img style={{width:"60%",height:"88vh"}} alt="404 not found" src={image} />
         </div>
     )
 }
