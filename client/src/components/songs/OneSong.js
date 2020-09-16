@@ -31,7 +31,7 @@ function OneSong() {
                     setSong(data[0])
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
-                        setList(data.data.filter(e=>e.id!==id))
+                        setList(data.data.filter(e=>e.id!==Number(id)))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("album")){
@@ -40,17 +40,17 @@ function OneSong() {
                             song.id = song.song_id
                             return song
                         })
-                        setList(albumsSongs.filter(e=>e.id!==id))
+                        setList(albumsSongs.filter(e=>e.id!==Number(id)))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
-                        setList(data.data.filter(e=>e.id!==id))
+                        setList(data.data.filter(e=>e.id!==Number(id)))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
-                        setList(data.data.filter(e=>e.id!==id))
+                        setList(data.data.filter(e=>e.id!==Number(id)))
                         setNextQuery(["top_songs","true"])
 
 
@@ -77,7 +77,7 @@ function OneSong() {
             <h2>{song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
             <span style={{fontSize:12}}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={{fontSize:12}}>album: &nbsp;{song.album}</span>
-         <iframe title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}} src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
+         <iframe  title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}}  src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
             <div style={{width:"100%",height:"50%",overflowY:"scroll"}}>{lyrics}</div>
          </div>
             <div className="queue">
@@ -85,7 +85,7 @@ function OneSong() {
                 {
                     list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>
