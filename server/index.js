@@ -86,6 +86,14 @@ app.get("/top_songs",(req,res)=>{
       });
 })
 
+
+app.get("/albumByArtistId/:id",(req,res)=>{
+    connection.query(`select albums.* from albums join  artists on artists.id=albums.artist_id where artists.id=${req.params.id}`,  (err, result, fields) =>{
+        if (err) throw err;
+        res.json(result);
+      });
+})
+
 app.delete("/album/:id",(req,res)=>{
     connection.query(`DELETE FROM albums WHERE id= ${req.params.id}`,  (err, result) =>{
         if (err)  res.send("An error occurred.");

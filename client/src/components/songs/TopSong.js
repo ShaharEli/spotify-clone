@@ -23,7 +23,7 @@ import Share from './Share';
     },
   }));
 
-function TopSong({song,query}) {
+function TopSong({song,query,noImg}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const date = song.upload_at.slice(0,10)
@@ -31,7 +31,7 @@ function TopSong({song,query}) {
     const artist = song.artist
     const length = song.length.slice(3,10)
     const imgSrc = song.img
-    const [showImg,setShowImg]=useState(true)
+    const [showImg,setShowImg]=useState(noImg?false:true)
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -54,7 +54,7 @@ function TopSong({song,query}) {
       );
       
       return (
-        <div className="topSongs"  onMouseEnter={()=>setShowImg(false)} onMouseLeave={()=>setShowImg(true)} >
+        <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>
             </Link>
