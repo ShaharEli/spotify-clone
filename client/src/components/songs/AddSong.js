@@ -5,6 +5,8 @@ import Button from "@material-ui/core/Button"
 import axios from 'axios';
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
+import Swal from 'sweetalert2'
+
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -84,10 +86,19 @@ function AddSong() {
       }
       const handleSubmit =e=>{
           e.preventDefault()
+          if(!chosenArtist.value){
+          Swal.fire('Oops...', 'You forgot the artist!', 'error')
+          }
+          if(!chosenAlbum.value){
+          Swal.fire('Oops...', 'You forgot the album!', 'error')
+          }
+          else{
           const song={title:songName,length:`00:${length}`,artist_id:chosenArtist.value,album_id:chosenAlbum.value,
          youtube_link:link,lyrics:lyrics,upload_at:generateTime(),track_number:track}
           axios.post("/song",song)
           .then(handleClose)
+        }
+
         
       }
       const defaultWidth={width:"80%"}
