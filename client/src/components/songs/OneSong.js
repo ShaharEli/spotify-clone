@@ -31,7 +31,7 @@ function OneSong() {
                     setSong(data[0])
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
-                        setList(data.data)
+                        setList(data.data.filter(e=>e.id!=id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("album")){
@@ -40,18 +40,17 @@ function OneSong() {
                             song.id = song.song_id
                             return song
                         })
-                        setList(albumsSongs)
+                        setList(albumsSongs.filter(e=>e.id!=id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
-                        setList(data.data)
+                        setList(data.data.filter(e=>e.id!=id))
                         setNextQuery(["playlist",query.get("playlist")])
-
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
-                        setList(data.data)
+                        setList(data.data.filter(e=>e.id!=id))
                         setNextQuery(["top_songs","true"])
 
 
