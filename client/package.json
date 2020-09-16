@@ -10,6 +10,8 @@
     "@testing-library/user-event": "^7.2.1",
     "aos": "^3.0.0-beta.6",
     "axios": "^0.20.0",
+    "default-passive-events": "^2.0.0",
+    "detect-it": "^3.0.6",
     "framer-motion": "^2.6.13",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

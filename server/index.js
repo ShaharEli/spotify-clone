@@ -80,7 +80,7 @@ app.get("/song/:id",(req,res)=>{
 })
 
 app.get("/top_songs",(req,res)=>{
-    connection.query("SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id LIMIT 20",  (err, result) =>{
+    connection.query("SELECT songs.*,albums.cover_img as img ,albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id LIMIT 20",  (err, result) =>{
         if (err) throw err;
         res.json(result);
       });

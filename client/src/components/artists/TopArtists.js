@@ -5,6 +5,15 @@ import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
 import TopArtist from './TopArtist'
 
+function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
+
 function TopArtists() {
     const breakPoints = [
         { width: 270, itemsToShow: 2 },
@@ -15,14 +24,7 @@ function TopArtists() {
         { width:730 , itemsToShow: 7 },
         { width: 950, itemsToShow: 8 },
       ]
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
+
     
     const [artists,setArtists] =useState([])
 
@@ -46,7 +48,7 @@ function TopArtists() {
                     animate={{opacity:1,x:0}}
                     exit={{opacity:0}}
                     transition={{
-                        default: { duration: 0.9 },
+                        default: { duration: 1.8 },
                     }}
             >
              <Carousel itemsToShow={8} itemPadding={[10]}

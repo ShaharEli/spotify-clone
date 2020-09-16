@@ -2,7 +2,6 @@ import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
 import {motion} from 'framer-motion'
-
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -66,10 +65,10 @@ function SongItem({song,maxWidth,index,query,oneSongProp}) {
         <motion.div 
         initial={{opacity:0,x:"-100%"}}
         animate={{opacity:1,x:0}}
-        exit={{opacity:0}}
+        exit={{opacity:0,x:"-100%"}}
         transition={{
             default: { duration: 0.6 },
-            delay:index/10
+            delay:index<10?index/9:0
         }}
         className={album?"songs":"albumSongs"} style={styles} >
             <div className="songInfo">

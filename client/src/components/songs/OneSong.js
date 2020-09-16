@@ -10,11 +10,12 @@ import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
 
+
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
-
+    const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
     const [song, setSong] = useState({})
@@ -31,24 +32,36 @@ function OneSong() {
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
                         setList(data.data)
+                        setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("album")){
                         data =  await axios.get(`/album/${query.get("album")}`)
-                        setList(data.data)
+                        const albumsSongs = data.data.map((song)=>{
+                            song.id = song.song_id
+                            return song
+                        })
+                        setList(albumsSongs)
+                        setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
                         setList(data.data)
+                        setNextQuery(["playlist",query.get("playlist")])
+
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
                         setList(data.data)
+                        setNextQuery(["top_songs","true"])
+
+
                     }
                 }catch(e){
                 }
                 setLoading(false)
             }
         )()
+    // eslint-disable-next-line
     },[id])
     useEffect(()=>{
         (async()=>{
@@ -73,7 +86,7 @@ function OneSong() {
                 {
                     list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>

@@ -17,7 +17,7 @@ function Header({animate}) {
         to:{
             transform:"translateY(0)",
             opacity:0.9
-        },delay:0,config:{duration:700}
+        },delay:800,config:{duration:1000}
 
     })
     return (

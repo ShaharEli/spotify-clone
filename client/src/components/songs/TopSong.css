@@ -13,15 +13,18 @@
     justify-content:space-between;
     flex-direction: column;
     font-size: 12px;
-
-
 }
 
 .mainTopSong{
   display: flex;
-  font-size: 8px;
+  font-size: 9px;
   flex-direction: column;
 }
+.topSongImages{
+  width:50px;
+  height:30px
+}
+
 .share{
   display: flex;
   align-items: center;

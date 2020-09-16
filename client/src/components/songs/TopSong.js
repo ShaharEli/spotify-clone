@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import "./TopSong.css"
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
@@ -30,11 +30,12 @@ function TopSong({song,query}) {
     const album =song.album
     const artist = song.artist
     const length = song.length.slice(3,10)
-        
-
+    const imgSrc = song.img
+    const [showImg,setShowImg]=useState(true)
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+
     const handleOpen = () => {
         setOpen(true);
       };
@@ -53,13 +54,17 @@ function TopSong({song,query}) {
       );
       
       return (
-        <div className="topSongs"         
-        >
+        <div className="topSongs"  onMouseEnter={()=>setShowImg(false)} onMouseLeave={()=>setShowImg(true)} >
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>
             </Link>
             <div className="topSongInfo">
-            <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
+            { showImg?
+            <img className="topSongImages" src={imgSrc} alt="" />
+            :
+              <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon>
+            }
+            </div>
             <Modal 
                 open={open}
                 onClose={handleClose}

@@ -5,8 +5,17 @@ import TopSong from './TopSong'
 import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
 
+function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
 
 const TopSongs = () => {
+
     const breakPoints = [
         { width: 270, itemsToShow: 2 },
         { width: 371, itemsToShow: 3 },
@@ -16,14 +25,7 @@ const TopSongs = () => {
         { width:730 , itemsToShow: 7 },
         { width: 950, itemsToShow: 8 },
       ]
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
+
     const [songs,setSongs] =useState([])
     useEffect(() => {
         (async ()=>{
@@ -48,7 +50,7 @@ const TopSongs = () => {
                     animate={{opacity:1,x:0}}
                     exit={{opacity:0}}
                     transition={{
-                        default: { duration: 0.9 },
+                        default: { duration: 1.8 },
 
                     }}
             >
