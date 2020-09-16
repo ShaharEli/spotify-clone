@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Header.css"
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useSpring, animated} from 'react-spring'
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import HomeIcon from '@material-ui/icons/Home';
@@ -22,15 +22,15 @@ function Header({animate}) {
     })
     return (
        <animated.header id="header" style={animate&&fade}>
-         <Link style={{color:"white",textDecoration:"none"}} to="/">
+         <NavLink style={{color:"white",textDecoration:"none"}} exact={true} activeStyle={{color:"orange"}} to="/">
            <div className="title">
                <span>
                    Home &nbsp;
                </span>
                <HomeIcon/>
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/songs">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/songs">
            <div className="title">
                
                    Songs
@@ -38,37 +38,37 @@ function Header({animate}) {
 
                
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/albums">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/albums">
            <div className="title">
                <span>
                    Albums &nbsp;
                </span>
                <LibraryMusicIcon />
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/artists">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/artists">
            <div className="title">
                <span>
                    Artists &nbsp;
                </span>
                <PersonIcon />
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/playlists">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/playlists">
            <div className="title">
                    <span>Playlists &nbsp; </span>
                    <QueueMusicIcon/>
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/about">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/about">
            <div className="title">
                <span>
                    About &nbsp;
                </span>
                <InfoIcon />
            </div>
-           </Link>
+           </NavLink>
        </animated.header>
     )
 }
