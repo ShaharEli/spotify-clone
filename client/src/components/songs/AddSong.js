@@ -5,8 +5,7 @@ import Button from "@material-ui/core/Button"
 import axios from 'axios';
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
-import Swal from 'sweetalert2'
-
+import TextArea from "@material-ui/core/TextField"
 
   const useStyles = makeStyles((theme) => ({
     paper: {
@@ -87,10 +86,10 @@ function AddSong() {
       const handleSubmit =e=>{
           e.preventDefault()
           if(!chosenArtist.value){
-          Swal.fire('Oops...', 'You forgot the artist!', 'error')
+          alert('You forgot the artist!')
           }
-          if(!chosenAlbum.value){
-          Swal.fire('Oops...', 'You forgot the album!', 'error')
+          else if(!chosenAlbum.value){
+          alert('You forgot the album!')
           }
           else{
           const song={title:songName,length:`00:${length}`,artist_id:chosenArtist.value,album_id:chosenAlbum.value,
@@ -103,11 +102,10 @@ function AddSong() {
       }
       const defaultWidth={width:"80%"}
       const body = (
-        <div style={{left:"11vw",top:"10vh",width:"78vw",height:"80vh",backgroundColor:"white"}}  className={classes.paper}>
+        <div style={{left:"11vw",top:"5vh",width:"78vw",height:"90vh",backgroundColor:"white"}}  className={classes.paper}>
             <form style={{width:"99%",paddingLeft:8}} onSubmit={e=>handleSubmit(e)}>
                 <h2 >Add song:</h2>
-                <label >song name:&nbsp; &nbsp; </label>
-                <input value={songName} onChange={e=>setSongName(e.target.value)} required={true} style={{width:"61%"}} placeholder="enter song name..."></input><br/><br/>
+                <TextArea value={songName} onChange={e=>setSongName(e.target.value)} required={true} style={{width:"61%"}} label="Enter song name"></TextArea><br/><br/>
                 <div style={defaultWidth}>
                 <Select  placeholder="choose artist..."            
                 options={artists}  
@@ -122,8 +120,7 @@ function AddSong() {
                 onChange={setChosenValue}
                  />
                 </div><br/>
-                <label >youtube link:&nbsp; &nbsp;  </label>
-                <input value={link} onChange={e=>setLink(e.target.value)} required={true}  style={{width:"61%"}} placeholder="enter youtube link ..."></input><br/><br/>
+                <TextArea value={link} onChange={e=>setLink(e.target.value)} required={true}  style={{width:"61%"}} label="Enter youtube link"></TextArea><br/><br/>
                 <label >songs length:&nbsp;  </label>
                 <input value={length} onChange={e=>setLength(e.target.value)}  type="time" required={true}  placeholder="enter the song's length ..."></input><br/><br/>
                 <label >track number: &nbsp;&nbsp;</label>
