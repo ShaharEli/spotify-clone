@@ -5,6 +5,8 @@ const mysql = require('mysql');
 const morgan = require("morgan")
 const bcrypt = require('bcrypt');
 require("dotenv").config()
+const cors = require("cors")
+app.use(cors())
 app.use(morgan(function (tokens, req, res) {
     const myTiny =[tokens.method(req, res),
       tokens.url(req, res),

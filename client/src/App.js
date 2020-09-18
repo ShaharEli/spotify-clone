@@ -16,7 +16,6 @@ import OneSong from './components/songs/OneSong';
 import Register from './components/Aoth/Register';
 import Login from './components/Aoth/Login';
 
-
 function App() {
     const [auth, setAuth] = useState(false)
     return (

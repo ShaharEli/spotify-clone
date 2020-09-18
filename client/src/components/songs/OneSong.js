@@ -6,21 +6,53 @@ import Loading from '../loading/Loading';
 import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
-
-
+import MyPlayer from "./MyPlayer"
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
+    const [playing,setPlaying] = useState(false)
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
     const [song, setSong] = useState({})
     const [list, setList] = useState([]) 
+    const [listOfPlayed,setListOfPlayed] = useState([])
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
-
+    const [counter,setCounter] =useState(0)
+    const next = ()=>{
+        if(listOfPlayed.length===list.length){
+            alert("done")
+            setListOfPlayed([])
+            setSong(list[0])
+        }
+        else{
+            setListOfPlayed(prev=>[...prev,song])
+            setCounter(prev=>prev+1)
+            if(list[counter]===song){
+                setCounter(prev=>prev+1)
+            }
+            setSong(list[counter])
+        }
+    }
+    const previous = ()=>{
+        if(listOfPlayed.length===0){
+            alert("no previus")
+        }
+        else{
+            setCounter(prev=>prev-1)
+            setSong(listOfPlayed[counter-1])
+            console.log(listOfPlayed);
+            const newPlayed = listOfPlayed.slice(0,listOfPlayed.length-1)
+            setListOfPlayed(newPlayed)
+        }
+    }
 
     useEffect(()=>{
             (async ()=>{
@@ -55,6 +87,7 @@ function OneSong() {
                     }
                 }catch(e){
                 }
+    
                 setLoading(false)
             }
         )()
@@ -77,8 +110,18 @@ function OneSong() {
             <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{song.album}</span>
             <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
-            <iframe  title={song.title} style={{width:"96%",height:"50%", frameBorder:"0"}}  src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
-            <div style={{width:"100%",height:"50%",overflowY:"scroll"}}>{lyrics}</div>
+            <MyPlayer link={song.youtube_link} />
+            <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
+            <div className="controls">
+                <SkipPreviousIcon onClick={previous} />
+                {
+                 playing?
+                 <PlayArrowIcon />
+                 :
+                 <PauseIcon />   
+                }
+                <SkipNextIcon onClick={next} />
+                </div>
          </div>
             <div className="queue">
                 <h2>Queue</h2>
