@@ -111,6 +111,7 @@ function OneSong() {
         })()
     },[song])
     const spanStyle = { fontSize : 12 }
+    const controlStyle = { cursor : "pointer" }
     return (
         song.title?
         <div className="oneSong">
@@ -122,14 +123,14 @@ function OneSong() {
             <MyPlayer playing={playing} pause={pause} play={play} link={song.youtube_link} next={next} />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
             <div className="controls">
-                <SkipPreviousIcon onClick={previous} />
+                <SkipPreviousIcon style={controlStyle} onClick={previous} />
                 {
                  !playing?
-                 <PlayArrowIcon onClick={play} />
+                 <PlayArrowIcon style={controlStyle}  onClick={play} />
                  :
-                 <PauseIcon onClick={pause} />   
+                 <PauseIcon style={controlStyle} onClick={pause} />   
                 }
-                <SkipNextIcon onClick={next} />
+                <SkipNextIcon style={controlStyle} onClick={next} />
                 </div>
          </div>
             <div className="queue">

@@ -37,7 +37,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
   
    let styles=oneSongProp?{minWidth:0,width:"90%"}:
     maxWidth&&{maxWidth:"40vw"} 
-    styles=background? {...styles,backgroundColor:"blue"}:styles
+    styles=background? {...styles,backgroundColor:"#00C700"}:styles
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
     const date = song.upload_at?song.upload_at.slice(0,10) : generateTime()
