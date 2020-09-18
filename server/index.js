@@ -68,18 +68,36 @@ app.post("/user",async (req,res)=>{
         res.status(400).send("content missing")
     }
     const {body} = req;
-    console.log("Dsdfsdfdsf");
     body.password = await bcrypt.hash(body.password,10)
+    const name = body.name
+    console.log(body);
     const queryString = `INSERT INTO users SET ?`;
-    console.log(body.password);
-    // connection.query(queryString,body , (err, result)=> {
-    //     if (err) {
-    //         res.send("An error occurred.");
-    //     } else {
-    //         res.send("1 song successfully inserted into db");
-    //     }
-    //   });
-
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.send({error:err.message});
+        } else {
+            res.json({name:"succsessfuly registerd"});
+        }
+      });
+})
+app.get("/checkmail/:email",async (req,res)=>{
+    const email = req.params.email
+    if (!email){
+        res.status(400).send("content missing")
+    }
+    const queryString = `Select * from users where users.email="${email}"`;
+    connection.query(queryString, (err, result)=> {
+        if (err) {
+            console.log("Dcdscdscd");
+            res.send("error");
+        } else {
+            if(result.length===0){
+                res.json({"emailOk":true})
+            }else{
+                res.json({"emailOk":false})
+            }
+        }
+      });
 })
 
 app.get("/songs",(req,res)=>{

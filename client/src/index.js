@@ -15,7 +15,7 @@ import OneArtist from './components/artists/OneArtist';
 import AddSong from './components/songs/AddSong';
 import NotFound from './NotFound/NotFound';
 import OneSong from './components/songs/OneSong';
-import Login from './components/Aoth/Login';
+import Register from './components/Aoth/Register';
 
 ReactDOM.render(
     <>
@@ -59,8 +59,8 @@ ReactDOM.render(
       <Route exact  path="/about">
         <About/>
       </Route> 
-      <Route exact path="/login">
-        <Login />
+      <Route exact path="/register">
+        <Register />
       </Route>
       <Route exact path="/">
     <Header animate={true}/>
