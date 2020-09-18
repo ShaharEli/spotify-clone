@@ -6,8 +6,6 @@ import Loading from '../loading/Loading';
 import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
-import ReactPlayer from 'react-player'
-
 
 
 
@@ -79,7 +77,7 @@ function OneSong() {
             <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{song.album}</span>
             <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
-         <iframe  title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}}  src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
+            <iframe  title={song.title} style={{width:"96%",height:"50%", frameBorder:"0"}}  src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
             <div style={{width:"100%",height:"50%",overflowY:"scroll"}}>{lyrics}</div>
          </div>
             <div className="queue">

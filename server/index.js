@@ -3,6 +3,7 @@ const app=express()
 app.use(express.json())
 const mysql = require('mysql');
 const morgan = require("morgan")
+const bcrypt = require('bcrypt');
 require("dotenv").config()
 app.use(morgan(function (tokens, req, res) {
     const myTiny =[tokens.method(req, res),
@@ -60,6 +61,24 @@ app.post("/song",(req,res)=>{
             res.send("1 song successfully inserted into db");
         }
       });
+
+})
+app.post("/user",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    console.log("Dsdfsdfdsf");
+    body.password = await bcrypt.hash(body.password,10)
+    const queryString = `INSERT INTO users SET ?`;
+    console.log(body.password);
+    // connection.query(queryString,body , (err, result)=> {
+    //     if (err) {
+    //         res.send("An error occurred.");
+    //     } else {
+    //         res.send("1 song successfully inserted into db");
+    //     }
+    //   });
 
 })
 

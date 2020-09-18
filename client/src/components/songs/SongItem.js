@@ -5,6 +5,7 @@ import {motion} from 'framer-motion'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+
 import Share from './Share';
   function getModalStyle() {  
     return {
@@ -83,6 +84,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp}) {
                 {body}
                 
             </Modal>
+            
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/song/${song.id}?all_songs=true`} style={{textDecoration:"none",color:"black"}}>
              <div className="songInfo">{title}</div>
             </Link>
@@ -90,6 +92,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp}) {
             <div className="songInfo">{length}</div>
             {album?
             <>
+      
             <div className="songInfo">upload date: {date}</div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
             <div className="songInfo">album name: 
