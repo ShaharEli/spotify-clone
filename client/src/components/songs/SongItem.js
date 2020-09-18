@@ -33,10 +33,11 @@ import Share from './Share';
     return `${today}`;
   }
 
-function SongItem({song,maxWidth,index,query,oneSongProp}) {
+function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
   
-  const styles=oneSongProp?{minWidth:0,width:"90%"}:
+   let styles=oneSongProp?{minWidth:0,width:"90%"}:
     maxWidth&&{maxWidth:"40vw"} 
+    styles=background? {...styles,backgroundColor:"blue"}:styles
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
     const date = song.upload_at?song.upload_at.slice(0,10) : generateTime()

@@ -11,46 +11,52 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Swal from 'sweetalert2';
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
-    const [playing,setPlaying] = useState(false)
+    const [playing,setPlaying] = useState(true)
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
     const [song, setSong] = useState({})
     const [list, setList] = useState([]) 
-    const [listOfPlayed,setListOfPlayed] = useState([])
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
     const [counter,setCounter] =useState(0)
+    const [restore,setRestore] = useState(false)
+    const pause =()=>{
+        setPlaying(false)
+    }
+    const play=()=>{
+        setPlaying(true)
+    }
     const next = ()=>{
-        if(listOfPlayed.length===list.length){
-            alert("done")
-            setListOfPlayed([])
+        if(counter==list.length-1){
+            Swal.fire("You finished the list","","success")
+            setRestore(prev=>!prev)
             setSong(list[0])
+            setCounter(0)
         }
         else{
-            setListOfPlayed(prev=>[...prev,song])
             setCounter(prev=>prev+1)
-            if(list[counter]===song){
-                setCounter(prev=>prev+1)
+            if(list[counter].title===song.title){
+                setSong(list[counter+1])
             }
-            setSong(list[counter])
+            else{
+                setSong(list[counter])
+            }
         }
     }
     const previous = ()=>{
-        if(listOfPlayed.length===0){
-            alert("no previus")
+        if(counter===0){
+            Swal.fire("You got to the start of the list","","error")
         }
         else{
             setCounter(prev=>prev-1)
-            setSong(listOfPlayed[counter-1])
-            console.log(listOfPlayed);
-            const newPlayed = listOfPlayed.slice(0,listOfPlayed.length-1)
-            setListOfPlayed(newPlayed)
+            setSong(list[counter-1])
         }
     }
 
@@ -61,7 +67,8 @@ function OneSong() {
                     setSong(data[0])
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
-                        setList(data.data.filter(e=>e.id!==Number(id)))
+                        setList(data.data)
+                        setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("album")){
@@ -70,19 +77,21 @@ function OneSong() {
                             song.id = song.song_id
                             return song
                         })
-                        setList(albumsSongs.filter(e=>e.id!==Number(id)))
+                        setList(albumsSongs)
+                        setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
-                        setList(data.data.filter(e=>e.id!==Number(id)))
+                        setList(data.data)
+                        setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
-                        setList(data.data.filter(e=>e.id!==Number(id)))
+                        setList(data.data)
+                        setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
-
 
                     }
                 }catch(e){
@@ -92,7 +101,7 @@ function OneSong() {
             }
         )()
     // eslint-disable-next-line
-    },[id])
+    },[id,restore])
     useEffect(()=>{
         (async()=>{
             try{
@@ -110,15 +119,15 @@ function OneSong() {
             <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{song.album}</span>
             <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
-            <MyPlayer link={song.youtube_link} />
+            <MyPlayer playing={playing} pause={pause} play={play} link={song.youtube_link} next={next} />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
             <div className="controls">
                 <SkipPreviousIcon onClick={previous} />
                 {
-                 playing?
-                 <PlayArrowIcon />
+                 !playing?
+                 <PlayArrowIcon onClick={play} />
                  :
-                 <PauseIcon />   
+                 <PauseIcon onClick={pause} />   
                 }
                 <SkipNextIcon onClick={next} />
                 </div>
@@ -128,7 +137,7 @@ function OneSong() {
                 {
                     list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem background={item.title===song.title} animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>
