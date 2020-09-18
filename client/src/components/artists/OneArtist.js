@@ -82,7 +82,7 @@ function OneArtist() {
                  {
             artist.map(song=>{
                 const songData = {album:song.album_name,artist_id:song.artist_id, upload_at:song.upload_at, title:song.title,artist:song.name,length:song.length,youtube_link:song.youtube_link,album_id:song.album_id,id:song.id}
-                return <TopSong query={["artist",id]} noImg={true} key={song.title} song={songData} maxWidth={true} />
+                return <TopSong oneArtist={true} query={["artist",id]} noImg={true} key={song.title} song={songData} maxWidth={true} />
             })
 
                  }

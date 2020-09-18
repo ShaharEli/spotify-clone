@@ -18,7 +18,7 @@ function generateTime() {
 const Songs = () => {
 
     const [songs,setSongs] =useState([])
-    const [songsUnfiltered,setSongsUnfiltered] =useState([])
+    const [songsUnfiltered,setSongsUnfiltered] = useState([])
     useEffect(() => {
         (async ()=>{
             const {data} = await axios.get("/songs")

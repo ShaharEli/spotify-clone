@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
-import {
-    useLocation,
-    useParams
-} from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import axios from "axios"
 import NotFound from '../../NotFound/NotFound';
 import Loading from '../loading/Loading';
 import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
+import ReactPlayer from 'react-player'
+
+
 
 
 function useQuery() {    
@@ -70,13 +70,15 @@ function OneSong() {
             }catch(e){}
         })()
     },[song])
+    const spanStyle = { fontSize : 12 }
     return (
         song.title?
         <div className="oneSong">
             <div  className="playOneSong">  
             <h2>{song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
-            <span style={{fontSize:12}}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
-            <span style={{fontSize:12}}>album: &nbsp;{song.album}</span>
+            <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
+            <span style={spanStyle}>album: &nbsp;{song.album}</span>
+            <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
          <iframe  title={song.title} style={{width:"96%",height:"50%", frameBorder:"0",}}  src={song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"} allow="accelerometer; autoplay; encrypted-media" allowFullScreen />    
             <div style={{width:"100%",height:"50%",overflowY:"scroll"}}>{lyrics}</div>
          </div>
@@ -97,6 +99,7 @@ function OneSong() {
         <Loading />
 
     )
+    
 }
 
 export default OneSong

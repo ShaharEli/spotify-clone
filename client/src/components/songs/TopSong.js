@@ -23,13 +23,11 @@ import Share from './Share';
     },
   }));
 
-function TopSong({song,query,noImg}) {
+function TopSong({song,query,noImg,oneArtist}) {
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
-    const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
-    const length = song.length.slice(3,10)
     const imgSrc = song.img
     const [showImg,setShowImg]=useState(noImg?false:true)
     const classes = useStyles();
@@ -75,16 +73,17 @@ function TopSong({song,query,noImg}) {
                 
             </Modal>
             <div className="mainTopSong">
-            <div >{length}</div>
-            <div >{date}</div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
             album: 
             &nbsp;
             {album}
             </Link>
+            {
+            !oneArtist &&
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
             artist: {artist}
             </Link>
+            }
             <Share  link={song.youtube_link}  songName={song.title} artistName={song.artist} />
             </div>
         </div>
