@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./Register.css"
 import {useForm} from "react-hook-form"
 import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Swal from "sweetalert2"
+import {Redirect} from "react-router-dom"
+
+
 function Register() {
+    const [goToLogin,setGoLogin] =useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
       console.log(values.email);
       const ok= await axios.get(`/checkmail/${values.email}`)
       if(ok.data.emailOk){
          const response =  axios.post("/user",values)
-        console.log(response);
       }else{
         Swal.fire("Email already exists","choose another one","error")
       }
@@ -39,7 +42,14 @@ function Register() {
            <label htmlFor="password">Password:</label>
             <input id="password" name="password" ref={register({required:"required",minLength:{value:6,message:"password should include at list 6 letters"}})} placeholder="password" type="password"/>
            {errors.password && <span style={{color:"red"}}>{errors.password.message}</span>}<br/>
-            <Button type="submit" variant="contained" color="primary">login</Button>
+            <div>
+            <Button type="submit" variant="contained" color="primary">register</Button> &nbsp;
+            <Button onClick={()=>setGoLogin(true)}  variant="contained" color="inherit" >login</Button>
+            {
+                goToLogin&& <Redirect to="/login" />
+            }
+            </div>
+
             </div>
         </form>
         </>

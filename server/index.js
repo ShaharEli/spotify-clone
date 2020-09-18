@@ -69,14 +69,13 @@ app.post("/user",async (req,res)=>{
     }
     const {body} = req;
     body.password = await bcrypt.hash(body.password,10)
-    const name = body.name
     console.log(body);
     const queryString = `INSERT INTO users SET ?`;
     connection.query(queryString,body , (err, result)=> {
         if (err) {
             res.send({error:err.message});
         } else {
-            res.json({name:"succsessfuly registerd"});
+            res.send(body.name);
         }
       });
 })
