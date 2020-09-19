@@ -8,7 +8,10 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import InfoIcon from '@material-ui/icons/Info';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import PersonIcon from '@material-ui/icons/Person';
+import AuthApi from "../Aoth/AuthApi"
+
 function Header({animate}) {
+    const Auth = React.useContext(AuthApi)
     const fade = useSpring({
         from:{
             transform:"translateY(-10vh)",
@@ -64,7 +67,7 @@ function Header({animate}) {
            <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/about">
            <div className="title">
                <span>
-                   About &nbsp;
+                   {Auth.name} &nbsp;
                </span>
                <InfoIcon />
            </div>

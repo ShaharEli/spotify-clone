@@ -18,11 +18,13 @@ function Login() {
          if(data.name){
              Auth.setAuth(true)
              Auth.setName(data.name)
+             
          }else{
              Swal.fire("please try again","","error")
          }
     }
     return (
+        !Auth.auth?
         <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
         <div id="login">
         <label htmlFor="email">Email:</label>
@@ -44,6 +46,8 @@ function Login() {
             }
         </div>
         </form>
+        :
+        <Redirect to="/" />
     )
 }
 
