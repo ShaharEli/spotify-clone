@@ -12,6 +12,7 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Swal from 'sweetalert2';
+import Header from '../header/Header';
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
@@ -34,7 +35,7 @@ function OneSong() {
         setPlaying(true)
     }
     const next = ()=>{
-        if(counter==list.length-1){
+        if(counter===list.length-1){
             Swal.fire("You finished the list","","success")
             setRestore(prev=>!prev)
             setSong(list[0])
@@ -68,6 +69,7 @@ function OneSong() {
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
                         setList(data.data)
+                        // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
@@ -78,18 +80,21 @@ function OneSong() {
                             return song
                         })
                         setList(albumsSongs)
+                        // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
                         setList(data.data)
+                        // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
                         setList(data.data)
+                        // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
 
@@ -114,6 +119,8 @@ function OneSong() {
     const controlStyle = { cursor : "pointer" }
     return (
         song.title?
+        <>
+        <Header />
         <div className="oneSong">
             <div  className="playOneSong">  
             <h2>{song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
@@ -143,6 +150,7 @@ function OneSong() {
                 }
             </div>
         </div>
+        </>
         :
         !loading?
         <NotFound />

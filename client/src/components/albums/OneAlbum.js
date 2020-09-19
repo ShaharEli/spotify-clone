@@ -6,6 +6,7 @@ import SongItem from '../songs/SongItem'
 import { Link } from 'react-router-dom'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
+import Header from '../header/Header'
 
 
 function OneAlbum() {
@@ -50,6 +51,8 @@ function OneAlbum() {
     
     return (
         album.length>0?
+        <>
+        <Header />
         <div className="oneAlbum">
 
         <h2>
@@ -74,6 +77,7 @@ function OneAlbum() {
             })
         }
         </div>
+        </>
         :
         !loading?
         <NotFound />

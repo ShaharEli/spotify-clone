@@ -4,11 +4,11 @@ import TopSongs from '../songs/TopSongs';
 import TopAlbums from '../albums/TopAlbums';
 import TopPlaylists from '../playlists/TopPlaylists';
 import TopArtists from '../artists/TopArtists';
-
+import Header from '../header/Header';
 function Home() {
-
   return (
     <>
+    <Header animate={true}/>
     <div className="home">
     <h2>Top songs</h2>
       <div className="section" >

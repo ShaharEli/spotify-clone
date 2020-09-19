@@ -3,12 +3,14 @@ import image from "./notfound.png"
 import "./NotFound.css"
 import {motion} from 'framer-motion'
 import notFoundSong from "./lost404.mp3"
+import Header from '../components/header/Header'
 
 
 function NotFound() {
 
     return (
         <>
+        <Header />
         <div id="notFoundMain">
               <audio src={notFoundSong} autoPlay  type="audio/mp3"/>
                 <motion.h1

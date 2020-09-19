@@ -14,7 +14,7 @@ function Register() {
       console.log(values.email);
       const ok= await axios.get(`/checkmail/${values.email}`)
       if(ok.data.emailOk){
-         const response =  axios.post("/user",values)
+         axios.post("/user",values)
       }else{
         Swal.fire("Email already exists","choose another one","error")
       }

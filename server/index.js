@@ -65,6 +65,32 @@ app.post("/song",(req,res)=>{
       });
 
 })
+
+app.post("/login",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    console.log(body);
+    const queryString = `select * from users where users.email="${body.email}"`;
+    connection.query(queryString,body , async (err, result)=> {
+        if (err) {
+            res.send({error:err.message});
+        } else {
+            console.log(result)
+            console.log(result[0].password);
+             await bcrypt.compare(body.password,result[0].password,(err, success)=>{
+                if(err){
+                    res.json({error:"password invalid"})
+                }else{
+                    res.json({name:result[0].name})
+                }
+             })
+
+        }
+      });
+})
+
 app.post("/user",async (req,res)=>{
     if (!req.body){
         res.status(400).send("content missing")
@@ -75,6 +101,7 @@ app.post("/user",async (req,res)=>{
     const queryString = `INSERT INTO users SET ?`;
     connection.query(queryString,body , (err, result)=> {
         if (err) {
+            console.log(err.message);
             res.send({error:err.message});
         } else {
             res.send(body.name);

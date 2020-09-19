@@ -5,20 +5,22 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Swal from "sweetalert2"
 import {useForm} from "react-hook-form"
+import AuthApi from "./AuthApi"
 
 
 function Login() {
+    const Auth = React.useContext(AuthApi)
+    console.log(Auth);
     const [goToRegister,setGoToRegister] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
-      console.log(values.email);
-      const ok= await axios.get(`/checkmail/${values.email}`)
-      if(ok.data.emailOk){
-         const response =  axios.post("/user",values)
-        console.log(response);
-      }else{
-        Swal.fire("Email already exists","choose another one","error")
-      }
+         const {data} =  await axios.post("/login",values)
+         if(data.name){
+             Auth.setAuth(true)
+             Auth.setName(data.name)
+         }else{
+             Swal.fire("please try again","","error")
+         }
     }
     return (
         <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>

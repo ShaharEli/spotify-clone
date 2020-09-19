@@ -4,6 +4,7 @@ import axios from 'axios'
 import AlbumItem from "./AlbumItem"
 import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
+import Header from "../header/Header";
 
 function Albums() {
     function generateTime() {
@@ -41,6 +42,8 @@ function Albums() {
     }
 
     return (
+        <>
+        <Header />
         <div id="albums"  >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
@@ -61,6 +64,7 @@ function Albums() {
             </motion.div>
             </div>  
         </div>
+        </>
     )
 }
 
