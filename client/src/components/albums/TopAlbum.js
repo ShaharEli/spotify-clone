@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 
-function TopAlbum({album}) {
+function TopAlbum({album,noAdd}) {
     const Auth = useContext(AuthApi)
     const name = album.name
     const image =album.cover_img
@@ -15,7 +15,10 @@ function TopAlbum({album}) {
     }
     return (
         <div className="topAlbum">
-          <span onClick={addAlbum} className="addSong" title="add to your albums" >+</span>
+            {
+            !noAdd&&
+            <span onClick={addAlbum} className="addSong" title="add to your albums" >+</span>
+            }
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
             

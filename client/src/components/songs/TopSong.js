@@ -25,7 +25,7 @@ import axios from 'axios';
     },
   }));
 
-function TopSong({song,query,noImg,oneArtist}) {
+function TopSong({song,query,noImg,oneArtist,noAdd}) {
     const Auth = React.useContext(AuthApi)
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
@@ -58,7 +58,9 @@ function TopSong({song,query,noImg,oneArtist}) {
       
       return (
         <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
-            <span className="addSong" onClick={addSong} title="add to your songs" >+</span>
+            {!noAdd&&
+              <span className="addSong" onClick={addSong} title="add to your songs" >+</span>
+            }
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>
             </Link>

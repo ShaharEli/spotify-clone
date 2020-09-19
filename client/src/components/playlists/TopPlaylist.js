@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 
-function TopPlaylist({playlist}) {
+function TopPlaylist({playlist,noAdd}) {
     const Auth = useContext(AuthApi)
     const name = playlist.name
     const image =playlist.cover_img
@@ -14,7 +14,10 @@ function TopPlaylist({playlist}) {
     }
     return (
         <div className="topPlaylists">
-          <span onClick={addPlaylist} className="addSong" title="add to your playlists" >+</span>
+            {
+            !noAdd&&
+            <span onClick={addPlaylist} className="addSong" title="add to your playlists" >+</span>
+            }
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/playlist/${playlist.id}`}>
             {name}
             <div><img className="topImages" src={image} alt="" /></div>

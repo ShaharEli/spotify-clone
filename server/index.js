@@ -20,7 +20,8 @@ const  connection = mysql.createConnection({
     host: "localhost",
     user: process.env.USER,
     password: process.env.PASSWORD,
-    database: "spotify_clone"
+    database: "spotify_clone",
+    multipleStatements: true
   });
 connection.connect((err) =>{
     if (err) throw err;
@@ -196,6 +197,20 @@ app.get("/songs",(req,res)=>{
       });
     
 })
+
+app.get("/allfavorites/:email",async (req,res)=>{
+     connection.query(`select songs.* from users_songs join songs on songs.id = users_songs.song_id where email ="${req.params.email}" ORDER BY upload_at;
+     select albums.* from users_albums join albums on albums.id = users_albums.album_id where email ="${req.params.email}" ORDER BY upload_at;
+     select artists.* from users_artists join artists on artists.id = users_artists.artist_id where email ="${req.params.email}" ORDER BY uploaded_at;
+     select playlists.* from users_playlists join playlists on playlists.id = users_playlists.playlist_id where email ="${req.params.email}" ORDER BY uploaded_at;
+     `,  (err, results) =>{
+        if (err) throw err;
+        res.json(results);
+    });
+    
+})
+
+
 
 app.get("/song/:id",(req,res)=>{
     connection.query(`SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id  WHERE songs.id= ${req.params.id}`,  (err, result, fields) =>{
