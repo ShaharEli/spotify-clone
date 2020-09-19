@@ -1,7 +1,7 @@
 #footer{
     color: rgba(241, 241, 250, 0.87);
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-top: 0;
     align-items: center;
     margin-bottom: 0;

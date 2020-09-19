@@ -3,6 +3,7 @@ import "./AlbumItem.css"
 import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
+import { Tooltip } from '@material-ui/core';
 
 function TopAlbum({album,noAdd}) {
     const Auth = useContext(AuthApi)
@@ -17,7 +18,9 @@ function TopAlbum({album,noAdd}) {
         <div className="topAlbum">
             {
             !noAdd&&
-            <span onClick={addAlbum} className="addSong" title="add to your albums" >+</span>
+            <Tooltip title="add to your albums">
+            <span onClick={addAlbum} className="addSong"  >+</span>
+            </Tooltip>
             }
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>

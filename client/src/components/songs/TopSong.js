@@ -7,6 +7,8 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Share from './Share';
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
   function getModalStyle() {  
     return {
@@ -37,7 +39,7 @@ function TopSong({song,query,noImg,oneArtist,noAdd}) {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const addSong = async()=>{
-        const {data} = await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+        await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
     }
     const handleOpen = () => {
         setOpen(true);
@@ -59,7 +61,11 @@ function TopSong({song,query,noImg,oneArtist,noAdd}) {
       return (
         <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
             {!noAdd&&
-              <span className="addSong" onClick={addSong} title="add to your songs" >+</span>
+            <>
+            <Tooltip title="add to your songs">
+              <span className="addSong" onClick={addSong}  >+</span>
+            </Tooltip>
+            </>
             }
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>

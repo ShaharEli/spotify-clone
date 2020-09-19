@@ -3,6 +3,7 @@ import "./AlbumItem.css"
 import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
+import { Tooltip } from '@material-ui/core';
 
 function AlbumItem({album}) {
     const Auth = useContext(AuthApi)
@@ -15,7 +16,9 @@ function AlbumItem({album}) {
     }
     return (
         <div className="albums">
-          <span onClick={addAlbum} className="addSong" title="add to your albums" >+</span>
+            <Tooltip title="add to your albums">
+          <span onClick={addAlbum} className="addSong"  >+</span>
+          </Tooltip>
             <div><img className="albumsImages" src={image} alt="" /></div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>

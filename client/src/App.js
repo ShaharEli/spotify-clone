@@ -17,6 +17,7 @@ import Login from './components/Aoth/Login';
 import AuthApi from "./components/Aoth/AuthApi"
 import Cookie from "js-cookie"
 import Swal from "sweetalert2"
+import Loading from './components/loading/Loading';
 
 
 
@@ -24,6 +25,7 @@ function App() {
     const [auth, setAuth] = useState(false)
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
+    const [loading,setLoading] = useState(true)
     const getAutorizied = async ()=>{
         const isAuth = await Cookie.get("auth")
         if (isAuth==="true"){
@@ -40,6 +42,7 @@ function App() {
     }
     useEffect(()=>{
      getAutorizied()
+     setLoading(false)
     },[])  
     return (
         <>
@@ -47,6 +50,7 @@ function App() {
        <Router>
          {
              !auth? 
+             !loading?
              <>
              <Switch>
              <Route exact path="/login" component={Login}/>
@@ -54,8 +58,9 @@ function App() {
              <Route path="/" component={Login} />
             </Switch>
             </>
+            :
+            <Loading />
             : 
-            <>
                 <Switch>
                   <Route email={email} name={name} exact path="/login" component={Login}/>
                   <Route email={email} name={name} exact path="/register" component={Register}/>
@@ -72,7 +77,6 @@ function App() {
                   <Route email={email} name={name} exact path="/" component={Home}/>
                   <Route email={email} name={name} path="*"  component={NotFound} />
                  </Switch>
-            </>
          }
          
         </Router>

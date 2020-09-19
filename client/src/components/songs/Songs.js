@@ -6,6 +6,8 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import Header from '../header/Header';
+import { Tooltip } from '@material-ui/core';
+
 
 function generateTime() {
     let today = new Date();
@@ -17,6 +19,7 @@ function generateTime() {
   }
   
 const Songs = () => {
+
 
     const [songs,setSongs] =useState([])
     const [songsUnfiltered,setSongsUnfiltered] = useState([])
@@ -47,10 +50,12 @@ const Songs = () => {
             <div className="searchDiv">
             <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
             </div>
-            <h2 id="songsTitle">Songs</h2>
+            <h2  id="songsTitle">Songs</h2>
             <div style={{width:"100%",display:"flex",justifyContent:"flex-end",marginBottom:10}}>
-            <Link style={{color:"black"}} to="/addSong">
-            <AddCircleOutlineIcon/>
+            <Link style={{color:"black"}} to="/addSong" >
+            <Tooltip title="add new song">
+            <AddCircleOutlineIcon />
+            </Tooltip>
             </Link>
             </div>
 

@@ -41,7 +41,6 @@ function About() {
     const [albums,setAlbums] = useState([])
     const [artists,setArtists] = useState([])
     const [playlists,setPlaylists] = useState([])
-    const [loading,setLoading] =useState(true)
 
 
       useEffect(() => {
@@ -85,37 +84,63 @@ function About() {
         <Header />
         <div id="about">
         <div id="footer">
-             <span>  Hi there {Auth.name}</span> &nbsp; &nbsp;
-            <Button onClick={logout} variant="contained" color="secondary">Logout</Button>
+             <span style={{marginLeft:50}}>  Hi there {Auth.name}</span> &nbsp; &nbsp;
+            <Button style={{marginRight:20}} onClick={logout} variant="contained" color="secondary">Logout</Button>
         </div>
-        <h1 style={{textAlign:"center"}}>your songs</h1>
-        <Carousel 
+             {
+            songs.length>0?
+            <>
+            <h1 style={{textAlign:"center"}}>your songs</h1>
+             <Carousel 
                breakPoints={breakPoints}
              itemsToShow={8} itemPadding={[10]}>
             {
             songs.map((song)=>{
-            return <TopSong noAdd={true} query={["all_songs",song.id]} key={song.id} song={song} />})
+            return <TopSong noAdd={true} query={["all_songs",song.id]} key={song.id+Math.random()} song={song} />})
             } 
             </Carousel> 
+            </>:
+            <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some songs...</h1>
+             }
+             {
+            artists.length>0?
+            <>
             <h1 style={{textAlign:"center"}}>your artists</h1>
             <Carousel itemsToShow={8} itemPadding={[10]} breakPoints={breakPoints}>
             {
-            artists.map((artist)=><TopArtist noAdd={true} key={artist.id} artist={artist} />)
+            artists.map((artist)=><TopArtist noAdd={true} key={artist.id+Math.random()} artist={artist} />)
             } 
             </Carousel> 
+            </>
+            :
+            <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some artists...</h1>
+            }
+            {
+            albums.length>0?
+            <>
              <h1 style={{textAlign:"center"}}>your albums</h1>
              <Carousel itemsToShow={8} itemPadding={[10]} breakPoints={breakPoints}>
             {
-            albums.map((album)=><TopAlbum noAdd={true} key={album.id} album={album} />)
+            albums.map((album)=><TopAlbum noAdd={true} key={album.id+Math.random()} album={album} />)
             } 
             </Carousel>
-
+            </>
+            :
+            <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some albums...</h1>
+            }
+            {
+            playlists.length>0?
+            <>
             <h1 style={{textAlign:"center"}}>your playlists</h1>
             <Carousel breakPoints={breakPoints} itemsToShow={8} itemPadding={[10]}>
             {
-            playlists.map((playlist)=><TopPlaylist noAdd={true} key={playlist.id} playlist={playlist} />)
+            playlists.map((playlist)=><TopPlaylist noAdd={true} key={playlist.id+Math.random()} playlist={playlist} />)
             } 
             </Carousel>
+            </>
+            :
+            <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some playlists...</h1>
+            }
         </div>
         </>
     )

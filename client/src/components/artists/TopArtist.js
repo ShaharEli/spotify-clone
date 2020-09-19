@@ -3,6 +3,7 @@ import "./ArtistItem.css"
 import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
+import { Tooltip } from '@material-ui/core';
 
 function TopArtist({artist,noAdd}) {
     const Auth = useContext(AuthApi)
@@ -16,7 +17,9 @@ function TopArtist({artist,noAdd}) {
         <div className="topArtist">
          {
              !noAdd&&
-          <span onClick={addArtist} className="addSong" title="add to your artists" >+</span>
+             <Tooltip title="add to your artists">
+            <span onClick={addArtist} className="addSong"  >+</span>
+            </Tooltip>
         }
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${artist.id}`}>
             <div className="artistsName">{name}</div>

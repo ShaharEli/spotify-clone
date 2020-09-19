@@ -8,21 +8,21 @@ import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
 import Header from '../header/Header'
 
-
+function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
+  
 function OneAlbum() {
     const [loading,setLoading]=  useState(true)
     const {id} =useParams()
     const [album,setAlbum] = useState([])
 
 
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
     useEffect(() => {
         (async ()=>{
             try{

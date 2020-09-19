@@ -7,6 +7,8 @@ import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+
 
 import Share from './Share';
   function getModalStyle() {  
@@ -47,7 +49,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     const artist = song.artist
     const length = song.length
     const addSong = async()=>{
-      const {data} = await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+      await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
   }
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
@@ -77,7 +79,9 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
             delay:index<10?index/9:0
         }}
         className={album?"songs":"albumSongs"} style={styles} >
-          <span onClick={addSong} className="addSong" title="add to your songs" >+</span>
+          <Tooltip title="add to your songs">
+          <span onClick={addSong} className="addSong"  >+</span>
+          </Tooltip>
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
