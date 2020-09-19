@@ -7,8 +7,11 @@ import Swal from "sweetalert2"
 import {useForm} from "react-hook-form"
 import AuthApi from "./AuthApi"
 import Cookie from "js-cookie"
+import { useHistory } from "react-router-dom";
+
 
 function Login() {
+    const history = useHistory();
     const Auth = React.useContext(AuthApi)
     const [goToRegister,setGoToRegister] = useState(false)
     const {register,handleSubmit,errors} = useForm()
@@ -21,7 +24,9 @@ function Login() {
              await Cookie.set("name",`${data.name}`)
              await Cookie.set("email",`${values.email}`)
              await Cookie.set("auth",`true`)
-             Swal.fire("Welcome back",`${data.name}`,"success")           
+             Swal.fire("Welcome back",`${data.name}`,"success") 
+             history.push("/");
+
          }else{
              Swal.fire("please try again","","error")
          }

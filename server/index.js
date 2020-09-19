@@ -199,8 +199,8 @@ app.get("/songs",(req,res)=>{
 })
 
 app.get("/allfavorites/:email",async (req,res)=>{
-     connection.query(`select songs.* from users_songs join songs on songs.id = users_songs.song_id where email ="${req.params.email}" ORDER BY upload_at;
-     select albums.* from users_albums join albums on albums.id = users_albums.album_id where email ="${req.params.email}" ORDER BY upload_at;
+     connection.query(`select songs.* ,albums.cover_img as img ,albums.name As album, artists.name As artist from users_songs join songs on songs.id = users_songs.song_id  Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id where email ="${req.params.email}" ORDER BY upload_at;
+     select albums.*,artists.name as artist from users_albums join albums on albums.id = users_albums.album_id join artists on artists.id=artist_id where email ="${req.params.email}" ORDER BY upload_at;
      select artists.* from users_artists join artists on artists.id = users_artists.artist_id where email ="${req.params.email}" ORDER BY uploaded_at;
      select playlists.* from users_playlists join playlists on playlists.id = users_playlists.playlist_id where email ="${req.params.email}" ORDER BY uploaded_at;
      `,  (err, results) =>{

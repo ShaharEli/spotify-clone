@@ -68,6 +68,7 @@ function About() {
                         artist.uploaded_at=generateTime()
                     } 
                 return artist})
+                
                 setArtists(data[2])
                 data[3].map(playlist=> {
                     if(playlist.uploaded_at===null){
@@ -75,9 +76,8 @@ function About() {
                 } 
                  return playlist})
                  
-                setPlaylists([...new Set(data[3])])                   
+                setPlaylists(data[3])                   
             }catch(e){console.log(e.message)}
-
         })()
     }, [Auth.email])
     return (
