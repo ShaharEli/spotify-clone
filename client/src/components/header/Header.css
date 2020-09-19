@@ -1,6 +1,5 @@
 header{
     display: flex;
-    position: sticky;
     top: 0;
     background-color: #0A2342;
     width: 100%;
@@ -11,6 +10,8 @@ header{
     position: sticky;
     border-bottom:1px solid white;
     z-index: 1000;
+    box-shadow: 0px 6px 5px 4px rgba(0,0,0,0.75);
+
 
 }
 .title{

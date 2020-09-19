@@ -27,12 +27,15 @@ function App() {
     const getAutorizied = async ()=>{
         const isAuth = await Cookie.get("auth")
         if (isAuth==="true"){
-          const authEmail =await  Cookie.get("email")
-          const authName = await  Cookie.get("name")
-          Swal.fire("Welcome back",`${authName}`,"success")  
-          setAuth(true)  
-          setEmail(authEmail)
-          setName(authName) 
+          try{
+            const authEmail =await  Cookie.get("email")
+            const authName = await  Cookie.get("name")
+            Swal.fire("Welcome back",`${authName}`,"success")  
+            setAuth(true)  
+            setEmail(authEmail)
+            setName(authName) 
+          }
+          catch(e){}
         }
     }
     useEffect(()=>{
