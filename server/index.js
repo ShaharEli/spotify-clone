@@ -81,9 +81,11 @@ app.post("/login",async (req,res)=>{
             console.log(result[0].password);
              await bcrypt.compare(body.password,result[0].password,(err, success)=>{
                 if(err){
-                    res.json({error:"password invalid"})
-                }else{
+                    res.json({error:err.message})
+                }else if(success){
                     res.json({name:result[0].name})
+                }else{
+                    res.json({error:"wrong password"})
                 }
              })
 
@@ -97,14 +99,12 @@ app.post("/user",async (req,res)=>{
     }
     const {body} = req;
     body.password = await bcrypt.hash(body.password,10)
-    console.log(body);
     const queryString = `INSERT INTO users SET ?`;
     connection.query(queryString,body , (err, result)=> {
         if (err) {
-            console.log(err.message);
-            res.send({error:err.message});
+            res.json({error:err.message});
         } else {
-            res.send(body.name);
+            res.json({name:body.name});
         }
       });
 })

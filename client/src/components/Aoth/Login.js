@@ -6,11 +6,10 @@ import axios from 'axios'
 import Swal from "sweetalert2"
 import {useForm} from "react-hook-form"
 import AuthApi from "./AuthApi"
-
+import Cookie from "js-cookie"
 
 function Login() {
     const Auth = React.useContext(AuthApi)
-    console.log(Auth);
     const [goToRegister,setGoToRegister] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
@@ -18,7 +17,11 @@ function Login() {
          if(data.name){
              Auth.setAuth(true)
              Auth.setName(data.name)
-             
+             Auth.setEmail(values.email)
+             await Cookie.set("name",`${data.name}`)
+             await Cookie.set("email",`${values.email}`)
+             await Cookie.set("auth",`true`)
+             Swal.fire("Welcome back",`${data.name}`,"success")           
          }else{
              Swal.fire("please try again","","error")
          }

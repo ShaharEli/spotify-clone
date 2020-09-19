@@ -5,10 +5,8 @@ import TopAlbums from '../albums/TopAlbums';
 import TopPlaylists from '../playlists/TopPlaylists';
 import TopArtists from '../artists/TopArtists';
 import Header from '../header/Header';
-import AuthApi from "../Aoth/AuthApi"
-import Swal from "sweetalert2"
+
 function Home() {
-  const Auth = React.useContext(AuthApi)
   return (
     <>
     <Header animate={true}/>

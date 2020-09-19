@@ -5,25 +5,37 @@ import Button from '@material-ui/core/Button';
 import axios from 'axios'
 import Swal from "sweetalert2"
 import {Redirect} from "react-router-dom"
+import AuthApi from './AuthApi';
+import Cookie from "js-cookie"
 
 
 function Register() {
+    const Auth = React.useContext(AuthApi)
     const [goToLogin,setGoLogin] =useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
-      console.log(values.email);
       const ok= await axios.get(`/checkmail/${values.email}`)
       if(ok.data.emailOk){
-         axios.post("/user",values)
+        const name= await axios.post("/user",values)
+        if(name.data.name){
+          Auth.setAuth(true)
+          Auth.setName(values.name)
+          Auth.setEmail(values.email)
+          await Cookie.set("name",`${values.name}`)
+          await Cookie.set("email",`${values.email}`)
+          await Cookie.set("auth",`true`)
+          Swal.fire("Welcome",`${values.name}`,"success")  
+        }
       }else{
         Swal.fire("Email already exists","choose another one","error")
       }
     }
     return (
+      !Auth.auth?
         <>
         <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
           <div id="login">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">First name:</label>
             <input name="name" id="name" ref={register({required:"required",minLength:{
               value:2,
               message:"the name should be at list 2 letters"
@@ -52,7 +64,9 @@ function Register() {
 
             </div>
         </form>
-        </>
+        </>:
+        <Redirect to="/" />
+         
     )
 }
 
