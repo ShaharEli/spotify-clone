@@ -5,6 +5,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Share from './Share';
+import AuthApi from "../Aoth/AuthApi"
+import axios from 'axios';
+
   function getModalStyle() {  
     return {
       top:"10vh",
@@ -16,7 +19,6 @@ import Share from './Share';
   
   const useStyles = makeStyles((theme) => ({
     paper: {
-        // margin:"auto",
       position: 'absolute',
       backgroundColor: "transparent",
   
@@ -24,6 +26,7 @@ import Share from './Share';
   }));
 
 function TopSong({song,query,noImg,oneArtist}) {
+    const Auth = React.useContext(AuthApi)
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
     const album =song.album
@@ -33,7 +36,9 @@ function TopSong({song,query,noImg,oneArtist}) {
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
-
+    const addSong = async()=>{
+        const {data} = await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+    }
     const handleOpen = () => {
         setOpen(true);
       };
@@ -53,7 +58,7 @@ function TopSong({song,query,noImg,oneArtist}) {
       
       return (
         <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
-            <span className="addSong" title="add to your songs" >+</span>
+            <span className="addSong" onClick={addSong} title="add to your songs" >+</span>
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>
             </Link>

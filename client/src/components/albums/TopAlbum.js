@@ -1,16 +1,21 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import "./AlbumItem.css"
 import { Link } from 'react-router-dom'
-
+import AuthApi from "../Aoth/AuthApi"
+import axios from 'axios';
 
 function TopAlbum({album}) {
+    const Auth = useContext(AuthApi)
     const name = album.name
     const image =album.cover_img
     const date = album.upload_at.slice(0,10)
     const artist = album.artist
+    const addAlbum = async()=>{
+        await axios.post("/youralbums",{email:Auth.email,album_id:album.id})
+    }
     return (
         <div className="topAlbum">
-          <span className="addSong" title="add to your albums" >+</span>
+          <span onClick={addAlbum} className="addSong" title="add to your albums" >+</span>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
             

@@ -108,6 +108,67 @@ app.post("/user",async (req,res)=>{
         }
       });
 })
+
+app.post("/yoursongs",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    const queryString = `INSERT INTO users_songs SET ?`;
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.json({error:err.message});
+        } else {
+            res.json({success:"success"});
+        }
+      });
+})
+
+app.post("/youralbums",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    const queryString = `INSERT INTO users_albums SET ?`;
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.json({error:err.message});
+        } else {
+            res.json({success:"success"});
+        }
+      });
+})
+
+app.post("/yourplaylists",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    const queryString = `INSERT INTO users_playlists SET ?`;
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.json({error:err.message});
+        } else {
+            res.json({success:"success"});
+        }
+      });
+})
+
+app.post("/yourartists",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    const queryString = `INSERT INTO users_artists SET ?`;
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.json({error:err.message});
+        } else {
+            res.json({success:"success"});
+        }
+      });
+})
+
 app.get("/checkmail/:email",async (req,res)=>{
     const email = req.params.email
     if (!email){

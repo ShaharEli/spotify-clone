@@ -5,6 +5,8 @@ import {motion} from 'framer-motion'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import AuthApi from "../Aoth/AuthApi"
+import axios from 'axios';
 
 import Share from './Share';
   function getModalStyle() {  
@@ -34,7 +36,7 @@ import Share from './Share';
   }
 
 function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
-  
+  const Auth = React.useContext(AuthApi)
    let styles=oneSongProp?{minWidth:0,width:"90%"}:
     maxWidth&&{maxWidth:"40vw"} 
     styles=background? {...styles,backgroundColor:"#00C700"}:styles
@@ -44,7 +46,9 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     const album =song.album
     const artist = song.artist
     const length = song.length
-        
+    const addSong = async()=>{
+      const {data} = await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+  }
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -73,7 +77,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
             delay:index<10?index/9:0
         }}
         className={album?"songs":"albumSongs"} style={styles} >
-          <span className="addSong" title="add to your songs" >+</span>
+          <span onClick={addSong} className="addSong" title="add to your songs" >+</span>
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
