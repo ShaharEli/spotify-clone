@@ -53,6 +53,7 @@ function TopSong({song,query,noImg,oneArtist}) {
       
       return (
         <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
+            <span className="addSong" title="add to your songs" >+</span>
             <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
              <div >{title}</div>
             </Link>

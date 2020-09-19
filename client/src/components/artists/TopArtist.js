@@ -7,6 +7,7 @@ function TopArtist({artist}) {
     const date = artist.uploaded_at.slice(0,10)
     return (
         <div className="topArtist">
+          <span className="addSong" title="add to your artists" >+</span>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${artist.id}`}>
             <div className="artistsName">{name}</div>
             <div><img className="topImages" src={image} alt="" /></div>

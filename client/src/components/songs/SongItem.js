@@ -73,6 +73,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
             delay:index<10?index/9:0
         }}
         className={album?"songs":"albumSongs"} style={styles} >
+          <span className="addSong" title="add to your songs" >+</span>
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>

@@ -30,7 +30,7 @@ function App() {
           try{
             const authEmail =await  Cookie.get("email")
             const authName = await  Cookie.get("name")
-            Swal.fire("Welcome back",`${authName}`,"success")  
+            // Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
             setEmail(authEmail)
             setName(authName) 

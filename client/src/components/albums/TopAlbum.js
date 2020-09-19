@@ -10,6 +10,7 @@ function TopAlbum({album}) {
     const artist = album.artist
     return (
         <div className="topAlbum">
+          <span className="addSong" title="add to your albums" >+</span>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
             

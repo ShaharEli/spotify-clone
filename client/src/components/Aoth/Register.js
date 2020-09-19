@@ -33,8 +33,9 @@ function Register() {
     return (
       !Auth.auth?
         <>
+        <h1 style={{textAlign:"center"}}>Register</h1>
         <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
-          <div id="login">
+          <div id="register">
           <label htmlFor="name">First name:</label>
             <input name="name" id="name" ref={register({required:"required",minLength:{
               value:2,

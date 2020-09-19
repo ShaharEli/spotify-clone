@@ -28,6 +28,8 @@ function Login() {
     }
     return (
         !Auth.auth?
+        <>
+        <h1 style={{textAlign:"center"}}>Sign in</h1>
         <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
         <div id="login">
         <label htmlFor="email">Email:</label>
@@ -49,6 +51,7 @@ function Login() {
             }
         </div>
         </form>
+        </>
         :
         <Redirect to="/" />
     )

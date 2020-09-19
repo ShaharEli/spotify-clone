@@ -7,6 +7,7 @@ function PlaylistItem({playlist}) {
     const date = playlist.uploaded_at.slice(0,10)
     return (
         <div className="playlists">
+          <span className="addSong" title="add to your playlists" >+</span>
             <div><img className="playlistsImages" src={image} alt="" /></div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/playlist/${playlist.id}`}>
             <div className="playlistsName">{name}</div>

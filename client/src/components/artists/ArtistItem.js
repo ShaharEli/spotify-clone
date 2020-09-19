@@ -7,6 +7,7 @@ function ArtistItem({artist}) {
     const date = artist.uploaded_at.slice(0,10)
     return (
         <div className="artists">
+          <span className="addSong" title="add to your artists" >+</span>
             <div><img className="artistsImages" src={image} alt="" /></div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${artist.id}`}>
             <div className="artistsName">{name}</div>

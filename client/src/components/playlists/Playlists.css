@@ -37,7 +37,9 @@
     flex-direction: column;
 	font-size: 12px;
     height: 160px;
-    width: 70px;
+	width: 70px;
+	position: relative;
+	
 }
 .searchDiv{
 	display: flex;

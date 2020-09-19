@@ -10,6 +10,7 @@ function AlbumItem({album}) {
     const artist = album.artist
     return (
         <div className="albums">
+          <span className="addSong" title="add to your albums" >+</span>
             <div><img className="albumsImages" src={image} alt="" /></div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>

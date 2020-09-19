@@ -8,6 +8,7 @@
 	border-radius: 7px;
 	max-height: 89.5vh;
 	height: 100vh;
+	position: relative;
 
 }
 #topArtists{
@@ -36,6 +37,7 @@
 		font-size: 10px;
 		height: 160px;
 		width: 70px;
+		position: relative;
 }
 .searchDiv{
 	display: flex;
