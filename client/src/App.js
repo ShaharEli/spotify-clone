@@ -32,7 +32,7 @@ function App() {
           try{
             const authEmail =await  Cookie.get("email")
             const authName = await  Cookie.get("name")
-            // Swal.fire("Welcome back",`${authName}`,"success")  
+            Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
             setEmail(authEmail)
             setName(authName) 
@@ -62,20 +62,20 @@ function App() {
             <Loading />
             : 
                 <Switch>
-                  <Route email={email} name={name} exact path="/login" component={Login}/>
-                  <Route email={email} name={name} exact path="/register" component={Register}/>
-                  <Route email={email} name={name} path="/song/:id" component={OneSong}/>
-                  <Route email={email} name={name} exact path="/addSong" component={AddSong} />
-                  <Route email={email} name={name} path="/album/:id" component={OneAlbum} />
-                  <Route email={email} name={name} path="/playlist/:id" component={OnePlaylist}/>
-                  <Route email={email} name={name} path="/artist/:id" component={OneArtist}/>
-                  <Route email={email} name={name} exact path="/playlists" component={Playlists}/>
-                  <Route email={email} name={name} exact path="/artists" component={Artist}/>
-                  <Route email={email} name={name} exact path="/albums" component={Albums}/>
-                  <Route email={email} name={name} exact path="/songs" component={Songs} />
-                  <Route email={email} name={name} exact  path="/about" component={About}/>
-                  <Route email={email} name={name} exact path="/" component={Home}/>
-                  <Route email={email} name={name} path="*"  component={NotFound} />
+                  <Route exact path="/login" component={Login}/>
+                  <Route exact path="/register" component={Register}/>
+                  <Route path="/song/:id" component={OneSong}/>
+                  <Route exact path="/addSong" component={AddSong} />
+                  <Route path="/album/:id" component={OneAlbum} />
+                  <Route path="/playlist/:id" component={OnePlaylist}/>
+                  <Route path="/artist/:id" component={OneArtist}/>
+                  <Route exact path="/playlists" component={Playlists}/>
+                  <Route exact path="/artists" component={Artist}/>
+                  <Route exact path="/albums" component={Albums}/>
+                  <Route exact path="/songs" component={Songs} />
+                  <Route exact  path="/about" component={About}/>
+                  <Route exact path="/" component={Home}/>
+                  <Route path="*"  component={NotFound} />
                  </Switch>
          }
          

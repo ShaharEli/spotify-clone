@@ -78,8 +78,6 @@ app.post("/login",async (req,res)=>{
         if (err) {
             res.send({error:err.message});
         } else {
-            console.log(result)
-            console.log(result[0].password);
              await bcrypt.compare(body.password,result[0].password,(err, success)=>{
                 if(err){
                     res.json({error:err.message})

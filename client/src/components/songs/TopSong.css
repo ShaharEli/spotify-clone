@@ -28,6 +28,12 @@
   border-radius: 50%;
   cursor: pointer;
   font-size: 14px;
+  color:white;
+  background-color: yellowgreen;
+}
+.addSong:hover{
+  width: 12px;
+  height: 12px;
 }
 
 .mainTopSong{
