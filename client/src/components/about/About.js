@@ -114,7 +114,7 @@ function About() {
              itemsToShow={8} itemPadding={[10]}>
             {
             songs.map((song)=>{
-            return <TopSong noAdd={true} query={["all_songs",song.id]} key={song.id+Math.random()} song={song} />})
+            return <TopSong noAdd={true} query={["favorites","true"]} key={song.id+Math.random()} song={song} />})
             } 
             </Carousel> 
             </>:

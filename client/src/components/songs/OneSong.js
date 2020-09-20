@@ -13,11 +13,23 @@ import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import Swal from 'sweetalert2';
 import Header from '../header/Header';
+import AuthApi from '../Aoth/AuthApi';
+
+
+function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
+    const Auth = React.useContext(AuthApi)
     const [playing,setPlaying] = useState(true)
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
@@ -72,6 +84,23 @@ function OneSong() {
                         // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
+                    }
+                    else if(query.get("favorites")){
+                        data =  await axios.get(`/favorites_songs/${Auth.email}`)
+                        data=data.data
+                        let songsList = []
+                        for (let i=0;i<data.length;i++){
+                            if (songsList.find(element=>element.id===data[i].id)){
+                                continue
+                            }
+                            if(data[i].upload_at===null){
+                                data[i].upload_at=generateTime()
+                            } 
+                            songsList.push(data[i])        
+                        }
+                        setList(songsList)
+                        setNextQuery(["favorites","true"])
+
                     }
                     else if(query.get("album")){
                         data =  await axios.get(`/album/${query.get("album")}`)

@@ -59,7 +59,7 @@ const TopSongs = () => {
              itemsToShow={8} itemPadding={[10]}>
             {
             songs.map((song)=>{
-            return <TopSong query={["all_songs",song.id]} key={song.id} song={song} />})
+            return <TopSong query={["all_songs","true"]} key={song.id} song={song} />})
             } 
             </Carousel>   
             </motion.div>

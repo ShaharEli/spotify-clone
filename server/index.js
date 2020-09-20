@@ -209,6 +209,13 @@ app.get("/allfavorites/:email",async (req,res)=>{
     });
     
 })
+app.get("/favorites_songs/:email",async (req,res)=>{
+    connection.query(`select songs.* ,albums.cover_img as img ,albums.name As album, artists.name As artist from users_songs join songs on songs.id = users_songs.song_id  Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id where email ="${req.params.email}" ORDER BY upload_at;`,  (err, result) =>{
+       if (err) throw err;
+       res.json(result);
+   });
+   
+})
 
 
 
