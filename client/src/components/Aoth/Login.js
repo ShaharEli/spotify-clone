@@ -24,6 +24,7 @@ function Login() {
              await Cookie.set("name",`${data.name}`)
              await Cookie.set("email",`${values.email}`)
              await Cookie.set("auth",`true`)
+             await Cookie.set("token",`${data.token}`)
              Swal.fire("Welcome back",`${data.name}`,"success") 
              history.push("/");
 

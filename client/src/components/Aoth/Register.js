@@ -24,6 +24,7 @@ function Register() {
           await Cookie.set("name",`${values.name}`)
           await Cookie.set("email",`${values.email}`)
           await Cookie.set("auth",`true`)
+          await Cookie.set("token",`${name.data.token}`)
           Swal.fire("Welcome",`${values.name}`,"success")  
         }
       }else{

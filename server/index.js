@@ -82,7 +82,7 @@ app.post("/login",async (req,res)=>{
                 if(err){
                     res.json({error:err.message})
                 }else if(success){
-                    res.json({name:result[0].name})
+                    res.json({name:result[0].name,token:result[0].password.slice(0,result[0].password.length/2)+"token"})
                 }else{
                     res.json({error:"wrong password"})
                 }
@@ -103,7 +103,7 @@ app.post("/user",async (req,res)=>{
         if (err) {
             res.json({error:err.message});
         } else {
-            res.json({name:body.name});
+            res.json({name:body.name,token:body.password.slice(0,body.password.length/2)+"token"});
         }
       });
 })
@@ -182,7 +182,7 @@ app.get("/checkmail/:email",async (req,res)=>{
             if(result.length===0){
                 res.json({"emailOk":true})
             }else{
-                res.json({"emailOk":false})
+                res.json({"emailOk":false,"name":result[0].name,"token":result[0].password.slice(0,result[0].password.length/2)+"token"})
             }
         }
       });

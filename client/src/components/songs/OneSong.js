@@ -57,9 +57,12 @@ function OneSong() {
             setCounter(prev=>prev+1)
             if(list[counter].title===song.title){
                 setSong(list[counter+1])
+                setPlaying(true)
             }
             else{
                 setSong(list[counter])
+                setPlaying(true)
+
             }
         }
     }
