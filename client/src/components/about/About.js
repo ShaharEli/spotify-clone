@@ -47,35 +47,53 @@ function About() {
         (async ()=>{
             try{
                 const {data} = await axios.get(`/allfavorites/${Auth.email}`)
-                data[0].map(song=> {
-                    if(song.upload_at===null){
-                        song.upload_at=generateTime()
+                let songsList = []
+                for (let i=0;i<data[0].length;i++){
+                    if (songsList.find(element=>element.id===data[0][i].id)){
+                        continue
+                    }
+                    if(data[0][i].upload_at===null){
+                        data[0][i].upload_at=generateTime()
                     } 
-                    return song})
-                setSongs(data[0])
-                data[1].map(album=> {
-                    if(album.upload_at===null){
-                        album.upload_at=generateTime()
+                    songsList.push(data[0][i])        
+                }
+                setSongs(songsList)
+                let albumsList = []
+                for (let i=0;i<data[1].length;i++){
+                    if (albumsList.find(element=>element.id===data[1][i].id)){
+                        continue
+                    }
+                    if(data[1][i].upload_at===null){
+                        data[1][i].upload_at=generateTime()
                     } 
-                    if(album.created_at===null){
-                        album.created_at=generateTime()
+                    if(data[1][i].created_at===null){
+                        data[1][i].created_at=generateTime()
                     } 
-                    return album})
-                setAlbums(data[1])
-                data[2].map(artist=> {
-                    if(artist.uploaded_at===null){
-                        artist.uploaded_at=generateTime()
+                    albumsList.push(data[1][i])        
+                }
+                setAlbums(albumsList)
+                let artistsList = []
+                for (let i=0;i<data[2].length;i++){
+                    if (artistsList.find(element=>element.id===data[2][i].id)){
+                        continue
+                    }
+                    if(data[2][i].uploaded_at===null){
+                        data[2][i].uploaded_at=generateTime()
                     } 
-                return artist})
-                
-                setArtists(data[2])
-                data[3].map(playlist=> {
-                    if(playlist.uploaded_at===null){
-                        playlist.uploaded_at=generateTime()
-                } 
-                 return playlist})
-                 
-                setPlaylists(data[3])                   
+                    artistsList.push(data[2][i])        
+                }
+                setArtists(artistsList)
+                let playlistsList = []
+                for (let i=0;i<data[3].length;i++){
+                    if (playlistsList.find(element=>element.id===data[3][i].id)){
+                        continue
+                    }
+                    if(data[3][i].uploaded_at===null){
+                        data[3][i].uploaded_at=generateTime()
+                    } 
+                    playlistsList.push(data[3][i])        
+                }               
+                setPlaylists(playlistsList)                   
             }catch(e){console.log(e.message)}
         })()
     }, [Auth.email])

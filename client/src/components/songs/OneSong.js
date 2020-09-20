@@ -65,7 +65,7 @@ function OneSong() {
             (async ()=>{
                 try{
                     let {data}= await axios.get(`/song/${id}`)
-                    setSong(data[0])
+                    setSong(data[0]) 
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
                         setList(data.data)
