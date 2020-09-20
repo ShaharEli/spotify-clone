@@ -1,5 +1,6 @@
 import Home from './components/home/Home';
 import React, { useEffect, useState } from 'react';
+import ReactPlayer from "react-player"
 import {BrowserRouter as Router,Switch,Route, Redirect} from "react-router-dom";
 import About from './components/about/About';
 import Songs from './components/songs/Songs';
@@ -19,13 +20,59 @@ import Cookie from "js-cookie"
 import Swal from "sweetalert2"
 import Loading from './components/loading/Loading';
 import axios from "axios"
-
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 
 function App() {
     const [auth, setAuth] = useState(false)
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const [loading,setLoading] = useState(true)
+    const [song, setSong] = useState({})
+    const [list, setList] = useState([]) 
+    const [counter,setCounter] =useState(0)
+    const [playing,setPlaying] = useState(true)
+    const [restore,setRestore] = useState(false)
+    const pause =()=>{
+      setPlaying(false)
+  }
+  const play=()=>{
+      setPlaying(true)
+  }
+  const controlStyle = { cursor : "pointer" }
+
+  const next = ()=>{
+      if(counter===list.length-1){
+          Swal.fire("You finished the list","","success")
+          setRestore(prev=>!prev)
+          setSong(list[0])
+          setCounter(0)
+      }
+      else{
+          setCounter(prev=>prev+1)
+          if(list[counter].title===song.title){
+              setSong(list[counter+1])
+              setPlaying(true)
+          }
+          else{
+              setSong(list[counter])
+              setPlaying(true)
+
+          }
+      }
+  }
+  const previous = ()=>{
+      if(counter===0){
+          Swal.fire("You got to the start of the list","","error")
+      }
+      else{
+          setCounter(prev=>prev-1)
+          setSong(list[counter-1])
+      }
+  }
     const getAutorizied = async ()=>{
         const isAuth = await Cookie.get("auth")
         const authEmail =await  Cookie.get("email")
@@ -48,7 +95,8 @@ function App() {
     },[])  
     return (
         <>
-        <AuthApi.Provider value={{auth, setAuth,name,setName, email,setEmail}}>
+        <AuthApi.Provider value={{auth, setAuth,name,setName, email,setEmail,song,setSong
+        ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying}}>
        <Router>
          {
              !auth? 
@@ -62,7 +110,22 @@ function App() {
             </>
             :
             <Loading />
-            : 
+            : <>
+                {
+                song.title&&      
+                <div style={{height:"10vh",position:"absolute",width:"99.6vw",zIndex:999,bottom:0,backgroundColor:"blue"}}>
+                {song.title}
+                <ReactPlayer onEnded={next} onPlay={play} onPause={pause} playing={playing} url={song.youtube_link} width="0%" height="0"/>
+                <SkipPreviousIcon style={controlStyle} onClick={previous} />
+                {
+                 !playing?
+                 <PlayArrowIcon style={controlStyle}  onClick={play} />
+                 :
+                 <PauseIcon style={controlStyle} onClick={pause} />   
+                }
+                <SkipNextIcon style={controlStyle} onClick={next} />
+                </div>
+              } 
                 <Switch>
                   <Route exact path="/login" component={Login}/>
                   <Route exact path="/register" component={Register}/>
@@ -78,7 +141,7 @@ function App() {
                   <Route exact  path="/about" component={About}/>
                   <Route exact path="/" component={Home}/>
                   <Route path="*"  component={NotFound} />
-                 </Switch>
+                 </Switch></>
          }
          
         </Router>

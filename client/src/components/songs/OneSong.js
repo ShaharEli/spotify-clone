@@ -43,6 +43,7 @@ function OneSong() {
     const pause =()=>{
         setPlaying(false)
     }
+    
     const play=()=>{
         setPlaying(true)
     }
@@ -80,10 +81,14 @@ function OneSong() {
             (async ()=>{
                 try{
                     let {data}= await axios.get(`/song/${id}`)
+                    Auth.setSong(data[0])
                     setSong(data[0]) 
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
                         setList(data.data)
+                        Auth.setList(data.data)
+                        // eslint-disable-next-line
+                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
@@ -102,6 +107,7 @@ function OneSong() {
                             songsList.push(data[i])        
                         }
                         setList(songsList)
+                        Auth.setList(songsList)
                         setNextQuery(["favorites","true"])
 
                     }
@@ -112,22 +118,28 @@ function OneSong() {
                             return song
                         })
                         setList(albumsSongs)
+                        Auth.setList(albumsSongs)
                         // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
                         setList(data.data)
+                        Auth.setList(data.data)
                         // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
                         setList(data.data)
+                        Auth.setList(data.data)
                         // eslint-disable-next-line
                         setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
 
                     }
