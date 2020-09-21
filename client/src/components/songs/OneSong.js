@@ -7,7 +7,6 @@ import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
 import MyPlayer from "./MyPlayer"
-import Header from '../header/Header';
 import AuthApi from '../Aoth/AuthApi';
 
 
@@ -28,8 +27,6 @@ function OneSong() {
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
-    const [song, setSong] = useState({})
-    const [list, setList] = useState([]) 
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
 
@@ -40,15 +37,11 @@ function OneSong() {
                 try{
                     let {data}= await axios.get(`/song/${id}`)
                     Auth.setSong(data[0])
-                    setSong(data[0]) 
                     if(query.get("artist")){
                         data =  await axios.get(`/artist/${query.get("artist")}`)
-                        setList(data.data)
                         Auth.setList(data.data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
-                        // eslint-disable-next-line
-                        // setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){
@@ -56,6 +49,7 @@ function OneSong() {
                         data=data.data
                         let songsList = []
                         for (let i=0;i<data.length;i++){
+                        // eslint-disable-next-line
                             if (songsList.find(element=>element.id===data[i].id)){
                                 continue
                             }
@@ -64,7 +58,6 @@ function OneSong() {
                             } 
                             songsList.push(data[i])        
                         }
-                        setList(songsList)
                         Auth.setList(songsList)
                         setNextQuery(["favorites","true"])
 
@@ -75,28 +68,22 @@ function OneSong() {
                             song.id = song.song_id
                             return song
                         })
-                        setList(albumsSongs)
                         Auth.setList(albumsSongs)
                         // eslint-disable-next-line
-                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`)
-                        setList(data.data)
                         Auth.setList(data.data)
                         // eslint-disable-next-line
-                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/top_songs`)
-                        setList(data.data)
                         Auth.setList(data.data)
                         // eslint-disable-next-line
-                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
 
@@ -107,47 +94,35 @@ function OneSong() {
                 setLoading(false)
             }
         )()
-    // eslint-disable-next-line
+     // eslint-disable-next-line
     },[id])
     useEffect(()=>{
         (async()=>{
             try{
-                const words= await solenolyrics.requestLyricsFor(song.title)
+                const words= await solenolyrics.requestLyricsFor(Auth.song.title)
                 setLyrics(words)
             }catch(e){}
         })()
-    },[song])
+    },[Auth.song])
     const spanStyle = { fontSize : 12 }
-    // const controlStyle = { cursor : "pointer" }
     return (
-        song.title?
+        Auth.song.title?
         <>
-        <Header />
         <div className="oneSong">
             <div  className="playOneSong">  
-            <h2>{song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
-            <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
-            <span style={spanStyle}>album: &nbsp;{song.album}</span>
-            <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
+            <h2>{Auth.song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
+            <span style={spanStyle}>by: &nbsp;{Auth.song.artist}</span>&nbsp;&nbsp;
+            <span style={spanStyle}>album: &nbsp;{Auth.song.album}</span>
+            <span style={spanStyle}> |&nbsp;{Auth.song.length.slice(3,10)}</span>
             <MyPlayer  />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
-            {/* <div className="controls">
-                <SkipPreviousIcon style={controlStyle} onClick={previous} />
-                {
-                 !playing?
-                 <PlayArrowIcon style={controlStyle}  onClick={play} />
-                 :
-                 <PauseIcon style={controlStyle} onClick={pause} />   
-                }
-                <SkipNextIcon style={controlStyle} onClick={next} />
-            </div> */}
          </div> 
             <div className="queue">
                 <h2>Queue</h2>
                 {
-                    list.map((item,index)=>{
+                    Auth.list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem background={item.title===song.title} animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem background={item.title===Auth.song.title} animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>

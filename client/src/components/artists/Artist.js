@@ -4,7 +4,6 @@ import axios from 'axios'
 import ArtistItem from "./ArtistItem"
 import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
-import Header from '../header/Header';
 
 function Artist() {
     function generateTime() {
@@ -38,7 +37,6 @@ function Artist() {
     }
     return (
         <>
-        <Header />
         <div id="artists">
             <div style={{width:"80%"}}>
             <div className="searchDiv">

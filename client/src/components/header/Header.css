@@ -10,10 +10,29 @@ header{
     position: sticky;
     border-bottom:1px solid white;
     z-index: 1000;
-    box-shadow: 0px 6px 5px 4px rgba(0,0,0,0.75);
-
 
 }
+.mainPlayer{
+  height: 4vh;
+  display: flex;
+  overflow-y: hidden;
+  align-items: center;
+  color:white;
+  z-index:999;
+  top: 10vh;
+  position: sticky;
+  background-color: transparent;
+  
+}
+.controls{
+  color:black;
+    display: flex;
+    background-color: #E8F9E9;
+    border: 1px solid #85CA7C;
+    border-radius: 20px;
+    max-width: 30vw;
+    justify-content: space-around;
+  }
 .title{
     cursor: pointer;
     background-color: #333333;
@@ -94,5 +113,11 @@ header{
         .title:hover{
           padding:3px;
         }
+
+  }
+
+  @media only screen and (max-width: 290px) {
+    .mainPlayer{
+      height: 6vh;}
 
   }

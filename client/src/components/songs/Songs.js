@@ -5,7 +5,6 @@ import SongItem from './SongItem'
 import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
-import Header from '../header/Header';
 import { Tooltip } from '@material-ui/core';
 
 
@@ -44,7 +43,6 @@ const Songs = () => {
     }
     return (
         <>
-        <Header />
         <div id="songs">
             <div style={{width:"80%"}}>
             <div className="searchDiv">

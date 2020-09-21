@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react'
 import "./About.css"
-import Header from '../header/Header'
 import Button from "@material-ui/core/Button"
 import Cookie from "js-cookie"
 import AuthApi from "../Aoth/AuthApi"
@@ -35,6 +34,7 @@ function About() {
         await  Cookie.remove("email")
         await  Cookie.remove("name")
         await Cookie.remove("auth")
+        await Cookie.remove("token")
         Auth.setAuth(false)
     }
     const [songs,setSongs] = useState([])
@@ -99,7 +99,6 @@ function About() {
     }, [Auth.email])
     return (
         <>
-        <Header />
         <div id="about">
         <div id="footer">
              <span style={{marginLeft:50}}>  Hi there {Auth.name}</span> &nbsp; &nbsp;

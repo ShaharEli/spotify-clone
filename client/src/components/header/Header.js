@@ -9,7 +9,14 @@ import InfoIcon from '@material-ui/icons/Info';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import PersonIcon from '@material-ui/icons/Person';
 import AuthApi from "../Aoth/AuthApi"
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import ReactPlayer from "react-player"
+// import Youtube from "react-youtube"
 
+const controlStyle = {cursor:"pointer"}
 function Header({animate}) {
     const Auth = React.useContext(AuthApi)
     const fade = useSpring({
@@ -24,6 +31,7 @@ function Header({animate}) {
 
     })
     return (
+        <>
        <animated.header id="header" style={animate&&fade}>
          <NavLink style={{color:"white",textDecoration:"none"}} exact={true} activeStyle={{color:"orange"}} to="/">
            <div className="title">
@@ -73,6 +81,28 @@ function Header({animate}) {
            </div>
            </NavLink>
        </animated.header>
+       {
+                Auth.song.title&&      
+                <div  className="mainPlayer">
+                <div>
+                &nbsp; currently playing: &nbsp; {Auth.song.title}&nbsp;
+                </div>
+                <div className="controls">
+                <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtube_link} width="0%" height="0"/>
+                <SkipPreviousIcon style={controlStyle} onClick={Auth.previous} />
+                {
+                 !Auth.playing?
+                 <PlayArrowIcon style={controlStyle}  onClick={Auth.play} />
+                 :
+                 <PauseIcon style={controlStyle} onClick={Auth.pause} />   
+                }
+                <SkipNextIcon style={controlStyle} onClick={Auth.next} />
+                </div>
+                </div>
+              } 
+       </>
+ 
+       
     )
 }
 

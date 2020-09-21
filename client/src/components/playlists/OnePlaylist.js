@@ -5,7 +5,6 @@ import axios from "axios"
 import SongItem from '../songs/SongItem'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
-import Header from '../header/Header'
 
 function OnePlaylist() {
     const {id} =useParams()
@@ -42,7 +41,6 @@ function OnePlaylist() {
     return (
         playlist.length>0?
         <>
-        <Header />
         <div className="onePlaylist">
         <h2>
             {

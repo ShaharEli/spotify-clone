@@ -7,7 +7,6 @@ import Loading from '../loading/Loading'
 import Carousel from 'react-elastic-carousel';
 import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
-import Header from '../header/Header'
 
 function generateTime() {
     let today = new Date();
@@ -70,7 +69,6 @@ function OneArtist() {
     return (
         artist.length>0?
         <>
-        <Header />
         <div className="oneArtist">
         <h2>
             {

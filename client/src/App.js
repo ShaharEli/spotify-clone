@@ -1,7 +1,6 @@
 import Home from './components/home/Home';
 import React, { useEffect, useState } from 'react';
-import ReactPlayer from "react-player"
-import {BrowserRouter as Router,Switch,Route, Redirect} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route} from "react-router-dom";
 import About from './components/about/About';
 import Songs from './components/songs/Songs';
 import Albums from './components/albums/Albums';
@@ -20,10 +19,7 @@ import Cookie from "js-cookie"
 import Swal from "sweetalert2"
 import Loading from './components/loading/Loading';
 import axios from "axios"
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import PauseIcon from '@material-ui/icons/Pause';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import Header from './components/header/Header';
 
 function App() {
     const [auth, setAuth] = useState(false)
@@ -41,7 +37,6 @@ function App() {
   const play=()=>{
       setPlaying(true)
   }
-  const controlStyle = { cursor : "pointer" }
 
   const next = ()=>{
       if(counter===list.length-1){
@@ -88,14 +83,17 @@ function App() {
           catch(e){}
         }
     }
-    useEffect(async ()=>{
-     await getAutorizied()
-     setLoading(false)
+    useEffect( ()=>{
+        (async()=>{
+            await getAutorizied()
+            setLoading(false)
+        })()
+
     },[])  
     return (
         <>
         <AuthApi.Provider value={{auth, setAuth,name,setName, email,setEmail,song,setSong
-        ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying}}>
+        ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying,play,pause,next,previous}}>
        <Router>
          {
              !auth? 
@@ -109,26 +107,9 @@ function App() {
             </>
             :
             <Loading />
-            : <>
-                {
-                song.title&&      
-                <div  className="mainPlayer">
-                <div>
-                    currently playing: &nbsp; {song.title}
-                </div>
-                <div className="controls">
-                <ReactPlayer onEnded={next} onPlay={play} onPause={pause} playing={playing} url={song.youtube_link} width="0%" height="0"/>
-                <SkipPreviousIcon style={controlStyle} onClick={previous} />
-                {
-                 !playing?
-                 <PlayArrowIcon style={controlStyle}  onClick={play} />
-                 :
-                 <PauseIcon style={controlStyle} onClick={pause} />   
-                }
-                <SkipNextIcon style={controlStyle} onClick={next} />
-                </div>
-                </div>
-              } 
+            :        
+                <>
+                <Header />
                 <Switch>
                   <Route exact path="/login" component={Login}/>
                   <Route exact path="/register" component={Register}/>
@@ -144,7 +125,8 @@ function App() {
                   <Route exact  path="/about" component={About}/>
                   <Route exact path="/" component={Home}/>
                   <Route path="*"  component={NotFound} />
-                 </Switch></>
+                 </Switch>
+                 </>
          }
          
         </Router>

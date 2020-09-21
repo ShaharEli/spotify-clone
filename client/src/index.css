@@ -4,34 +4,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #2072BB;
-  overflow-x: hidden;
+  overflow: hidden;
 
 }
-.mainPlayer{
-	height:4vh;
-	display: flex;
-	justify-content: space-around;
-	position:block;
-	width:100vw;
-	background-color: #2072BB;
-    border: 1px solid;
-	z-index:999;
-}
-.controls{
-    display: flex;
-    margin: auto;
-    background-color: #E8F9E9;
-    border: 1px solid #85CA7C;
-    border-radius: 20px;
-	width: 30%;
-	height: 90%;
-    justify-content: space-around;
-}
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+   
 
 *::-webkit-scrollbar-track
 {
