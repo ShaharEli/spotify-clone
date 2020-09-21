@@ -100,10 +100,11 @@ function About() {
     return (
         <>
         <div id="about">
-        <div id="footer">
+        <div id="userInfo">
              <span style={{marginLeft:50}}>  Hi there {Auth.name}</span> &nbsp; &nbsp;
             <Button style={{marginRight:20}} onClick={logout} variant="contained" color="secondary">Logout</Button>
         </div>
+        <div id="userFavorites">
              {
             songs.length>0?
             <>
@@ -158,6 +159,7 @@ function About() {
             :
             <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some playlists...</h1>
             }
+            </div>
         </div>
         </>
     )

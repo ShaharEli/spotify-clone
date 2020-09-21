@@ -1,4 +1,4 @@
-#footer{
+#userInfo{
     color: rgba(241, 241, 250, 0.87);
     display: flex;
     justify-content: space-between;
@@ -8,7 +8,12 @@
     padding-bottom: 20px;
     padding-top: 20px;
     background-color: #1e4572;
+
 }
 #about{
     position: relative;
+}
+#userFavorites{
+    overflow-y: scroll;
+    height: 76vh;
 }
