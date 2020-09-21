@@ -8,12 +8,14 @@ import {useForm} from "react-hook-form"
 import AuthApi from "./AuthApi"
 import Cookie from "js-cookie"
 import { useHistory } from "react-router-dom";
+import {motion} from 'framer-motion'
 
 
 function Login() {
     const history = useHistory();
     const Auth = React.useContext(AuthApi)
     const [goToRegister,setGoToRegister] = useState(false)
+    const [checked,setChecked] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
          const {data} =  await axios.post("/login",values)
@@ -21,12 +23,15 @@ function Login() {
              Auth.setAuth(true)
              Auth.setName(data.name)
              Auth.setEmail(values.email)
-             await Cookie.set("name",`${data.name}`)
-             await Cookie.set("email",`${values.email}`)
-             await Cookie.set("auth",`true`)
-             await Cookie.set("token",`${data.token}`)
+             if(checked){
+                await Cookie.set("name",`${data.name}`)
+                await Cookie.set("email",`${values.email}`)
+                await Cookie.set("auth",`true`)
+                await Cookie.set("token",`${data.token}`)
+             }
              Swal.fire("Welcome back",`${data.name}`,"success") 
              history.push("/");
+             
 
          }else{
              Swal.fire("please try again","","error")
@@ -35,8 +40,26 @@ function Login() {
     return (
         !Auth.auth?
         <>
-        <h1 style={{textAlign:"center"}}>Sign in</h1>
-        <form autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
+        <motion.div className="authForms"
+            initial={{scale:0.03}}
+             animate={{ scale: 1 }}
+             transition={{ duration: 1.2}}>
+        <motion.h1
+        initial={{opacity:0,x:"-120%"}}
+        animate={{opacity:1,x:0,rotateY: 360  }}
+        exit={{opacity:0}}
+        transition={{
+             default: { duration: 2 }
+       }}
+        style={{textAlign:"center"}}>Sign in</motion.h1>
+        <motion.form 
+            initial={{opacity:0,x:"120%"}}
+            animate={{opacity:1,x:0,rotateY: 360 }}
+            exit={{opacity:0}}
+            transition={{
+             default: { duration: 2 },
+            }} 
+        autoComplete="true" onSubmit={handleSubmit(onSubmit)}>
         <div id="login">
         <label htmlFor="email">Email:</label>
           <input id="email" name="email" ref={register({required:"required" ,pattern: {
@@ -46,9 +69,11 @@ function Login() {
          {errors.email && <span style={{color:"red"}}>{errors.email.message}</span>}<br/>
          {errors.mail &&  <span style={{color:"red"}}>{errors.mail.message}</span>}<br/>
          <label htmlFor="password">Password:</label>
-          <input id="password" name="password" ref={register({required:"required",minLength:{value:6,message:"password should include at list 6 letters"}})} placeholder="password" type="password"/>
+          <input id="password" name="password" ref={register({required:"required",minLength:{value:6,message:"password should include atlist 6 letters"}})} placeholder="password" type="password"/>
          {errors.password && <span style={{color:"red"}}>{errors.password.message}</span>}<br/>
+        <div>remember me: <input onClick={()=>setChecked(prev=>!prev)} type="checkbox" id="remember" name="remember"/></div><br/>
           <div>
+              
           <Button type="submit" variant="contained" color="primary">login</Button> &nbsp;
           <Button  variant="contained" color="inherit" onClick={()=>setGoToRegister(true)} >Register</Button>
         </div>
@@ -56,7 +81,8 @@ function Login() {
                 goToRegister&& <Redirect to="/register" />
             }
         </div>
-        </form>
+        </motion.form>
+        </motion.div>
         </>
         :
         <Redirect to="/" />

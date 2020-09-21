@@ -110,6 +110,7 @@ function App() {
             :        
                 <>
                 <Header />
+
                 <Switch>
                   <Route exact path="/login" component={Login}/>
                   <Route exact path="/register" component={Register}/>

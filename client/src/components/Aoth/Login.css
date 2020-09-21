@@ -4,6 +4,11 @@
     height: 65vh;
     align-items: center;
     justify-content: center;
+    opacity: 0.9;
     
 }
 
+#login >input{
+    border-radius: 4px;
+    height: 18px;
+}
