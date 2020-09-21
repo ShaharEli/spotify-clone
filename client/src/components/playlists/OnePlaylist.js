@@ -49,12 +49,14 @@ function OnePlaylist() {
         </h2>
             <img className="coverImg" alt="" src={playlist[0].cover_img}/>
         <h3>{playlist[0].playlist_date}</h3>
+        <div className="playlistMedia">
         {
             playlist.map(playlist=>{
                 const song = {id:playlist.id,artist_id:playlist.artist_id,upload_at:playlist.upload_at,title:playlist.title,artist:playlist.artist,length:playlist.length,youtube_link:playlist.youtube_link,album:playlist.album,album_id:playlist.album_id}
                 return <SongItem key={playlist.title} query={["playlist",playlist.playlist_id]} song={song} maxWidth={true} />
             })
         }
+        </div>
         </div>
         </>
         :

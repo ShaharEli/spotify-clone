@@ -13,8 +13,16 @@
     justify-content: center;
     align-items: center;
     margin:auto;
-    width:90vw
+    width:100vw;
+   overflow-y: scroll;
+  
+
 }
+.artistMedia{
+    width: 90vw;
+    height: 25vh;
+}
+
 
 
      

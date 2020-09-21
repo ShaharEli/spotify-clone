@@ -77,6 +77,7 @@ function OneArtist() {
         </h2>
         <img className="artistCoverImg" alt="" src={artist[0].cover_img}/>
         <h3>{artist[0].artist_date}</h3>
+        <div className="artistMedia">
         <h2>{artist[0].name}`s Songs</h2>
         <Carousel itemsToShow={8} itemPadding={[10]}
              breakPoints={breakPoints}>
@@ -94,6 +95,7 @@ function OneArtist() {
             albums.map((album)=><TopAlbum key={album.id} album={album} />)
             } 
          </Carousel>
+        </div>
         </div>
         </>
         :
