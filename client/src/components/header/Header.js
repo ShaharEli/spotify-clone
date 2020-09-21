@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Header.css"
-import {Link} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {useSpring, animated} from 'react-spring'
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import HomeIcon from '@material-ui/icons/Home';
@@ -8,7 +8,17 @@ import QueueMusicIcon from '@material-ui/icons/QueueMusic';
 import InfoIcon from '@material-ui/icons/Info';
 import LibraryMusicIcon from '@material-ui/icons/LibraryMusic';
 import PersonIcon from '@material-ui/icons/Person';
+import AuthApi from "../Aoth/AuthApi"
+import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import SkipNextIcon from '@material-ui/icons/SkipNext';
+import PauseIcon from '@material-ui/icons/Pause';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import ReactPlayer from "react-player"
+// import Youtube from "react-youtube"
+
+const controlStyle = {cursor:"pointer"}
 function Header({animate}) {
+    const Auth = React.useContext(AuthApi)
     const fade = useSpring({
         from:{
             transform:"translateY(-10vh)",
@@ -17,20 +27,21 @@ function Header({animate}) {
         to:{
             transform:"translateY(0)",
             opacity:0.9
-        },delay:0,config:{duration:700}
+        },delay:800,config:{duration:1000}
 
     })
     return (
+        <>
        <animated.header id="header" style={animate&&fade}>
-         <Link style={{color:"white",textDecoration:"none"}} to="/">
+         <NavLink style={{color:"white",textDecoration:"none"}} exact={true} activeStyle={{color:"orange"}} to="/">
            <div className="title">
                <span>
                    Home &nbsp;
                </span>
                <HomeIcon/>
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/songs">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/songs">
            <div className="title">
                
                    Songs
@@ -38,38 +49,60 @@ function Header({animate}) {
 
                
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/albums">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/albums">
            <div className="title">
                <span>
                    Albums &nbsp;
                </span>
                <LibraryMusicIcon />
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/artists">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/artists">
            <div className="title">
                <span>
                    Artists &nbsp;
                </span>
                <PersonIcon />
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/playlists">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/playlists">
            <div className="title">
                    <span>Playlists &nbsp; </span>
                    <QueueMusicIcon/>
            </div>
-           </Link>
-           <Link style={{color:"white",textDecoration:"none"}} to="/about">
+           </NavLink>
+           <NavLink style={{color:"white",textDecoration:"none"}} activeStyle={{color:"#88DDFC"}} to="/about">
            <div className="title">
                <span>
-                   About &nbsp;
+                   {Auth.name} &nbsp;
                </span>
                <InfoIcon />
            </div>
-           </Link>
+           </NavLink>
        </animated.header>
+       {
+                Auth.song.title&&      
+                <div  className="mainPlayer">
+                <div>
+                &nbsp; currently playing: &nbsp; {Auth.song.title}&nbsp;
+                </div>
+                <div className="controls">
+                <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtube_link} width="0%" height="0"/>
+                <SkipPreviousIcon style={controlStyle} onClick={Auth.previous} />
+                {
+                 !Auth.playing?
+                 <PlayArrowIcon style={controlStyle}  onClick={Auth.play} />
+                 :
+                 <PauseIcon style={controlStyle} onClick={Auth.pause} />   
+                }
+                <SkipNextIcon style={controlStyle} onClick={Auth.next} />
+                </div>
+                </div>
+              } 
+       </>
+ 
+       
     )
 }
 

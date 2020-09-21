@@ -36,7 +36,7 @@ function Artist() {
         }))
     }
     return (
-        
+        <>
         <div id="artists">
             <div style={{width:"80%"}}>
             <div className="searchDiv">
@@ -57,6 +57,7 @@ function Artist() {
             </motion.div>
             </div>  
         </div>
+        </>
     )
 }
 

@@ -1,19 +1,51 @@
 .topSongs{
-    background-color: white;
     margin-bottom: 10px;
     padding-left:10px ;
     padding-right:10px ;
     text-align: center;
-    height: 7vh;
-    font-size: 10px;
+    height: 160px;
+    width: 70px;
+    border:1px solid black;
+    background-color:#FDB515;
     box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
     border-radius:4px;
-    display: grid;
-    grid-template-columns: 0.3fr 0.8fr 0.5fr 1fr 1.5fr 0.7fr 0.3fr;
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+    font-size: 12px;
+    position: relative;
 }
+.addSong{
+  position: absolute;
+  right: 0;
+  top:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  border:1px solid black;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  color:white;
+  background-color: yellowgreen;
+}
+.addSong:hover{
+  width: 12px;
+  height: 12px;
+}
+
+.mainTopSong{
+  display: flex;
+  font-size: 9px;
+  flex-direction: column;
+}
+.topSongImages{
+  width:50px;
+  height:30px
+}
+
 .share{
   display: flex;
   align-items: center;
@@ -64,11 +96,7 @@
 }
 
 
-@media only screen and (max-width: 390px) {
-  .topSongs{
-      font-size: 8px;
-  }
-}
+
 
 @media only screen and (max-width: 365px) {
   .topSongs{

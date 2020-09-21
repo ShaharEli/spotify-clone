@@ -1,0 +1,35 @@
+#notFoundMain{
+    display:flex;
+    justify-content:center;
+    width:99vw;
+    overflow: hidden;
+}
+#wtf{
+    font-size: 80px;
+}
+
+@media only screen and (max-width: 570px) {
+	#wtf{
+        font-size: 70px;
+    }
+}
+@media only screen and (max-width: 540px) {
+	#wtf{
+        font-size: 60px;
+    }
+}
+@media only screen and (max-width: 515px) {
+	#wtf{
+        font-size: 50px;
+    }
+}
+@media only screen and (max-width: 438px) {
+	#wtf{
+        font-size: 40px;
+    }
+}
+@media only screen and (max-width: 310px) {
+	#wtf{
+        font-size: 30px;
+    }
+}

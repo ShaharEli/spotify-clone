@@ -1,12 +1,15 @@
 import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
-// import solenolyrics from "solenolyrics"
 import {motion} from 'framer-motion'
-
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import AuthApi from "../Aoth/AuthApi"
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+
+
 import Share from './Share';
   function getModalStyle() {  
     return {
@@ -20,22 +23,34 @@ import Share from './Share';
   
   const useStyles = makeStyles((theme) => ({
     paper: {
-        // margin:"auto",
       position: 'absolute',
       backgroundColor: "transparent",
   
     },
   }));
+  function generateTime() {
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const yyyy = today.getFullYear();
+    today = `${yyyy}-${mm}-${dd}`;
+    return `${today}`;
+  }
 
-function SongItem({song,maxWidth,index}) {
-    
+function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
+  const Auth = React.useContext(AuthApi)
+   let styles=oneSongProp?{minWidth:0,width:"90%"}:
+    maxWidth&&{maxWidth:"40vw"} 
+    styles=background? {...styles,backgroundColor:"#00C700"}:styles
     const title = song.title
-    const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
-    const date = song.upload_at.slice(0,10)
+    const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
+    const date = song.upload_at?song.upload_at.slice(0,10) : generateTime()
     const album =song.album
     const artist = song.artist
     const length = song.length
-        
+    const addSong = async()=>{
+      await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+  }
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
@@ -54,17 +69,19 @@ function SongItem({song,maxWidth,index}) {
         </div>
         </div>
       );
-      
       return (
         <motion.div 
         initial={{opacity:0,x:"-100%"}}
         animate={{opacity:1,x:0}}
-        exit={{opacity:0}}
+        exit={{opacity:0,x:"-100%"}}
         transition={{
             default: { duration: 0.6 },
-            delay:index/10
+            delay:index<10?index/9:0
         }}
-        className={album?"songs":"albumSongs"} style={maxWidth&&{maxWidth:"40vw"}} >
+        className={album?"songs":"albumSongs"} style={styles} >
+          <Tooltip title="add to your songs">
+          <span onClick={addSong} className="addSong"  >+</span>
+          </Tooltip>
             <div className="songInfo">
               {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
@@ -77,10 +94,15 @@ function SongItem({song,maxWidth,index}) {
                 {body}
                 
             </Modal>
+            
+            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/song/${song.id}?all_songs=true`} style={{textDecoration:"none",color:"black"}}>
              <div className="songInfo">{title}</div>
+            </Link>
+
             <div className="songInfo">{length}</div>
             {album?
             <>
+      
             <div className="songInfo">upload date: {date}</div>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
             <div className="songInfo">album name: 
@@ -104,3 +126,6 @@ function SongItem({song,maxWidth,index}) {
 
 
 export default SongItem
+
+
+

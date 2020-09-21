@@ -5,7 +5,7 @@ import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import { Tooltip } from '@material-ui/core';
 
-function AlbumItem({album}) {
+function TopAlbum({album,noAdd}) {
     const Auth = useContext(AuthApi)
     const name = album.name
     const image =album.cover_img
@@ -15,13 +15,17 @@ function AlbumItem({album}) {
         await axios.post("/youralbums",{email:Auth.email,album_id:album.id})
     }
     return (
-        <div className="albums">
+        <div className="topAlbum">
+            {
+            !noAdd&&
             <Tooltip title="add to your albums">
-          <span onClick={addAlbum} className="addSong"  >+</span>
-          </Tooltip>
-            <div><img className="albumsImages" src={image} alt="" /></div>
+            <span onClick={addAlbum} className="addSong"  >+</span>
+            </Tooltip>
+            }
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
+            
+            <div><img className="topImages" src={image} alt="" /></div>
             </Link>
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album.artist_id}`}>
             <div>{artist}</div>
@@ -31,4 +35,4 @@ function AlbumItem({album}) {
     )
 }
 
-export default AlbumItem
+export default TopAlbum

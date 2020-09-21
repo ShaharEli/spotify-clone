@@ -1,12 +1,14 @@
-#diagramTitle{
+#footer{
     color: rgba(241, 241, 250, 0.87);
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
     margin-top: 0;
+    align-items: center;
     margin-bottom: 0;
     padding-bottom: 20px;
     padding-top: 20px;
-    
+    background-color: #1e4572;
 }
 #about{
-    background-color: #1e4572;
+    position: relative;
 }

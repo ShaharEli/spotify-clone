@@ -1,9 +1,8 @@
 header{
     display: flex;
-    position: sticky;
     top: 0;
     background-color: #0A2342;
-    width: 100%;
+    width: 100vw;
     height: 10vh;
     justify-content: flex-start ;
     align-items: center;
@@ -13,6 +12,27 @@ header{
     z-index: 1000;
 
 }
+.mainPlayer{
+  height: 4vh;
+  display: flex;
+  overflow-y: hidden;
+  align-items: center;
+  color:white;
+  z-index:999;
+  top: 10vh;
+  position: sticky;
+  background-color: transparent;
+  
+}
+.controls{
+  color:black;
+    display: flex;
+    background-color: #E8F9E9;
+    border: 1px solid #85CA7C;
+    border-radius: 20px;
+    max-width: 30vw;
+    justify-content: space-around;
+  }
 .title{
     cursor: pointer;
     background-color: #333333;
@@ -34,7 +54,7 @@ header{
   padding-right: 12px;
   padding-bottom: 9px;
   padding-left: 12px;
-
+  transition-duration:0.3s
   
 }
 
@@ -93,5 +113,11 @@ header{
         .title:hover{
           padding:3px;
         }
+
+  }
+
+  @media only screen and (max-width: 290px) {
+    .mainPlayer{
+      height: 6vh;}
 
   }

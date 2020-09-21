@@ -10,6 +10,11 @@
 	background-color:#FDB515 ;
 	border-radius: 7px;
 }
+#topSongs{
+	background-color: transparent;
+	border: none;
+	
+}
 #songs{
     height: 100vh;
 	
@@ -24,12 +29,7 @@
 	border-bottom-right-radius: 0;
 
 }
-#topSongs:hover{
-	overflow-y: scroll; 
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
 
-}
 
 #songsTitle{
     text-align: center;
@@ -41,11 +41,7 @@
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
-#topSongs::-webkit-scrollbar-track
-{
-	background-color: #F5F5F5;
-	border-radius: 10px;
-}
+
 #songs::-webkit-scrollbar
 {
    
@@ -53,12 +49,7 @@
 	background-color: #F5F5F5;
 }
 
-#topSongs::-webkit-scrollbar
-{
-   
-	width: 5px;
-	background-color: #F5F5F5;
-}
+
 
 #songs::-webkit-scrollbar-thumb
 {
@@ -70,16 +61,7 @@
 									   from(#e7a61a),
 									   to(#e7a61a))
 }
-#topSongs::-webkit-scrollbar-thumb
-{
-    border-radius: 5px;    
-	background-color: #FFF;
-	background-image: -webkit-gradient(linear,
-									   40% 0%,
-									   75% 84%,
-									   from(#e7a61a),
-									   to(#e7a61a))
-}
+
 
 @media only screen and (max-width: 323px) {
 	#songs{
@@ -92,11 +74,7 @@
 	}
 
 }
-@media only screen and (max-width: 650px) {
-	#topSongs{
-		overflow-y:scroll
-	}
-}
+
 @media only screen and (max-width: 300px) {
 	#songs{
 		overflow-y:scroll

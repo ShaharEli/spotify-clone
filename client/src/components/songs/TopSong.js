@@ -1,10 +1,15 @@
-import React from 'react'
+import React,{useState} from 'react'
 import "./TopSong.css"
 import { Link } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 import Share from './Share';
+import AuthApi from "../Aoth/AuthApi"
+import axios from 'axios';
+import Tooltip from '@material-ui/core/Tooltip';
+
+
   function getModalStyle() {  
     return {
       top:"10vh",
@@ -16,25 +21,26 @@ import Share from './Share';
   
   const useStyles = makeStyles((theme) => ({
     paper: {
-        // margin:"auto",
       position: 'absolute',
       backgroundColor: "transparent",
   
     },
   }));
 
-function TopSong({song}) {
+function TopSong({song,query,noImg,oneArtist,noAdd}) {
+    const Auth = React.useContext(AuthApi)
     const title = song.title
     const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
-    const date = song.upload_at.slice(0,10)
     const album =song.album
     const artist = song.artist
-    const length = song.length
-        
-
+    const imgSrc = song.img
+    const [showImg,setShowImg]=useState(noImg?false:true)
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
+    const addSong = async()=>{
+        await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+    }
     const handleOpen = () => {
         setOpen(true);
       };
@@ -53,10 +59,24 @@ function TopSong({song}) {
       );
       
       return (
-        <div className="topSongs"         
-        >
-            <div className="songInfo">
-            <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
+        <div className="topSongs"  onMouseEnter={!noImg?()=>setShowImg(false):null} onMouseLeave={!noImg?()=>setShowImg(true):null} >
+            {!noAdd&&
+            <>
+            <Tooltip title="add to your songs">
+              <span className="addSong" onClick={addSong}  >+</span>
+            </Tooltip>
+            </>
+            }
+            <Link to={query?`/song/${song.id}?${query[0]}=${query[1]}`:`/`} style={{textDecoration:"none",color:"black"}}>
+             <div >{title}</div>
+            </Link>
+            <div className="topSongInfo">
+            { showImg?
+            <img className="topSongImages" src={imgSrc} alt="" />
+            :
+              <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon>
+            }
+            </div>
             <Modal 
                 open={open}
                 onClose={handleClose}
@@ -66,22 +86,20 @@ function TopSong({song}) {
                 {body}
                 
             </Modal>
-             <div className="songInfo">{title}</div>
-            <div className="songInfo">{length}</div>
-            <>
-            <div className="songInfo">upload date: {date}</div>
+            <div className="mainTopSong">
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
-            <div className="songInfo">album name: 
+            album: 
             &nbsp;
             {album}
-            </div>
             </Link>
+            {
+            !oneArtist &&
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
-            <div className="songInfo">artist: {artist}</div>
+            artist: {artist}
             </Link>
-            <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
-            </>
-
+            }
+            <Share  link={song.youtube_link}  songName={song.title} artistName={song.artist} />
+            </div>
         </div>
     )
 }

@@ -38,7 +38,7 @@ function Playlists() {
         }))
     }
     return (
-        
+        <>
         <div id="playlists">
             <div style={{width:"80%"}}>
             <div className="searchDiv">
@@ -59,6 +59,7 @@ function Playlists() {
             </motion.div>
             </div>  
         </div>
+        </>
     )
 }
 

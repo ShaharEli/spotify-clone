@@ -1,20 +1,55 @@
 #playlists, #topPlaylists{
     display: flex;
     flex-grow: 1;
-	height: 100%;
+	height: 100vh;
 	max-height: 89.5vh;
     overflow: hidden; 
     justify-content: center;
 	width: 100%;
 	background-color:#FDB515 ;
-	border-radius:7px
+	border-radius:7px;
+
 }
-#playlists{
-	height: 100vh;
+#topPlaylists{
+		display: flex;
+		flex-grow: 1;
+		height: 100%;
+		max-height: 89.5vh;
+		overflow: hidden; 
+		justify-content: center;
+		border-radius: 7px;
+		background-color: transparent;
+		border: none;
+		
+	
+}
+.topPlaylists{
+	margin-bottom: 10px;
+    padding-left:10px ;
+    padding-right:10px ;
+    text-align: center;
+    border:1px solid black;
+    background-color:#FDB515;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+    border-radius:4px;
+    display: flex;
+    justify-content:space-between;
+    flex-direction: column;
+	font-size: 12px;
+    height: 160px;
+	width: 70px;
+	position: relative;
+	
 }
 .searchDiv{
 	display: flex;
 	justify-content: center;
+}
+.topImages{
+	width: 100%;
+	height:60px;
+	margin-top: 10px;
+	
 }
 
 #playlists:hover{
@@ -22,11 +57,7 @@
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
-#topPlaylists:hover{
-	overflow-y: scroll; 
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
+
 #playlistsTitle{
     text-align: center;
     font-size: 30px;
@@ -37,11 +68,7 @@
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
-#topPlaylists::-webkit-scrollbar-track
-{
-	background-color: #F5F5F5;
-	border-radius: 10px;
-}
+
 
 #playlists::-webkit-scrollbar
 {
@@ -49,12 +76,7 @@
 	width: 5px;
 	background-color: #F5F5F5;
 }
-#topPlaylists::-webkit-scrollbar
-{
-   
-	width: 5px;
-	background-color: #F5F5F5;
-}
+
 
 #playlists::-webkit-scrollbar-thumb
 {
@@ -67,22 +89,9 @@
 									   to(#ccb025))
 }
 
-#topPlaylists::-webkit-scrollbar-thumb
-{
-    border-radius: 10px;    
-	background-color: #FFF;
-	background-image: -webkit-gradient(linear,
-									   40% 0%,
-									   75% 84%,
-									   from(#e7a61a),
-									   to(#ccb025))
-}
 
-@media only screen and (max-width: 650px) {
-	#topPlaylists{
-		overflow-y:scroll
-	}
-}
+
+
 @media only screen and (max-width: 300px) {
 	#playlists{
 		overflow-y:scroll

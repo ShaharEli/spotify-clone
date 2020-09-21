@@ -41,6 +41,7 @@ function Albums() {
     }
 
     return (
+        <>
         <div id="albums"  >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
@@ -61,6 +62,7 @@ function Albums() {
             </motion.div>
             </div>  
         </div>
+        </>
     )
 }
 

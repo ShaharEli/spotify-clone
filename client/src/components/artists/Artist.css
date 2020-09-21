@@ -1,28 +1,50 @@
 #artists, #topArtists{
     display: flex;
     flex-grow: 1;
-	height: 100%;
     overflow: hidden; 
     justify-content: center;
 	width: 100%;
 	background-color:#FDB515 ;
 	border-radius: 7px;
 	max-height: 89.5vh;
-}
-#artists{
 	height: 100vh;
+	position: relative;
+
+}
+#topArtists{
+	display: flex;
+	flex-grow: 1;
+	height: 100%;
+	max-height: 89.5vh;
+	overflow: hidden; 
+	justify-content: center;
+	border-radius: 7px;
+	background-color: transparent;
+	border: none;
+}
+.topArtist{
+		margin-bottom: 10px;
+		padding-left:10px ;
+		padding-right:10px ;
+		text-align: center;
+		border:1px solid black;
+		background-color:#FDB515;
+		box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+		border-radius:4px;
+		display: flex;
+		justify-content:space-between;
+		flex-direction: column;
+		font-size: 10px;
+		height: 160px;
+		width: 70px;
+		position: relative;
 }
 .searchDiv{
 	display: flex;
 	justify-content: center;
 }
 
-#artist:hover{
-	overflow-y: scroll; 
-	border-top-right-radius: 0;
-	border-bottom-right-radius: 0;
-}
-#topArtists:hover{
+#artists:hover{
 	overflow-y: scroll; 
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
@@ -38,23 +60,14 @@
 	background-color: #F5F5F5;
 	border-radius: 10px;
 }
-#topArtists::-webkit-scrollbar-track
-{
-	background-color: #F5F5F5;
-	border-radius: 10px;
-}
+
 #artists::-webkit-scrollbar
 {
    
 	width: 5px;
 	background-color: #F5F5F5;
 }
-#topArtists::-webkit-scrollbar
-{
-   
-	width: 5px;
-	background-color: #F5F5F5;
-}
+
 
 #artists::-webkit-scrollbar-thumb
 {
@@ -66,21 +79,8 @@
 									   from(#e7a61a),
 									   to(#ccb025))
 }
-#topArtists::-webkit-scrollbar-thumb
-{
-    border-radius: 10px;    
-	background-color: #FFF;
-	background-image: -webkit-gradient(linear,
-									   40% 0%,
-									   75% 84%,
-									   from(#e7a61a),
-									   to(#ccb025))
-}
-@media only screen and (max-width: 650px) {
-	#topArtists{
-		overflow-y:scroll
-	}
-}
+
+
 @media only screen and (max-width: 300px) {
 	#artists{
 		overflow-y:scroll
