@@ -2,7 +2,7 @@ header{
     display: flex;
     top: 0;
     background-color: #0A2342;
-    width: 100%;
+    width: 100vw;
     height: 10vh;
     justify-content: flex-start ;
     align-items: center;

@@ -20,7 +20,6 @@ import Cookie from "js-cookie"
 import Swal from "sweetalert2"
 import Loading from './components/loading/Loading';
 import axios from "axios"
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
@@ -113,8 +112,11 @@ function App() {
             : <>
                 {
                 song.title&&      
-                <div style={{height:"10vh",position:"absolute",width:"99.6vw",zIndex:999,bottom:0,backgroundColor:"blue"}}>
-                {song.title}
+                <div  className="mainPlayer">
+                <div>
+                    currently playing: &nbsp; {song.title}
+                </div>
+                <div className="controls">
                 <ReactPlayer onEnded={next} onPlay={play} onPause={pause} playing={playing} url={song.youtube_link} width="0%" height="0"/>
                 <SkipPreviousIcon style={controlStyle} onClick={previous} />
                 {
@@ -124,6 +126,7 @@ function App() {
                  <PauseIcon style={controlStyle} onClick={pause} />   
                 }
                 <SkipNextIcon style={controlStyle} onClick={next} />
+                </div>
                 </div>
               } 
                 <Switch>

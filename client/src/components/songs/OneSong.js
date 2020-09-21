@@ -7,11 +7,6 @@ import solenolyrics from "solenolyrics"
 import "./OneSong.css"
 import SongItem from './SongItem';
 import MyPlayer from "./MyPlayer"
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
-import PauseIcon from '@material-ui/icons/Pause';
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import Swal from 'sweetalert2';
 import Header from '../header/Header';
 import AuthApi from '../Aoth/AuthApi';
 
@@ -30,7 +25,6 @@ function useQuery() {
  }
 function OneSong() {
     const Auth = React.useContext(AuthApi)
-    const [playing,setPlaying] = useState(true)
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
@@ -38,44 +32,8 @@ function OneSong() {
     const [list, setList] = useState([]) 
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
-    const [counter,setCounter] =useState(0)
-    const [restore,setRestore] = useState(false)
-    const pause =()=>{
-        setPlaying(false)
-    }
-    
-    const play=()=>{
-        setPlaying(true)
-    }
-    const next = ()=>{
-        if(counter===list.length-1){
-            Swal.fire("You finished the list","","success")
-            setRestore(prev=>!prev)
-            setSong(list[0])
-            setCounter(0)
-        }
-        else{
-            setCounter(prev=>prev+1)
-            if(list[counter].title===song.title){
-                setSong(list[counter+1])
-                setPlaying(true)
-            }
-            else{
-                setSong(list[counter])
-                setPlaying(true)
 
-            }
-        }
-    }
-    const previous = ()=>{
-        if(counter===0){
-            Swal.fire("You got to the start of the list","","error")
-        }
-        else{
-            setCounter(prev=>prev-1)
-            setSong(list[counter-1])
-        }
-    }
+
 
     useEffect(()=>{
             (async ()=>{
@@ -90,7 +48,7 @@ function OneSong() {
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         // eslint-disable-next-line
-                        setCounter(data.data.findIndex(e=>e.id==id))
+                        // setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){
@@ -120,7 +78,7 @@ function OneSong() {
                         setList(albumsSongs)
                         Auth.setList(albumsSongs)
                         // eslint-disable-next-line
-                        setCounter(data.data.findIndex(e=>e.id==id))
+                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
@@ -129,7 +87,7 @@ function OneSong() {
                         setList(data.data)
                         Auth.setList(data.data)
                         // eslint-disable-next-line
-                        setCounter(data.data.findIndex(e=>e.id==id))
+                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
@@ -138,7 +96,7 @@ function OneSong() {
                         setList(data.data)
                         Auth.setList(data.data)
                         // eslint-disable-next-line
-                        setCounter(data.data.findIndex(e=>e.id==id))
+                        // setCounter(data.data.findIndex(e=>e.id==id))
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
 
@@ -150,7 +108,7 @@ function OneSong() {
             }
         )()
     // eslint-disable-next-line
-    },[id,restore])
+    },[id])
     useEffect(()=>{
         (async()=>{
             try{
@@ -160,7 +118,7 @@ function OneSong() {
         })()
     },[song])
     const spanStyle = { fontSize : 12 }
-    const controlStyle = { cursor : "pointer" }
+    // const controlStyle = { cursor : "pointer" }
     return (
         song.title?
         <>
@@ -171,9 +129,9 @@ function OneSong() {
             <span style={spanStyle}>by: &nbsp;{song.artist}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{song.album}</span>
             <span style={spanStyle}> |&nbsp;{song.length.slice(3,10)}</span>
-            <MyPlayer playing={playing} pause={pause} play={play} link={song.youtube_link} next={next} />
+            <MyPlayer  />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
-            <div className="controls">
+            {/* <div className="controls">
                 <SkipPreviousIcon style={controlStyle} onClick={previous} />
                 {
                  !playing?
@@ -182,8 +140,8 @@ function OneSong() {
                  <PauseIcon style={controlStyle} onClick={pause} />   
                 }
                 <SkipNextIcon style={controlStyle} onClick={next} />
-                </div>
-         </div>
+            </div> */}
+         </div> 
             <div className="queue">
                 <h2>Queue</h2>
                 {

@@ -16,15 +16,7 @@
     height:70vh;
    
 }
-.controls{
-    display: flex;
-    margin: auto;
-    background-color: #E8F9E9;
-    border: 1px solid #85CA7C;
-    border-radius: 20px;
-    width: 80%;
-    justify-content: space-around;
-}
+
 @media only screen and (max-width: 600px) {
     .oneSong{
         flex-direction: column;
