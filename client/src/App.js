@@ -116,7 +116,7 @@ function App() {
                 <TransitionGroup>
                 <CSSTransition
                      key={location.key}
-                   timeout={700} classNames="pageSlider" mountOnEnter={true} unmountOnExit={true}
+                //    timeout={700} classNames="pageSlider" mountOnEnter={true} unmountOnExit={true}
                     >
                   <Switch>
                  <Route exact path="/login" component={Login}/>

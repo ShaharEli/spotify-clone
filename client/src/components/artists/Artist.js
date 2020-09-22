@@ -37,26 +37,26 @@ function Artist() {
     }
     return (
         <>
-        <div id="artists">
+        <motion.div id="artists"
+                initial={{opacity:0,x:"100%"}}
+                animate={{opacity:1,x:0}}
+                   transition={{
+                       default: { duration: 1.2,delay:0.5 },
+                           
+                   }}>
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10,textAlign:"center" }}  id="searchInput" autoComplete="off" label="Search artist" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="artistsTitle">Artists</h2>
-            <motion.div
-                    initial={{opacity:0,x:"-100%"}}
-                    animate={{opacity:1,x:0}}
-                    exit={{opacity:0}}
-                    transition={{
-                        default: { duration: 0.9 },
-                    }}
+            <div
             >
             {
             artists.map((artist,index)=><ArtistItem key={artist.id} artist={artist} />)
             } 
-            </motion.div>
+            </div>
             </div>  
-        </div>
+        </motion.div>
         </>
     )
 }

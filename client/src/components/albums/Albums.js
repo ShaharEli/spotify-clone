@@ -42,26 +42,25 @@ function Albums() {
 
     return (
         <>
-        <div id="albums"  >
+        <motion.div id="albums" 
+                initial={{opacity:0,x:"100%"}}
+                animate={{opacity:1,x:0}}
+                   transition={{
+                       default: { duration: 1.2,delay:0.5 },
+                           
+                   }} >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10,textAlign:"center" }}  id="searchInput" autoComplete="off" label="Search album" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="albumsTitle">Albums</h2>
-            <motion.div
-                    initial={{opacity:0,x:"100%"}}
-                    animate={{opacity:1,x:0}}
-                    exit={{opacity:0}}
-                    transition={{
-                        default: { duration: 0.9,delay:0.7 },
-                    }}
-            >
+            <div >
             {
             albums.map((album,index)=><AlbumItem key={album.id} album={album} />)
             } 
-            </motion.div>
+            </div>
             </div>  
-        </div>
+        </motion.div>
         </>
     )
 }

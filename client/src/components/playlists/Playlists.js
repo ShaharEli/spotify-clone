@@ -39,26 +39,27 @@ function Playlists() {
     }
     return (
         <>
-        <div id="playlists">
+        <motion.div id="playlists"
+                initial={{opacity:0,x:"100%"}}
+                animate={{opacity:1,x:0}}
+                   transition={{
+                       default: { duration: 1.2,delay:0.5 },
+                           
+                   }}>
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10,textAlign:"center" }} id="searchInput" autoComplete="off" label="Search playlist" onChange={(e) => handleChange(e)} />
             </div>
             <h2 id="playlistsTitle">Playlists</h2>
-            <motion.div
-                    initial={{opacity:0,y:"-100%"}}
-                    animate={{opacity:1,y:0}}
-                    exit={{opacity:0}}
-                    transition={{
-                        default: { duration: 0.9 },
-                    }}
+            <div
+
             >
             {
             playlists.map((playlist,index)=><PlaylistItem key={playlist.id} playlist={playlist} />)
             } 
-            </motion.div>
+            </div>
             </div>  
-        </div>
+        </motion.div>
         </>
     )
 }

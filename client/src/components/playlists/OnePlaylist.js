@@ -5,6 +5,8 @@ import axios from "axios"
 import SongItem from '../songs/SongItem'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
+import {motion} from 'framer-motion'
+
 
 function OnePlaylist() {
     const {id} =useParams()
@@ -41,7 +43,13 @@ function OnePlaylist() {
     return (
         playlist.length>0?
         <>
-        <div className="onePlaylist">
+        <motion.div 
+         initial={{opacity:0,x:"-100%"}}
+         animate={{opacity:1,x:0}}
+         transition={{
+        default: { duration: 1.2,delay:0.5 }                
+                                    }}
+        className="onePlaylist">
         <h2>
             {
             playlist[0].playlist
@@ -57,7 +65,7 @@ function OnePlaylist() {
             })
         }
         </div>
-        </div>
+        </motion.div>
         </>
         :
         !loading?

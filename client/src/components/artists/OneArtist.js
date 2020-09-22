@@ -7,6 +7,7 @@ import Loading from '../loading/Loading'
 import Carousel from 'react-elastic-carousel';
 import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
+import {motion} from 'framer-motion'
 
 function generateTime() {
     let today = new Date();
@@ -69,7 +70,14 @@ function OneArtist() {
     return (
         artist.length>0?
         <>
-        <div className="oneArtist">
+        <motion.div
+                 initial={{opacity:0,x:"-100%"}}
+                animate={{opacity:1,x:0}}
+                transition={{
+                 default: { duration: 1.2,delay:0.5 },
+                                   
+                           }}
+        className="oneArtist">
         <h2>
             {
             artist[0].name
@@ -96,7 +104,7 @@ function OneArtist() {
             } 
          </Carousel>
         </div>
-        </div>
+        </motion.div>
         </>
         :
         loading?

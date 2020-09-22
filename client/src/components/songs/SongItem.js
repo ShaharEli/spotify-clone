@@ -1,7 +1,6 @@
 import React from 'react'
 import "./SongItem.css"
 import { Link } from 'react-router-dom'
-import {motion} from 'framer-motion'
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -70,13 +69,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
         </div>
       );
       return (
-        <motion.div 
-        initial={{opacity:0,y:"100%"}}
-        animate={{opacity:1,y:0}}
-        transition={{
-            default: { duration: 0.4 },
-            delay:0.5
-        }}
+        <div 
         className={album?"songs":"albumSongs"} style={styles} >
           <Tooltip title="add to your songs">
           <span onClick={addSong} className="addSong"  >+</span>
@@ -117,7 +110,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
             :
             <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
             }
-        </motion.div>
+        </div>
     )
 }
 

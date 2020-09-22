@@ -9,6 +9,7 @@ import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
 import TopArtist from '../artists/TopArtist'
 import TopPlaylist from '../playlists/TopPlaylist'
+import {motion} from 'framer-motion'
 
 function generateTime() {
     let today = new Date();
@@ -99,7 +100,14 @@ function About() {
     }, [Auth.email])
     return (
         <>
-        <div id="about">
+        <motion.div id="about"
+                initial={{opacity:0,x:"100%"}}
+                animate={{opacity:1,x:0}}
+                   transition={{
+                       default: { duration: 1.2,delay:0.5 },
+                           
+                   }}
+        >
         <div id="userInfo">
              <span style={{marginLeft:50}}>  Hi there {Auth.name}</span> &nbsp; &nbsp;
             <Button style={{marginRight:20}} onClick={logout} variant="contained" color="secondary">Logout</Button>
@@ -160,7 +168,7 @@ function About() {
             <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some playlists...</h1>
             }
             </div>
-        </div>
+        </motion.div>
         </>
     )
 }

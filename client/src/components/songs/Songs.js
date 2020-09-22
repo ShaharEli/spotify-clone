@@ -6,6 +6,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
+import {motion} from 'framer-motion'
 
 
 function generateTime() {
@@ -43,7 +44,14 @@ const Songs = () => {
     }
     return (
         <>
-        <div id="songs">
+        <motion.div id="songs"
+         initial={{opacity:0,x:"100%"}}
+         animate={{opacity:1,x:0}}
+            transition={{
+                default: { duration: 1.2,delay:0.5 },
+                    
+            }}
+        >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
@@ -62,7 +70,7 @@ const Songs = () => {
             songs.map((song,index)=><SongItem key={song.id} song={song} index={index} />)
             } 
             </div>  
-        </div>
+        </motion.div>
         </>
     )
 }
