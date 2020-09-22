@@ -100,19 +100,18 @@ function About() {
     }, [Auth.email])
     return (
         <>
-        <motion.div id="about"
-                initial={{opacity:0,x:"100%"}}
-                animate={{opacity:1,x:0}}
-                   transition={{
-                       default: { duration: 1.2,delay:0.5 },
-                           
-                   }}
+        <div id="about"
         >
         <div id="userInfo">
              <span style={{marginLeft:50}}>  Hi there {Auth.name}</span> &nbsp; &nbsp;
             <Button style={{marginRight:20}} onClick={logout} variant="contained" color="secondary">Logout</Button>
         </div>
-        <div id="userFavorites">
+        <motion.div id="userFavorites"
+                initial={{opacity:0,scale:0.5}}
+                animate={{opacity:1,scale:1}}
+                 transition={{
+                 default: { duration: 1 },
+                    }} >
              {
             songs.length>0?
             <>
@@ -167,8 +166,8 @@ function About() {
             :
             <h1 style={{textAlign:"center",marginBottom:150}}>Waiting for some playlists...</h1>
             }
-            </div>
-        </motion.div>
+            </motion.div>
+        </div>
         </>
     )
 }

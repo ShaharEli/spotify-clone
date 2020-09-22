@@ -6,7 +6,6 @@ import SongItem from '../songs/SongItem'
 import { Link } from 'react-router-dom'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
-import {motion} from 'framer-motion'
 
 function generateTime() {
     let today = new Date();
@@ -52,12 +51,7 @@ function OneAlbum() {
     return (
         album.length>0?
         <>
-        <motion.div className="oneAlbum"
-        initial={{opacity:0,x:"-100%"}}
-         animate={{opacity:1,x:0}}
-         transition={{
-        default: { duration: 1.2,delay:0.5 }                
-                                    }}>
+        <div className="oneAlbum">
         <h2>
             {
             album[0].name
@@ -81,7 +75,7 @@ function OneAlbum() {
             })
         }
         </div>
-        </motion.div>
+        </div>
         </>
         :
         !loading?

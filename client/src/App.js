@@ -20,7 +20,6 @@ import Swal from "sweetalert2"
 import Loading from './components/loading/Loading';
 import axios from "axios"
 import Header from './components/header/Header';
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 
 function App() {
@@ -112,13 +111,8 @@ function App() {
             :        
                 <>
                 <Header />
-                <Route render={({location})=>(
-                <TransitionGroup>
-                <CSSTransition
-                     key={location.key}
-                //    timeout={500} classNames="pageSlider" mountOnEnter={true} unmountOnExit={true}
-                    >
-                  <Switch>
+                 <Route render={({location})=>(
+                <Switch location={location} key={location.pathname}>
                  <Route exact path="/login" component={Login}/>
                  <Route exact path="/register" component={Register}/>
                  <Route path="/song/:id" component={OneSong}/>
@@ -134,8 +128,7 @@ function App() {
                  <Route exact path="/" component={Home}/>
                  <Route path="*"  component={NotFound} />
                 </Switch>
-                </CSSTransition>
-                </TransitionGroup>
+
 
                 )} />
 
