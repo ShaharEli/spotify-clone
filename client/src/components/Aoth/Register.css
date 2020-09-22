@@ -1,12 +1,15 @@
 
 .authForms{
     width: 30vw;
+    min-width: 300px;
     margin:auto;
     margin-top: 10vh;
     border: 1px solid black ;
     border-radius: 8px;
     background-color: #F6F6F6;
     opacity: 0.9;
+    box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.75);
+
 }
 #register{
     display: flex;
