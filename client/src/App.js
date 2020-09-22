@@ -53,7 +53,7 @@ function App() {
               setPlaying(true)
           }
           else{
-              setSong(list[counter])
+              setSong(list[counter+1])
               setPlaying(true)
 
           }
