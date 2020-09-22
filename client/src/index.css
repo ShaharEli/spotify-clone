@@ -7,34 +7,30 @@ body {
   overflow: hidden;
 
 }
-/* .page-enter { */
-	/* opacity: 0;
-	transform: scale(1.1);
-  }
-  
-  .page-enter-active {
-	opacity: 1;
-	transform: scale(1);
-	transition: opacity 300ms, transform 300ms;
-  }
-  
-  .page-exit {
-	opacity: 1;
-	transform: scale(1);
-  }
-  
-  .page-exit-active {
-	opacity: 0;
-	transform: scale(0.9);
-	transition: opacity 300ms, transform 300ms;
-  } */
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
 
-   
+  .pageSlider-enter {
+  opacity: 0;
+
+}
+
+.pageSlider-enter.pageSlider-enter-active {
+  opacity: 1;
+  scale: 1;
+  transition: all 500ms;
+}
+.pageSlider-exit {
+  opacity: 1;
+}
+
+.pageSlider-exit.pageSlider-exit-active {
+  opacity: 0;
+  transition: all 500ms ;
+} 
 
 *::-webkit-scrollbar-track
 {

@@ -20,6 +20,8 @@ import Swal from "sweetalert2"
 import Loading from './components/loading/Loading';
 import axios from "axios"
 import Header from './components/header/Header';
+import { TransitionGroup, CSSTransition } from "react-transition-group";
+
 
 function App() {
     const [auth, setAuth] = useState(false)
@@ -110,23 +112,33 @@ function App() {
             :        
                 <>
                 <Header />
+                <Route render={({location})=>(
+                <TransitionGroup>
+                <CSSTransition
+                     key={location.key}
+                   timeout={700} classNames="pageSlider" mountOnEnter={true} unmountOnExit={true}
+                    >
+                  <Switch>
+                 <Route exact path="/login" component={Login}/>
+                 <Route exact path="/register" component={Register}/>
+                 <Route path="/song/:id" component={OneSong}/>
+                 <Route exact path="/addSong" component={AddSong} />
+                 <Route path="/album/:id" component={OneAlbum} />
+                 <Route path="/playlist/:id" component={OnePlaylist}/>
+                 <Route path="/artist/:id" component={OneArtist}/>
+                 <Route exact path="/playlists" component={Playlists}/>
+                 <Route exact path="/artists" component={Artist}/>
+                 <Route exact path="/albums" component={Albums}/>
+                 <Route exact path="/songs" component={Songs} />
+                 <Route exact  path="/about" component={About}/>
+                 <Route exact path="/" component={Home}/>
+                 <Route path="*"  component={NotFound} />
+                </Switch>
+                </CSSTransition>
+                </TransitionGroup>
 
-                <Switch>
-                  <Route exact path="/login" component={Login}/>
-                  <Route exact path="/register" component={Register}/>
-                  <Route path="/song/:id" component={OneSong}/>
-                  <Route exact path="/addSong" component={AddSong} />
-                  <Route path="/album/:id" component={OneAlbum} />
-                  <Route path="/playlist/:id" component={OnePlaylist}/>
-                  <Route path="/artist/:id" component={OneArtist}/>
-                  <Route exact path="/playlists" component={Playlists}/>
-                  <Route exact path="/artists" component={Artist}/>
-                  <Route exact path="/albums" component={Albums}/>
-                  <Route exact path="/songs" component={Songs} />
-                  <Route exact  path="/about" component={About}/>
-                  <Route exact path="/" component={Home}/>
-                  <Route path="*"  component={NotFound} />
-                 </Switch>
+                )} />
+
                  </>
          }
          

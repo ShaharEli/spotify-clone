@@ -53,7 +53,7 @@ function Albums() {
                     animate={{opacity:1,x:0}}
                     exit={{opacity:0}}
                     transition={{
-                        default: { duration: 0.9 },
+                        default: { duration: 0.9,delay:0.7 },
                     }}
             >
             {

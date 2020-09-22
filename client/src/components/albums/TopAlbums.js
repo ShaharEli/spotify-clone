@@ -52,7 +52,7 @@ function TopAlbums() {
                     animate={{opacity:1,x:0}}
                     exit={{opacity:0}}
                     transition={{
-                        default: { duration: 1.8 },
+                        default: { duration: 1.8,delay:0.6 },
                     }}
             >
              <Carousel itemsToShow={8} itemPadding={[10]} breakPoints={breakPoints}>
