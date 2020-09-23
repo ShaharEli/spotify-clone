@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const router = Router()
-
+const {Artist} = require("../ORM/models")
 
 router.delete("/:id",(req,res)=>{
     connection.query(`DELETE FROM artists WHERE id= ${req.params.id}`,  (err, result) =>{
@@ -46,11 +46,9 @@ router.post("/",(req,res)=>{
       });
 })
 
-router.get("/",(req,res)=>{
-    connection.query("SELECT * FROM artists",  (err, result) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
+router.get("/",async (req,res)=>{
+    const artists = await Artist.findAll()
+    res.json(artists)
 })
 
 router.get("/albums/:id",(req,res)=>{

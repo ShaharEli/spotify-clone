@@ -56,7 +56,7 @@ router.get("/top",(req,res)=>{
 })
 
 
-app.get("/:id",(req,res)=>{
+router.get("/:id",(req,res)=>{
     connection.query(`SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id  WHERE songs.id= ${req.params.id}`,  (err, result, fields) =>{
         if (err) res.send("error");
         res.json(result);
@@ -64,3 +64,7 @@ app.get("/:id",(req,res)=>{
     
 })
 module.exports = router
+
+
+
+
