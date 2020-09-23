@@ -47,8 +47,14 @@ router.post("/",(req,res)=>{
 })
 
 router.get("/",async (req,res)=>{
-    const artists = await Artist.findAll()
-    res.json(artists)
+    try{
+        const artists = await Artist.findAll()
+        res.json(artists)
+    }
+    catch(e){
+        res.json({error:e.message})
+    }
+
 })
 
 router.get("/albums/:id",(req,res)=>{
@@ -68,3 +74,4 @@ router.get("/:id",(req,res)=>{
 })
 
 module.exports = router
+
