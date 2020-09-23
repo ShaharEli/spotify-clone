@@ -181,7 +181,30 @@ app.get("/checkmail/:email",async (req,res)=>{
             if(result.length===0){
                 res.json({"emailOk":true})
             }else{
-                res.json({"emailOk":false,"name":result[0].name,"token":result[0].password.slice(0,result[0].password.length/2)+"token"})
+                res.json({"emailOk":false,"name":result[0].name})
+            }
+        }
+      });
+})
+app.get("/checktoken",async (req,res)=>{
+    const email = req.headers.email
+    const token = req.headers.token
+    if (!email||!token){
+        res.status(400).send("content missing")
+    }
+    const queryString = `Select * from users where users.email="${email}"`;
+    connection.query(queryString, (err, result)=> {
+        if (err) {
+            res.send("error");
+        } else {
+            if(result.length===0){
+                res.json({error:"user not found"})
+            }else{
+                if(token===result[0].password.slice(0,result[0].password.length/2)+"token"){
+                    res.json({auth:true})
+                }else{
+                    res.json({auth:false})
+                }
             }
         }
       });

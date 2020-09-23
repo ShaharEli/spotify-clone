@@ -72,9 +72,14 @@ function App() {
         const isAuth = await Cookie.get("auth")
         const authEmail =await  Cookie.get("email")
         const authName = await  Cookie.get("name")
-        const ok= await axios.get(`/checkmail/${authEmail}`)
         const token = await Cookie.get("token")
-        if (isAuth==="true" && ok.data.token===token && !ok.data.emailOk && ok.data.name===authName){
+        const ok= await axios.get(`/checkmail/${authEmail}`)
+        const {data:checkToken} = await axios.get("/checkToken", {
+            headers: {
+              token: `${token}`,
+              email: `${authEmail}`
+            }});
+        if (isAuth==="true" && checkToken.auth===true &&  !ok.data.emailOk && ok.data.name===authName){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
