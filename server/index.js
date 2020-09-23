@@ -24,7 +24,7 @@ const  connection = mysql.createConnection({
     multipleStatements: true
   });
 connection.connect((err) =>{
-    if (err) throw err;
+    if (err) res.send("error");
     console.log("Connected to my sql!");
 });
 
@@ -176,7 +176,6 @@ app.get("/checkmail/:email",async (req,res)=>{
     const queryString = `Select * from users where users.email="${email}"`;
     connection.query(queryString, (err, result)=> {
         if (err) {
-            console.log("Dcdscdscd");
             res.send("error");
         } else {
             if(result.length===0){
@@ -190,7 +189,7 @@ app.get("/checkmail/:email",async (req,res)=>{
 
 app.get("/songs",(req,res)=>{
     connection.query("SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id ORDER BY upload_at",  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
     
@@ -202,14 +201,14 @@ app.get("/allfavorites/:email",async (req,res)=>{
      select artists.* from users_artists join artists on artists.id = users_artists.artist_id where email ="${req.params.email}" ORDER BY uploaded_at;
      select playlists.* from users_playlists join playlists on playlists.id = users_playlists.playlist_id where email ="${req.params.email}" ORDER BY uploaded_at;
      `,  (err, results) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(results);
     });
     
 })
 app.get("/favorites_songs/:email",async (req,res)=>{
     connection.query(`select songs.* ,albums.cover_img as img ,albums.name As album, artists.name As artist from users_songs join songs on songs.id = users_songs.song_id  Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id where email ="${req.params.email}" ORDER BY upload_at;`,  (err, result) =>{
-       if (err) throw err;
+        if (err) res.send("error");
        res.json(result);
    });
    
@@ -219,7 +218,7 @@ app.get("/favorites_songs/:email",async (req,res)=>{
 
 app.get("/song/:id",(req,res)=>{
     connection.query(`SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id  WHERE songs.id= ${req.params.id}`,  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
     
@@ -227,7 +226,7 @@ app.get("/song/:id",(req,res)=>{
 
 app.get("/top_songs",(req,res)=>{
     connection.query("SELECT songs.*,albums.cover_img as img ,albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id LIMIT 20",  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
@@ -235,7 +234,7 @@ app.get("/top_songs",(req,res)=>{
 
 app.get("/albumByArtistId/:id",(req,res)=>{
     connection.query(`select albums.* from albums join  artists on artists.id=albums.artist_id where artists.id=${req.params.id}`,  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
@@ -280,14 +279,14 @@ app.post("/album",(req,res)=>{
 
 app.get("/albums",(req,res)=>{
     connection.query("select albums.*,artists.name as artist from albums join artists on artists.id=artist_id",  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
 
 app.get("/album/:id",(req,res)=>{
     connection.query(`select albums.*,songs.id as song_id,artists.name as artist,songs.title as song,songs.youtube_link as youtube_link,songs.length as length,songs.track_number as truck_number,songs.upload_at as song_upload_date from albums join artists on artists.id=artist_id join songs on songs.album_id=albums.id where albums.id=${req.params.id}`,  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
     
@@ -295,7 +294,7 @@ app.get("/album/:id",(req,res)=>{
 
 app.get("/top_albums",(req,res)=>{
     connection.query("select albums.*,artists.name as artist from albums join artists on artists.id=artist_id LIMIT 20",  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
@@ -340,23 +339,25 @@ app.post("/playlist",(req,res)=>{
 
 app.get("/playlists",(req,res)=>{
     connection.query("SELECT * FROM playlists",  (err, result, fields) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
 
 app.get("/playlist/:id",(req,res)=>{
-    connection.query(`SELECT songs.*, albums.name AS album,artists.name AS artist,playlists.name AS playlist,playlists.id as playlist_id,playlists.uploaded_at as playlist_date,playlists.cover_img FROM songs JOIN artists ON artists.id=songs.artist_id JOIN albums ON albums.id=songs.album_id JOIN list_of_songs ON list_of_songs.song_id=songs.id JOIN playlists ON playlists.id=${req.params.id} WHERE list_of_songs.playlist_id=${req.params.id}`
-    ,  (err, result, fields) =>{
-        if (err) throw err;
-        res.json(result);
-      });
+
+        connection.query(`SELECT songs.*, albums.name AS album,artists.name AS artist,playlists.name AS playlist,playlists.id as playlist_id,playlists.uploaded_at as playlist_date,playlists.cover_img FROM songs JOIN artists ON artists.id=songs.artist_id JOIN albums ON albums.id=songs.album_id JOIN list_of_songs ON list_of_songs.song_id=songs.id JOIN playlists ON playlists.id=${req.params.id} WHERE list_of_songs.playlist_id=${req.params.id}`
+        ,  (err, result, fields) =>{
+            if (err) res.send("error");
+            res.json(result);
+          })
+    
     
 })
 
 app.get("/top_playlists",(req,res)=>{
     connection.query("SELECT * FROM playlists LIMIT 20",  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
@@ -401,7 +402,7 @@ app.post("/artist",(req,res)=>{
 
 app.get("/artists",(req,res)=>{
     connection.query("SELECT * FROM artists",  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
@@ -409,7 +410,7 @@ app.get("/artists",(req,res)=>{
 app.get("/artist/:id",(req,res)=>{
     connection.query(`select songs.*,artists.name,albums.name as album_name,artists.cover_img,artists.uploaded_at as artist_date from songs join artists on songs.artist_id=artists.id join albums on songs.album_id=albums.id where songs.artist_id=${req.params.id}`
     ,  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
     
@@ -417,7 +418,7 @@ app.get("/artist/:id",(req,res)=>{
 
 app.get("/top_artists",(req,res)=>{
     connection.query("SELECT * FROM artists LIMIT 20",  (err, result) =>{
-        if (err) throw err;
+        if (err) res.send("error");
         res.json(result);
       });
 })
