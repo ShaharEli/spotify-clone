@@ -20,17 +20,17 @@ app.use(morgan(function (tokens, req, res) {
       return myTiny.join(' ')
   }));
   
-const  connection = mysql.createConnection({
-    host: "localhost",
-    user: process.env.USER,
-    password: process.env.PASSWORD,
-    database: "spotify_clone",
-    multipleStatements: true
-  });
-connection.connect((err) =>{
-    if (err) res.send("error");
-    console.log("Connected to my sql!");
-});
+// const  connection = mysql.createConnection({
+//     host: "localhost",
+//     user: process.env.USER,
+//     password: process.env.PASSWORD,
+//     database: "spotify_clone",
+//     multipleStatements: true
+//   });
+// connection.connect((err) =>{
+//     if (err) res.send("error");
+//     console.log("Connected to my sql!");
+// });
 
 app.use("/songs",songs)
 app.use("/users",users)
