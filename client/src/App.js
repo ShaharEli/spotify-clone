@@ -89,7 +89,6 @@ function App() {
             await getAutorizied()
             setLoading(false)
         })()
-
     },[])  
     return (
         <>

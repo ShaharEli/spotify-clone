@@ -2,48 +2,39 @@ const {Router} = require("express");
 const router = Router()
 const {Artist,Album,Song} = require("../ORM/models")
 
-router.delete("/:id",(req,res)=>{
-    connection.query(`DELETE FROM artists WHERE id= ${req.params.id}`,  (err, result) =>{
-        if (err)  res.send("An error occurred.");
-        res.send("One artist deleted");
-      });
+router.delete("/:id",async(req,res)=>{
+    try{
+        await Artist.destroy({where:{id:req.params.id}})
+        res.json({success:`artist with id ${req.params.id} deleted`})
+    }catch(e){res.json({error:e.message})}
+
 })
-router.get("/top",(req,res)=>{
-    connection.query("SELECT * FROM artists LIMIT 20",  (err, result) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
+router.get("/top",async (req,res)=>{
+    try{
+        const topArtists=await Artist.findAll({
+            limit:20
+        })
+        res.json(topArtists)
+    }catch(e){res.json({error:e.message})}
 })
 
-router.put("/:id",(req,res)=>{
-    if (!req.body){
-        res.status(400).send("content missing")
+router.put("/:id",async (req,res)=>{
+    try{
+        const updated = await Artist.update(req.body,{
+            where:{id:req.params.id}
+        })
+        updated[1]===0?res.json({0:"updated"}):res.json({1:"updated"})
+    }catch(e){
+        res.json({error:e.message})
     }
-    const {body} = req;
-    const queryString = `UPDATE artists SET ? WHERE id=${req.params.id}`;    
-    connection.query(queryString,body,(err,result)=>{
-        if (err) {
-            res.send("An error occurred.");
-        } else {
-            res.send("1 artist updated");
-        }        
-    })
 })
 
-router.post("/",(req,res)=>{
-    if (!req.body){
-        res.status(400).send("content missing")
-    }
+router.post("/",async(req,res)=>{
+  try{
     const {body} =req
-    const queryString = `INSERT INTO artists 
-            SET ?`;
-    connection.query(queryString ,body ,  (err, data)=> {
-        if (err) {
-            res.send("An error occurred.");
-        } else {
-            res.send("1 artist successfully inserted into db");
-        }
-      });
+    await Artist.create(body)
+    res.json({success:"one artist added"})
+  }catch(e){res.json({error:e.message})}
 })
 
 router.get("/",async (req,res)=>{
@@ -57,37 +48,14 @@ router.get("/",async (req,res)=>{
 
 })
 
-router.get("/albums/:id",async (req,res)=>{
-      try{
-        const albums = await Album.findByPk(`${req.params.id}`,{
-            include:[{
-                model:Artist,
-            }
-            ],
-            where:{id:req.params.id}
-        })
-        res.json(albums)
-    }
-    catch(e){
-        res.json({error:e.message})
-    }
 
-})
-//to complete
 router.get("/:id",async (req,res)=>{
     try{
-       const artistsSongs= await Song.findAll({
-            include:[{
-                model:Artist,
-                attributes:[
-                    "name"
-                ]
-            }],
-            where:{artist_id:req.params.id}
+       const artistsData= await Artist.findByPk(req.params.id,{
+            include:[Song,Album]
         })
-        res.json(artistsSongs)
+        res.json(artistsData)
     }catch(e){res.json({error:e.message})}
-    
 })
 
 module.exports = router

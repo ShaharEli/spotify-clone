@@ -1,68 +1,91 @@
 const {Router} = require("express")
 const router = Router()
+const {Playlist,Playlists_song,Artist,Album,Song} =  require("../ORM/models") 
 
-
-router.delete("/:id",(req,res)=>{
-    connection.query(`DELETE FROM playlists WHERE id= ${req.params.id}`,  (err, result) =>{
-        if (err)  res.send("An error occurred.");
-        res.send("One playlist deleted");
-      });
+router.delete("/:id",async (req,res)=>{
+    try{
+        await Playlist.destory({
+            where:{id:req.params.id}
+        })
+        res.json({success:`playlist with id ${req.params.id} deleted`})
+    }catch(e){res.json({error:e.message})}
 })
 
-router.put("/:id",(req,res)=>{
+router.put("/:id",async (req,res)=>{
     if (!req.body){
         res.status(400).send("content missing")
     }
     const {body} = req;
-    const queryString = `UPDATE playlists SET ? WHERE id=${req.params.id}`;    
-    connection.query(queryString,body,(err,result)=>{
-        if (err) {
-            res.send("An error occurred.");
-        } else {
-            res.send("1 playlist updated");
-        }        
+    try{
+        await Playlist.update(body,{
+            where:{id:req.params.id}
+        })
+        res.json({success:"one playlist updated"})
+    }catch(e){res.json({error:e.message})}
+})
+
+router.post("/",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    try{
+        await Playlist.create(body)
+        res.json({success:"one playlist added"})
+    }catch(e){res.json({error:e.message})}
+
+})
+
+router.get("/",async (req,res)=>{
+    try{
+        const playlists = await Playlist.findAll()
+        res.json(playlists)
+    }catch(e){res.json({error:screen.message})}
+})
+
+router.get("/:id",async (req,res)=>{
+    try{
+    const result = await Playlist.findByPk(req.params.id, {
+        include: [
+            {
+                model: Playlists_song,
+                where: {playlist_id: req.params.id},
+                
+                include: [
+                    {
+                        model: Song,
+                        include: [
+                            {
+                                model: Artist,
+                                attributes: ["name"],
+                            },
+                            {
+                                model: Album,
+                                attributes: ["name"],
+                            },
+                        ],
+                        
+                    }
+                ],
+                attributes: ['id']
+            }
+        ]
     })
-})
-
-router.post("/",(req,res)=>{
-    if (!req.body){
-        res.status(400).send("content missing")
+    for(let i = 0; i < result.Playlists_songs.length; i++) {
+        result.Playlists_songs[i] = result.Playlists_songs[i].Song
     }
-    const {body} = req;
-    const queryString = `INSERT INTO playlists SET ?`;
-    connection.query(queryString,body , (err, result) =>{
-        if (err) {
-            res.send("An error occurred.");
-        } else {
-            res.send("1 playlist successfully inserted into db");
-        }
-      });
+    res.json(result)
+}catch(e){res.json({error:e.message})}
 
-})
-
-router.get("/",(req,res)=>{
-    connection.query("SELECT * FROM playlists",  (err, result, fields) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
-})
-
-router.get("/:id",(req,res)=>{
-
-        connection.query(`SELECT songs.*, albums.name AS album,artists.name AS artist,playlists.name AS playlist,playlists.id as playlist_id,playlists.uploaded_at as playlist_date,playlists.cover_img FROM songs JOIN artists ON artists.id=songs.artist_id JOIN albums ON albums.id=songs.album_id JOIN list_of_songs ON list_of_songs.song_id=songs.id JOIN playlists ON playlists.id=${req.params.id} WHERE list_of_songs.playlist_id=${req.params.id}`
-        ,  (err, result, fields) =>{
-            if (err) res.send("error");
-            res.json(result);
-          })
     
     
 })
 
-router.get("/top",(req,res)=>{
-    connection.query("SELECT * FROM playlists LIMIT 20",  (err, result) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
+router.get("/top",async (req,res)=>{
+    try{
+        const topPlaylist = await Playlist.findAll({limit:20})
+        res.json(topPlaylist)
+    }catch(e){res.json({error:e.message})}
 })
 
 
