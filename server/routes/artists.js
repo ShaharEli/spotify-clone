@@ -1,6 +1,6 @@
-const {Router} = require("express")
+const {Router} = require("express");
 const router = Router()
-const {Artist} = require("../ORM/models")
+const {Artist,Album,Song} = require("../ORM/models")
 
 router.delete("/:id",(req,res)=>{
     connection.query(`DELETE FROM artists WHERE id= ${req.params.id}`,  (err, result) =>{
@@ -57,19 +57,36 @@ router.get("/",async (req,res)=>{
 
 })
 
-router.get("/albums/:id",(req,res)=>{
-    connection.query(`select albums.* from albums join  artists on artists.id=albums.artist_id where artists.id=${req.params.id}`,  (err, result, fields) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
-})
+router.get("/albums/:id",async (req,res)=>{
+      try{
+        const albums = await Album.findByPk(`${req.params.id}`,{
+            include:[{
+                model:Artist,
+            }
+            ],
+            where:{id:req.params.id}
+        })
+        res.json(albums)
+    }
+    catch(e){
+        res.json({error:e.message})
+    }
 
-router.get("/:id",(req,res)=>{
-    connection.query(`select songs.*,artists.name,albums.name as album_name,artists.cover_img,artists.uploaded_at as artist_date from songs join artists on songs.artist_id=artists.id join albums on songs.album_id=albums.id where songs.artist_id=${req.params.id}`
-    ,  (err, result) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
+})
+//to complete
+router.get("/:id",async (req,res)=>{
+    try{
+       const artistsSongs= await Song.findAll({
+            include:[{
+                model:Artist,
+                attributes:[
+                    "name"
+                ]
+            }],
+            where:{artist_id:req.params.id}
+        })
+        res.json(artistsSongs)
+    }catch(e){res.json({error:e.message})}
     
 })
 

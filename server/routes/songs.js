@@ -1,11 +1,12 @@
 const {Router} = require("express")
 const router = Router()
-
-router.delete("/:id",(req,res)=>{
-    connection.query(`DELETE FROM songs WHERE id= ${req.params.id}`,  (err, result) =>{
-        if (err)  res.send("An error occurred.");
-        res.send("One song deleted");
-      });
+const {Song,Artist,Album} = require("../ORM/models")
+router.delete("/:id",async (req,res)=>{
+    try{
+    await Song.destroy({where:{id:req.params.id}})
+    res.json({success:`song with id ${req.params.id} deleted`})
+    }
+    catch(e){res.json({error:e.message})}
     
 })
 
@@ -40,11 +41,23 @@ router.post("/",(req,res)=>{
 
 })
 
-router.get("/",(req,res)=>{
-    connection.query("SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id ORDER BY upload_at",  (err, result, fields) =>{
-        if (err) res.send("error");
-        res.json(result);
-      });
+router.get("/",async(req,res)=>{
+    try{
+        const artistsSongs= await Song.findAll({
+             include:[{
+                 model:Artist,
+                 attributes:[
+                     "name"
+                 ]
+             }],
+         })
+         res.json(artistsSongs)
+     }catch(e){res.json({error:e.message})}
+     
+    // connection.query("SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id ORDER BY upload_at",  (err, result, fields) =>{
+    //     if (err) res.send("error");
+    //     res.json(result);
+    //   });
     
 })
 

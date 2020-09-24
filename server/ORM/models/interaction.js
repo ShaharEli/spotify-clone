@@ -28,6 +28,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Interaction',
+    paranoid:true
+    
   });
   return Interaction;
 };
