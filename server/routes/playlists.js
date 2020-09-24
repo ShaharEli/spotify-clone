@@ -2,6 +2,9 @@ const {Router} = require("express")
 const router = Router()
 const {Playlist,Playlists_song,Artist,Album,Song} =  require("../ORM/models") 
 
+
+
+
 router.delete("/:id",async (req,res)=>{
     try{
         await Playlist.destory({

@@ -38,16 +38,28 @@ router.post("/",async (req,res)=>{
 
 router.get("/",async(req,res)=>{
     try{
-        const albums = await Album.findAll({
-            include:[
+    const allAlbums = await Album.findAll({
+        include: [{
+            model: Artist,
+            attributes: ["name"]
+        }, {
+            model: Song,
+            include: [
                 {
-                    model:Artist,
-                    attributes:["name"]
-                }
-            ]
-        })
-        res.json(albums)
-    }catch(e){res.json({error:e.message})}
+                    model: Artist,
+                    attributes: ["name"],
+                },
+                {
+                    model: Album,
+                    attributes: ["name"],
+                },
+            ],
+        }
+    ]
+    });
+    res.json(allAlbums)
+}catch(e){res.json({error:e.message})}
+    
 
 })
 
@@ -57,6 +69,16 @@ router.get("/:id",async (req,res)=>{
             include:[
                 {
                     model:Song,
+                    include: [
+                        {
+                            model: Artist,
+                            attributes: ["name"],
+                        },
+                        {
+                            model: Album,
+                            attributes: ["name"],
+                        },
+                    ],
                 },
                 {
                     model:Artist,
