@@ -12,19 +12,31 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Song, {
-        foreignKey: 'song_id'
+        foreignKey: 'songId'
       });
       this.belongsTo(models.User, {
-        foreignKey: 'user_id'
+        foreignKey: 'userId'
       });
     }
 
   };
   Interaction.init({
-    user_id: DataTypes.INTEGER,
-    song_id: DataTypes.INTEGER,
-    is_liked: DataTypes.BOOLEAN,
-    play_count: DataTypes.INTEGER
+    userId:{
+      field:"user_id",
+      type:DataTypes.INTEGER
+    },
+    songId:{
+      field:"song_id",
+      type:DataTypes.INTEGER
+    },
+    isLiked:{
+      field:"is_liked",
+      type: DataTypes.BOOLEAN,
+    },
+    playCount:{
+      field:"play_count",
+      type:DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Interaction',

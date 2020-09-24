@@ -6,6 +6,9 @@ module.exports={
     "database": "spotify_dev",
     "host": "127.0.0.1",
     "dialect": "mysql",
+    "define":{
+      "underscored":true
+    }
 
   },
   "test": {
@@ -13,7 +16,10 @@ module.exports={
     "password": process.env.PASSWORD,
     "database": "spotify_test",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "define":{
+      "underscored":true
+    }
   },
   "production": {
     "username": "root",

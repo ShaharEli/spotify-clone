@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.belongsTo(models.Album,{
-        foreignKey:"album_id"
+        foreignKey:"albumId"
       })
       this.belongsTo(models.User,{
         foreignKey:"email"
@@ -21,7 +21,10 @@ module.exports = (sequelize, DataTypes) => {
   };
   User_album.init({
     email: DataTypes.STRING,
-    album_id: DataTypes.INTEGER
+    albumId:{
+      field:"album_id",
+      type:DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'User_album',

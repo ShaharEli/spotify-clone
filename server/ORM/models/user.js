@@ -12,19 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.User_album,{
-        foreignKey:"user_id"
+        foreignKey:"userId"
       })
       this.hasMany(models.User_playlist,{
-        foreignKey:"user_id"
+        foreignKey:"userId"
       })
       this.hasMany(models.User_artist,{
-        foreignKey:"user_id"
+        foreignKey:"userId"
       })
       this.hasMany(models.User_song,{
-        foreignKey:"user_id"
+        foreignKey:"userId"
       })
       this.hasMany(models.Interaction,{
-        foreignKey:"user_id"
+        foreignKey:"userId"
       })
 
     }
@@ -33,9 +33,15 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    isAdmin: DataTypes.BOOLEAN,
+    isAdmin: {
+      field:"is_admin",
+      type:DataTypes.BOOLEAN
+    } ,
     prefrences: DataTypes.JSON,
-    remember_token: DataTypes.BOOLEAN
+    rememberToken:{
+      field:"remember_token",
+      type: DataTypes.BOOLEAN
+    }
   }, {
     sequelize,
     modelName: 'User',

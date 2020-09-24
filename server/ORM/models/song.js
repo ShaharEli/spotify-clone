@@ -11,32 +11,47 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       this.hasMany(models.Playlists_song,{
-        foreignKey:"song_id"
+        foreignKey:"songId"
       });
       this.hasMany(models.Interaction,{
-        foreignKey:"song_id"
+        foreignKey:"songId"
       });
       this.hasMany(models.User_song,{
-        foreignKey:"song_id"
+        foreignKey:"songId"
       });
       this.belongsTo(models.Artist, {
-        foreignKey: 'artist_id'
+        foreignKey: 'artistId'
       });
       this.belongsTo(models.Album, {
-        foreignKey: 'album_id'
+        foreignKey: 'albumId'
       });
       // define association here
     }
   };
   Song.init({
-    youtube_link: DataTypes.STRING,
-    album_id: DataTypes.INTEGER,
-    artist_id: DataTypes.INTEGER,
+    youtubeLink:{
+      field:"youtube_link",
+      type:DataTypes.STRING
+    },
+    albumId:{
+      field:"album_id",
+      type: DataTypes.INTEGER
+    },
+    artistId:{
+      field:"artist_id",
+      type:DataTypes.INTEGER
+    },
     title: DataTypes.STRING,
     length: DataTypes.TIME,
-    track_number: DataTypes.INTEGER,
+    trackNumber:{
+      field:"track_number",
+      type:DataTypes.INTEGER
+    },
     lyrics: DataTypes.TEXT,
-    upload_at: DataTypes.DATE
+    uploadAt:{
+      field:"upload_at",
+      type:DataTypes.DATE
+    }
   }, {
     sequelize,
     modelName: 'Song',

@@ -12,17 +12,23 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Song, {
-        foreignKey: 'song_id'
+        foreignKey: 'songId'
       });
       this.belongsTo(models.Playlist, {
-        foreignKey: 'playlist_id'
+        foreignKey: 'playlistId'
       });
 
     }
   };
   Playlists_song.init({
-    playlist_id: DataTypes.INTEGER,
-    song_id: DataTypes.INTEGER
+    playlistId:{
+      field:"playlist_id",
+      type:DataTypes.INTEGER
+    },
+    songId:{
+      field:"song_id",
+      type:DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Playlists_song',
