@@ -4,7 +4,7 @@ import axios from 'axios'
 import TopSong from './TopSong'
 import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
-
+import Cookie from "js-cookie"
 function generateTime() {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -29,10 +29,12 @@ const TopSongs = () => {
     const [songs,setSongs] =useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/top_songs")
+            const {data} = await axios.get("/top_songs",{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(song=> {
-                if(song.upload_at===null){
-                    song.upload_at=generateTime()
+                if(song.uploadAt===null){
+                    song.uploadAt=generateTime()
                 } 
                 return song})
             setSongs(data)

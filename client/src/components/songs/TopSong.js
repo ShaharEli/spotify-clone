@@ -8,6 +8,7 @@ import Share from './Share';
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
+import Cookie from "js-cookie"
 
 
   function getModalStyle() {  
@@ -30,7 +31,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 function TopSong({song,query,noImg,oneArtist,noAdd}) {
     const Auth = React.useContext(AuthApi)
     const title = song.title
-    const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]
+    const link =song.youtubeLink.replace("watch?v=","embed/").split("&list")[0]
     const album =song.album
     const artist = song.artist
     const imgSrc = song.img
@@ -39,7 +40,9 @@ function TopSong({song,query,noImg,oneArtist,noAdd}) {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const addSong = async()=>{
-        await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+        await axios.post("/yoursongs",{email:Auth.email,songId:song.id},{headers:{
+          token:Cookie.get("token")
+      }})
     }
     const handleOpen = () => {
         setOpen(true);
@@ -87,18 +90,18 @@ function TopSong({song,query,noImg,oneArtist,noAdd}) {
                 
             </Modal>
             <div className="mainTopSong">
-            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.albumId}`}>
             album: 
             &nbsp;
             {album}
             </Link>
             {
             !oneArtist &&
-            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artistId}`}>
             artist: {artist}
             </Link>
             }
-            <Share  link={song.youtube_link}  songName={song.title} artistName={song.artist} />
+            <Share  link={song.youtubeLink}  songName={song.title} artistName={song.artist} />
             </div>
         </div>
     )

@@ -47,14 +47,16 @@ function About() {
       useEffect(() => {
         (async ()=>{
             try{
-                const {data} = await axios.get(`/allfavorites/${Auth.email}`)
+                const {data} = await axios.get(`/favorites/all/${Auth.email}`,{headers:{
+                    token:Cookie.get("token")
+                }})
                 let songsList = []
                 for (let i=0;i<data[0].length;i++){
                     if (songsList.find(element=>element.id===data[0][i].id)){
                         continue
                     }
-                    if(data[0][i].upload_at===null){
-                        data[0][i].upload_at=generateTime()
+                    if(data[0][i].uploadAt===null){
+                        data[0][i].uploadAt=generateTime()
                     } 
                     songsList.push(data[0][i])        
                 }
@@ -64,11 +66,11 @@ function About() {
                     if (albumsList.find(element=>element.id===data[1][i].id)){
                         continue
                     }
-                    if(data[1][i].upload_at===null){
-                        data[1][i].upload_at=generateTime()
+                    if(data[1][i].uploadAt===null){
+                        data[1][i].uploadAt=generateTime()
                     } 
-                    if(data[1][i].created_at===null){
-                        data[1][i].created_at=generateTime()
+                    if(data[1][i].createdAt===null){
+                        data[1][i].createdAt=generateTime()
                     } 
                     albumsList.push(data[1][i])        
                 }
@@ -78,8 +80,8 @@ function About() {
                     if (artistsList.find(element=>element.id===data[2][i].id)){
                         continue
                     }
-                    if(data[2][i].uploaded_at===null){
-                        data[2][i].uploaded_at=generateTime()
+                    if(data[2][i].uploadedAt===null){
+                        data[2][i].uploadedAt=generateTime()
                     } 
                     artistsList.push(data[2][i])        
                 }
@@ -89,8 +91,8 @@ function About() {
                     if (playlistsList.find(element=>element.id===data[3][i].id)){
                         continue
                     }
-                    if(data[3][i].uploaded_at===null){
-                        data[3][i].uploaded_at=generateTime()
+                    if(data[3][i].uploadedAt===null){
+                        data[3][i].uploadedAt=generateTime()
                     } 
                     playlistsList.push(data[3][i])        
                 }               

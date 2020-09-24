@@ -6,7 +6,6 @@ import axios from 'axios'
 import Swal from "sweetalert2"
 import {Redirect} from "react-router-dom"
 import AuthApi from './AuthApi';
-import Cookie from "js-cookie"
 import {motion} from 'framer-motion'
 
 
@@ -18,17 +17,11 @@ function Register() {
     const onSubmit = async values => {
       const ok= await axios.get(`/users/checkmail/${values.email}`)
       if(ok.data.emailOk){
-        const name= await axios.post("/users/register",values)
+        const name= await axios.post("/users/register",{...values,remember_token:checked})
         if(name.data.name){
           Auth.setAuth(true)
           Auth.setName(values.name)
           Auth.setEmail(values.email)
-          if(checked){
-            await Cookie.set("name",`${values.name}`)
-            await Cookie.set("email",`${values.email}`)
-            await Cookie.set("auth",`true`)
-            await Cookie.set("token",`${name.data.token}`)
-          }
           Swal.fire("Welcome",`${values.name}`,"success")  
         }
       }else{

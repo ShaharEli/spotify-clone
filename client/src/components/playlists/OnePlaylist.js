@@ -5,7 +5,7 @@ import axios from "axios"
 import SongItem from '../songs/SongItem'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
-
+import Cookie from "js-cookie"
 
 function OnePlaylist() {
     const {id} =useParams()
@@ -22,13 +22,15 @@ function OnePlaylist() {
     useEffect(() => {
         (async ()=>{
             try{
-            const {data} = await axios.get(`/playlist/${id}`)
+            const {data} = await axios.get(`/playlist/${id}`,{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(playlist=> {
-            if(playlist.playlist_date===null){
-                playlist.playlist_date=generateTime()
+            if(playlist.playlistDate===null){
+                playlist.playlistDate=generateTime()
             }
-            if(playlist.upload_at===null){
-                playlist.upload_at=generateTime()
+            if(playlist.uploadAt===null){
+                playlist.uploadAt=generateTime()
             }
             return playlist
          }
@@ -49,13 +51,13 @@ function OnePlaylist() {
             playlist[0].playlist
             }
         </h2>
-            <img className="coverImg" alt="" src={playlist[0].cover_img}/>
-        <h3>{playlist[0].playlist_date}</h3>
+            <img className="coverImg" alt="" src={playlist[0].coverImg}/>
+        <h3>{playlist[0].playlistDate}</h3>
         <div className="playlistMedia">
         {
             playlist.map(playlist=>{
-                const song = {id:playlist.id,artist_id:playlist.artist_id,upload_at:playlist.upload_at,title:playlist.title,artist:playlist.artist,length:playlist.length,youtube_link:playlist.youtube_link,album:playlist.album,album_id:playlist.album_id}
-                return <SongItem key={playlist.title} query={["playlist",playlist.playlist_id]} song={song} maxWidth={true} />
+                const song = {id:playlist.id,artistId:playlist.artistId,uploadAt:playlist.uploadAt,title:playlist.title,artist:playlist.artist,length:playlist.length,youtubeLink:playlist.youtubeLink,album:playlist.album,albumId:playlist.albumId}
+                return <SongItem key={playlist.title} query={["playlist",playlist.playlistId]} song={song} maxWidth={true} />
             })
         }
         </div>

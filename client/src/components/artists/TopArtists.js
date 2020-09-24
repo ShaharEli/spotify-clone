@@ -4,6 +4,7 @@ import axios from 'axios'
 import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
 import TopArtist from './TopArtist'
+import Cookie from "js-cookie"
 
 function generateTime() {
     let today = new Date();
@@ -30,10 +31,12 @@ function TopArtists() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/top_artists")
+            const {data} = await axios.get("/topArtists",{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             data.map(artist=> {
-                if(artist.uploaded_at===null){
-                    artist.uploaded_at=generateTime()
+                if(artist.uploadedAt===null){
+                    artist.uploadedAt=generateTime()
                 } 
                 return artist})
             setArtists(data)

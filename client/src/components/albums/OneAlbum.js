@@ -6,6 +6,7 @@ import SongItem from '../songs/SongItem'
 import { Link } from 'react-router-dom'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
+import Cookie from "js-cookie"
 
 function generateTime() {
     let today = new Date();
@@ -25,16 +26,18 @@ function OneAlbum() {
     useEffect(() => {
         (async ()=>{
             try{
-                const {data} = await axios.get(`/album/${id}`)
+                const {data} = await axios.get(`/album/${id}`,{headers:{
+                    token:Cookie.get("token")
+                }})
             data.map(album=> {
-                if(album.upload_at===null){
-                    album.upload_at=generateTime()
+                if(album.uploadAt===null){
+                    album.uploadAt=generateTime()
                 } 
-                if(album.created_at===null){
-                    album.created_at=generateTime()
+                if(album.createdAt===null){
+                    album.createdAt=generateTime()
                 } 
-                if(album.song_upload_date===null){
-                    album.song_upload_date=generateTime()
+                if(album.songUploadDate===null){
+                    album.songUploadDate=generateTime()
                 }
                 return album})
             setAlbum(data)
@@ -57,7 +60,7 @@ function OneAlbum() {
             album[0].name
             }
         </h2>
-        <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album[0].artist_id}`}>
+        <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album[0].artistId}`}>
         <h3>
             By &nbsp;
             {
@@ -65,12 +68,12 @@ function OneAlbum() {
             }
         </h3>
         </Link>
-            <img className="coverImg" alt="" src={album[0].cover_img}/>
-        <h3>{album[0].upload_at}</h3>
+            <img className="coverImg" alt="" src={album[0].coverImg}/>
+        <h3>{album[0].uploadAt}</h3>
         <div className="albumMedia">
         {
             album.map(album=>{
-                const song = {id:album.song_id,artist_id:album.artist_id,upload_at:album.song_upload_date,title:album.song,artist:album.artist,length:album.length,youtube_link:album.youtube_link,truck_number:album.truck_number}
+                const song = {id:album.songId,artistId:album.artistId,uploadAt:album.songUploadDate,title:album.song,artist:album.artist,length:album.length,youtubeLink:album.youtubeLink,truckNumber:album.truckNumber}
                 return <SongItem key={album.song} query={["album",id]} song={song} />
             })
         }

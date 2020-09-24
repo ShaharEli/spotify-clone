@@ -8,7 +8,7 @@ import "./OneSong.css"
 import SongItem from './SongItem';
 import MyPlayer from "./MyPlayer"
 import AuthApi from '../Aoth/AuthApi';
-
+import Cookie from "js-cookie"
 
 function generateTime() {
     let today = new Date();
@@ -35,17 +35,23 @@ function OneSong() {
     useEffect(()=>{
             (async ()=>{
                 try{
-                    let {data}= await axios.get(`/song/${id}`)
+                    let {data}= await axios.get(`/song/${id}`,{headers:{
+                        token:Cookie.get("token"),email:Cookie.get("email")
+                    }})
                     Auth.setSong(data[0])
                     if(query.get("artist")){
-                        data =  await axios.get(`/artist/${query.get("artist")}`)
+                        data =  await axios.get(`/artist/${query.get("artist")}`,{headers:{
+                            token:Cookie.get("token"),email:Cookie.get("email")
+                        }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){
-                        data =  await axios.get(`/favorites_songs/${Auth.email}`)
+                        data =  await axios.get(`/favorites_songs/${Auth.email}`,{headers:{
+                            token:Cookie.get("token"),email:Cookie.get("email")
+                        }})
                         data=data.data
                         let songsList = []
                         for (let i=0;i<data.length;i++){
@@ -53,8 +59,8 @@ function OneSong() {
                             if (songsList.find(element=>element.id===data[i].id)){
                                 continue
                             }
-                            if(data[i].upload_at===null){
-                                data[i].upload_at=generateTime()
+                            if(data[i].uploadAt===null){
+                                data[i].uploadAt=generateTime()
                             } 
                             songsList.push(data[i])        
                         }
@@ -63,9 +69,11 @@ function OneSong() {
 
                     }
                     else if(query.get("album")){
-                        data =  await axios.get(`/album/${query.get("album")}`)
+                        data =  await axios.get(`/album/${query.get("album")}`,{headers:{
+                            token:Cookie.get("token"),email:Cookie.get("email")
+                        }})
                         const albumsSongs = data.data.map((song)=>{
-                            song.id = song.song_id
+                            song.id = song.songId
                             return song
                         })
                         Auth.setList(albumsSongs)
@@ -74,14 +82,18 @@ function OneSong() {
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
-                        data =  await axios.get(`/playlist/${query.get("playlist")}`)
+                        data =  await axios.get(`/playlist/${query.get("playlist")}`,{headers:{
+                            token:Cookie.get("token"),email:Cookie.get("email")
+                        }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
-                        data =  await axios.get(`/top_songs`)
+                        data =  await axios.get(`/top_songs`,{headers:{
+                            token:Cookie.get("token"),email:Cookie.get("email")
+                        }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))

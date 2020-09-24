@@ -32,6 +32,7 @@ function App() {
     const [counter,setCounter] =useState(0)
     const [playing,setPlaying] = useState(true)
     const [restore,setRestore] = useState(false)
+    const [remember,setRemember] =useState(false)
     const pause =()=>{
       setPlaying(false)
   }
@@ -72,9 +73,13 @@ function App() {
         const isAuth = await Cookie.get("auth")
         const authEmail =await  Cookie.get("email")
         const authName = await  Cookie.get("name")
-        const ok= await axios.get(`/users/checkmail/${authEmail}`)
         const token = await Cookie.get("token")
-        if (isAuth==="true" && ok.data.token===token && !ok.data.emailOk && ok.data.name===authName){
+        let ok = false
+        try{
+            const {data:result} = await axios.post("/users/checktoken",{token:token})
+            result===true?ok=true:ok=false
+        }catch(e){ok=false}        
+        if (ok&&isAuth && authEmail &&  authName && token){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
@@ -89,10 +94,11 @@ function App() {
             await getAutorizied()
             setLoading(false)
         })()
+
     },[])  
     return (
         <>
-        <AuthApi.Provider value={{auth, setAuth,name,setName, email,setEmail,song,setSong
+        <AuthApi.Provider value={{remember,setRemember,auth, setAuth,name,setName, email,setEmail,song,setSong
         ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying,play,pause,next,previous}}>
        <Router>
          {

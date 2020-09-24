@@ -6,7 +6,6 @@ import axios from 'axios'
 import Swal from "sweetalert2"
 import {useForm} from "react-hook-form"
 import AuthApi from "./AuthApi"
-import Cookie from "js-cookie"
 import { useHistory } from "react-router-dom";
 import {motion} from 'framer-motion'
 
@@ -18,21 +17,13 @@ function Login() {
     const [checked,setChecked] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
-         const {data} =  await axios.post("/users/login",values)
+         const {data} =  await axios.post("/users/login",{...values,remember_token:checked})
          if(data.name){
              Auth.setAuth(true)
              Auth.setName(data.name)
              Auth.setEmail(values.email)
-             if(checked){
-                await Cookie.set("name",`${data.name}`)
-                await Cookie.set("email",`${values.email}`)
-                await Cookie.set("auth",`true`)
-                await Cookie.set("token",`${data.token}`)
-             }
              Swal.fire("Welcome back",`${data.name}`,"success") 
              history.push("/");
-             
-
          }else{
              Swal.fire("please try again","","error")
          }

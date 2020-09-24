@@ -4,15 +4,18 @@ import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import { Tooltip } from '@material-ui/core';
+import Cookie from "js-cookie"
 
 function AlbumItem({album}) {
     const Auth = useContext(AuthApi)
     const name = album.name
-    const image =album.cover_img
-    const date = album.upload_at.slice(0,10)
+    const image =album.coverImg
+    const date = album.uploadAt.slice(0,10)
     const artist = album.artist
     const addAlbum = async()=>{
-        await axios.post("/youralbums",{email:Auth.email,album_id:album.id})
+        await axios.post("/youralbums",{email:Auth.email,albumId:album.id},{headers:{
+            token:Cookie.get("token")
+        }})
     }
     return (
         <div className="albums">
@@ -23,7 +26,7 @@ function AlbumItem({album}) {
             <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${album.id}`}>
             <div className="albumsName">{name}</div>
             </Link>
-            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album.artist_id}`}>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${album.artistId}`}>
             <div>{artist}</div>
             </Link>
             <div className="albumsDate">{date}</div>

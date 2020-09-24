@@ -6,8 +6,7 @@ import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
-
-
+import Cookie from "js-cookie"
 function generateTime() {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -24,10 +23,12 @@ const Songs = () => {
     const [songsUnfiltered,setSongsUnfiltered] = useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/songs")
+            const {data} = await axios.get("/songs",{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(song=> {
-                if(song.upload_at===null){
-                    song.upload_at=generateTime()
+                if(song.uploadAt===null){
+                    song.uploadAt=generateTime()
                 } 
                 return song})
             setSongs(data)

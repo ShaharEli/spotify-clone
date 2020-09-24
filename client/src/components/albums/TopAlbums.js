@@ -4,7 +4,7 @@ import axios from 'axios'
 import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
 import TopAlbum from "./TopAlbum"
-
+import Cookie from "js-cookie"
 function generateTime() {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -29,13 +29,15 @@ function TopAlbums() {
     const [albums,setAlbums] =useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/top_albums")
+            const {data} = await axios.get("/albums/top",{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(album=> {
-                if(album.upload_at===null){
-                    album.upload_at=generateTime()
+                if(album.uploadAt===null){
+                    album.uploadAt=generateTime()
                 } 
-                if(album.created_at===null){
-                    album.created_at=generateTime()
+                if(album.createdAt===null){
+                    album.createdAt=generateTime()
                 } 
                 return album})
             setAlbums(data)

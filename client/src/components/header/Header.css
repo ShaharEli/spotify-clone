@@ -102,6 +102,8 @@ header{
     header{
         font-size: 0px;
         }
+        .mainPlayer{
+          height: 5vh;}
   }
   @media only screen and (max-width: 332px) {
     header{

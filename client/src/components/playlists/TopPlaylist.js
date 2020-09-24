@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import { Tooltip } from '@material-ui/core';
-
+import Cookie from "js-cookie"
 function TopPlaylist({playlist,noAdd}) {
     const Auth = useContext(AuthApi)
     const name = playlist.name
-    const image =playlist.cover_img
-    const date = playlist.uploaded_at.slice(0,10)
+    const image =playlist.coverImg
+    const date = playlist.uploadedAt.slice(0,10)
     const addPlaylist = async()=>{
-        await axios.post("/yourplaylists",{email:Auth.email,playlist_id:playlist.id})
+        await axios.post("/yourplaylists",{email:Auth.email,playlistId:playlist.id},{headers:{
+            token:Cookie.get("token"),email:Cookie.get("email")
+        }})
     }
     return (
         <div className="topPlaylists">

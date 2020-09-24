@@ -8,6 +8,7 @@ import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import {motion} from 'framer-motion'
+import Cookie from "js-cookie"
 
 
 import Share from './Share';
@@ -43,13 +44,15 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     maxWidth&&{maxWidth:"40vw"} 
     styles=background? {...styles,backgroundColor:"#00C700"}:styles
     const title = song.title
-    const link =song.youtube_link.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
-    const date = song.upload_at?song.upload_at.slice(0,10) : generateTime()
+    const link =song.youtubeLink.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
+    const date = song.uploadAt?song.uploadAt.slice(0,10) : generateTime()
     const album =song.album
     const artist = song.artist
     const length = song.length
     const addSong = async()=>{
-      await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+      await axios.post("/yoursongs",{email:Auth.email,songId:song.id},{headers:{
+        token:Cookie.get("token")
+    }})
   }
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
@@ -83,7 +86,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
           <span onClick={addSong} className="addSong"  >+</span>
           </Tooltip>
             <div className="songInfo">
-              {!album && <span className="truckNamber">{song.truck_number}&nbsp;</span>}
+              {!album && <span className="truckNamber">{song.truckNumber}&nbsp;</span>}
               <PlayCircleOutlineIcon style={{cursor:"pointer"}} onClick={handleOpen}></PlayCircleOutlineIcon></div>
             <Modal 
                 open={open}
@@ -104,19 +107,19 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
             <>
       
             <div className="songInfo">upload date: {date}</div>
-            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.album_id}`}>
+            <Link style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/album/${song.albumId}`}>
             <div className="songInfo">album name: 
             &nbsp;
             {album}
             </div>
             </Link>
-            <Link  style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artist_id}`}>
+            <Link  style={{cursor:"pointer",textDecoration:"none",color:"black"}} to={`/artist/${song.artistId}`}>
             <div className="songInfo">artist: {artist}</div>
             </Link> 
-            <Share link={song.youtube_link} songName={song.title} artistName={song.artist}/>
+            <Share link={song.youtubeLink} songName={song.title} artistName={song.artist}/>
             </>
             :
-            <Share link={song.youtube_link} songName={song.title} artistName={song.artist} />
+            <Share link={song.youtubeLink} songName={song.title} artistName={song.artist} />
             }
         </motion.div>
     )

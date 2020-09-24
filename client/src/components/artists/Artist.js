@@ -4,7 +4,7 @@ import axios from 'axios'
 import ArtistItem from "./ArtistItem"
 import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
-
+import Cookie from "js-cookie"
 function Artist() {
     function generateTime() {
         let today = new Date();
@@ -20,10 +20,12 @@ function Artist() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/artists")
+            const {data} = await axios.get("/artists",{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             data.map(artist=> {
-                if(artist.uploaded_at===null){
-                    artist.uploaded_at=generateTime()
+                if(artist.uploadedAt===null){
+                    artist.uploadedAt=generateTime()
                 } 
                 return artist})
             setArtists(data)

@@ -2,6 +2,21 @@ const {Router} = require("express")
 const router = Router()
 const {Album,Artist,Song} =require("../ORM/models")
 
+
+router.get("/top",async(req,res)=>{
+    try{
+        const albums = await Album.findAll({
+            limit:20,
+            include:[
+                {
+                    model:Artist,
+                    attributes:["name"]
+                }
+            ]
+        })
+        res.json(albums)
+    }catch(e){res.json({error:e.message})}
+})
 router.delete("/:id",async (req,res)=>{
     try{
         await Album.destory({
@@ -93,19 +108,5 @@ router.get("/:id",async (req,res)=>{
 
 
 
-router.get("/top",async(req,res)=>{
-    try{
-        const albums = await Album.findAll({
-            limit:20,
-            include:[
-                {
-                    model:Artist,
-                    attributes:["name"]
-                }
-            ]
-        })
-        res.json(albums)
-    }catch(e){res.json({error:e.message})}
-})
 
 module.exports = router

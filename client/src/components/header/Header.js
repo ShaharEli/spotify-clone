@@ -14,7 +14,6 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReactPlayer from "react-player"
-// import Youtube from "react-youtube"
 
 const controlStyle = {cursor:"pointer"}
 function Header({animate}) {
@@ -88,7 +87,7 @@ function Header({animate}) {
                 &nbsp; currently playing: &nbsp; {Auth.song.title}&nbsp;
                 </div>
                 <div className="controls">
-                <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtube_link} width="0%" height="0"/>
+                <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtubeLink} width="0%" height="0"/>
                 <SkipPreviousIcon style={controlStyle} onClick={Auth.previous} />
                 {
                  !Auth.playing?

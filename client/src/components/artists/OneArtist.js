@@ -7,7 +7,7 @@ import Loading from '../loading/Loading'
 import Carousel from 'react-elastic-carousel';
 import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
-
+import Cookie from "js-cookie"
 function generateTime() {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -36,13 +36,15 @@ function OneArtist() {
         (async ()=>{
             try{
             try{
-            const albumsData = await axios.get(`/albumByArtistId/${id}`)
+            const albumsData = await axios.get(`/albumByArtistId/${id}`,{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             const dataToSet=albumsData.data.map(album=> {
-                if(album.upload_at===null){
-                    album.upload_at=generateTime()
+                if(album.uploadAt===null){
+                    album.uploadAt=generateTime()
                 } 
-                if(album.created_at===null){
-                    album.created_at=generateTime()
+                if(album.createdAt===null){
+                    album.createdAt=generateTime()
                 } 
                 return album})
             setAlbums(dataToSet)
@@ -50,13 +52,13 @@ function OneArtist() {
             }catch(e){console.log(e.message)}
             const {data} = await axios.get(`/artist/${id}`)
             data.map(artist=> {
-                if(artist.artist_date===null){
-                    artist.artist_date=generateTime()
+                if(artist.artistDate===null){
+                    artist.artistDate=generateTime()
                 } else{
-                    artist.artist_date=artist.artist_date.slice(0,10)
+                    artist.artistDate=artist.artistDate.slice(0,10)
                 }
-                if(artist.upload_at===null){
-                    artist.upload_at=generateTime()
+                if(artist.uploadAt===null){
+                    artist.uploadAt=generateTime()
                 }
                 return artist})
             setArtist(data)
@@ -76,15 +78,15 @@ function OneArtist() {
             artist[0].name
             }
         </h2>
-        <img className="artistCoverImg" alt="" src={artist[0].cover_img}/>
-        <h3>{artist[0].artist_date}</h3>
+        <img className="artistCoverImg" alt="" src={artist[0].coverImg}/>
+        <h3>{artist[0].artistDate}</h3>
         <div className="artistMedia">
         <h2>{artist[0].name}`s Songs</h2>
         <Carousel itemsToShow={8} itemPadding={[10]}
              breakPoints={breakPoints}>
                  {
             artist.map(song=>{
-                const songData = {album:song.album_name,artist_id:song.artist_id, upload_at:song.upload_at, title:song.title,artist:song.name,length:song.length,youtube_link:song.youtube_link,album_id:song.album_id,id:song.id}
+                const songData = {album:song.albumName,artistId:song.artistId, uploadAt:song.uploadAt, title:song.title,artist:song.name,length:song.length,youtubeLink:song.youtubeLink,albumId:song.albumId,id:song.id}
                 return <TopSong oneArtist={true} query={["artist",id]} noImg={true} key={song.title} song={songData} maxWidth={true} />
             })
 

@@ -3,7 +3,7 @@ import React,{useEffect, useState} from 'react'
 import axios from 'axios'
 import Carousel from 'react-elastic-carousel';
 import TopPlaylist from "./TopPlaylist"
-
+import Cookie from "js-cookie"
 function TopPlaylists() {
     const breakPoints = [
         { width: 270, itemsToShow: 2 },
@@ -27,10 +27,12 @@ function TopPlaylists() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/top_playlists")
+            const {data} = await axios.get("/top_playlists",{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             data.map(playlist=> {
-                if(playlist.uploaded_at===null){
-                    playlist.uploaded_at=generateTime()
+                if(playlist.uploadedAt===null){
+                    playlist.uploadedAt=generateTime()
                 } 
                 return playlist})
 
