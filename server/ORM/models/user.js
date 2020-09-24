@@ -33,12 +33,13 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.STRING,
-    is_admin: DataTypes.BOOLEAN,
+    isAdmin: DataTypes.BOOLEAN,
     prefrences: DataTypes.JSON,
     remember_token: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'User',
+    paranoid:true
   });
   return User;
 };

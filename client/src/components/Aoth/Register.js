@@ -16,9 +16,9 @@ function Register() {
     const [checked,setChecked] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
-      const ok= await axios.get(`/checkmail/${values.email}`)
+      const ok= await axios.get(`/users/checkmail/${values.email}`)
       if(ok.data.emailOk){
-        const name= await axios.post("/user",values)
+        const name= await axios.post("/users/register",values)
         if(name.data.name){
           Auth.setAuth(true)
           Auth.setName(values.name)

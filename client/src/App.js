@@ -72,7 +72,7 @@ function App() {
         const isAuth = await Cookie.get("auth")
         const authEmail =await  Cookie.get("email")
         const authName = await  Cookie.get("name")
-        const ok= await axios.get(`/checkmail/${authEmail}`)
+        const ok= await axios.get(`/users/checkmail/${authEmail}`)
         const token = await Cookie.get("token")
         if (isAuth==="true" && ok.data.token===token && !ok.data.emailOk && ok.data.name===authName){
           try{

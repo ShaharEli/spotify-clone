@@ -18,7 +18,7 @@ function Login() {
     const [checked,setChecked] = useState(false)
     const {register,handleSubmit,errors} = useForm()
     const onSubmit = async values => {
-         const {data} =  await axios.post("/login",values)
+         const {data} =  await axios.post("/users/login",values)
          if(data.name){
              Auth.setAuth(true)
              Auth.setName(data.name)

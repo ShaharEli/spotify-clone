@@ -5,7 +5,8 @@ module.exports={
     "password": process.env.PASSWORD,
     "database": "spotify_dev",
     "host": "127.0.0.1",
-    "dialect": "mysql"
+    "dialect": "mysql",
+
   },
   "test": {
     "username": "root",

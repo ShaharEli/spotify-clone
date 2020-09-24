@@ -43,17 +43,57 @@ router.post("/songs",async (req,res)=>{
         res.json({success:"one song added"})
     }catch(e){res.json({error:e.message})}
 })
-// router.get("/allfavorites/:email",async (req,res)=>{
-//     connection.query(`select songs.* ,albums.cover_img as img ,albums.name As album, artists.name As artist from users_songs join songs on songs.id = users_songs.song_id  Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id where email ="${req.params.email}" ORDER BY upload_at;
-//     select albums.*,artists.name as artist from users_albums join albums on albums.id = users_albums.album_id join artists on artists.id=artist_id where email ="${req.params.email}" ORDER BY upload_at;
-//     select artists.* from users_artists join artists on artists.id = users_artists.artist_id where email ="${req.params.email}" ORDER BY uploaded_at;
-//     select playlists.* from users_playlists join playlists on playlists.id = users_playlists.playlist_id where email ="${req.params.email}" ORDER BY uploaded_at;
-//     `,  (err, results) =>{
-//        if (err) res.send("error");
-//        res.json(results);
-//    });
+router.get("/allfavorites/:email",async (req,res)=>{
+    try{
+        const favoriteSongs = await User_song.findAll({
+            where:{email:req.params.email},
+            include:[
+                {
+                    model:Album,
+                    attributes:[["cover_img","img"],["name","album"]]
+                },
+                {
+                    model:Artist,
+                    attributes:[["name","artist"]]    
+                },
+                {
+                    model:Song
+                }
+            ]
+        })
+        const favoriteAlbums = await User_album.findAll({
+            where:{email:req.params.email},
+            include:[
+                {
+                    model:Album
+                },
+                {
+                    model:Artist,
+                    attributes:[["name","artist"]]    
+                }
+            ]
+        })
+        const favoriteArtists = await User_artist.findAll({
+            where:{email:req.params.email},
+            include:[
+                {
+                    model:Artist,
+                }
+            ]
+        })
+        const favoritePlaylists = await User_playlist.findAll({
+            where:{email:req.params.email},
+            include:[
+                {
+                    model:Playlist,
+                }
+            ]
+        })
+        res.json([favoriteSongs,favoriteAlbums,favoriteArtists,favoritePlaylists])
+        
+    }catch(e){res.json({error:e.message})}
    
-// })
+})
 router.get("/favorites_songs/:email",async (req,res)=>{
     try{
         const favoriteSongs = await User_song.findAll({
