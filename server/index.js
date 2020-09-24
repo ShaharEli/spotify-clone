@@ -4,6 +4,7 @@ app.use(express.json())
 const mysql = require('mysql');
 const morgan = require("morgan")
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 require("dotenv").config()
 const cors = require("cors")
 app.use(cors())
@@ -15,7 +16,7 @@ app.use(morgan(function (tokens, req, res) {
       tokens['response-time'](req, res), 'ms']
       return myTiny.join(' ')
   }));
-  
+
 const  connection = mysql.createConnection({
     host: "localhost",
     user: process.env.USER,
@@ -28,15 +29,136 @@ connection.connect((err) =>{
     console.log("Connected to my sql!");
 });
 
-app.delete("/song/:id",(req,res)=>{
-    connection.query(`DELETE FROM songs WHERE id= ${req.params.id}`,  (err, result) =>{
-        if (err)  res.send("An error occurred.");
-        res.send("One song deleted");
-      });
+
+app.post("/checktoken",async (req,res)=>{
+    jwt.verify(req.body.token, process.env.HASH, (error, data) => {
+        if (error) {
+          res.status(403)
+        } else {
+          res.send(true)
+        }
+      })
     
 })
 
-app.put("/song/:id",(req,res)=>{
+app.get("/checkmail/:email",async (req,res)=>{
+    const email = req.params.email
+    if (!email){
+        res.status(400).send("content missing")
+    }
+    const queryString = `Select * from users where users.email="${email}"`;
+    connection.query(queryString, (err, result)=> {
+        if (err) {
+            res.send("error");
+        } else {
+            if(result.length===0){
+                res.json({"emailOk":true})
+            }else{
+                res.json({"emailOk":false,"name":result[0].name})
+            }
+        }
+      });
+})
+
+app.post("/login",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    const queryString = `select * from users where users.email="${body.email}"`;
+    connection.query(queryString,body , async (err, result)=> {
+        if (err) {
+            res.send({error:err.message});
+        } else {
+             await bcrypt.compare(body.password,result[0].password,(err, success)=>{
+                if(err){
+                    res.json({error:err.message})
+                }else if(success){
+                    const user = body.email
+                    const newToken ={
+                        isAdmin: result.is_admin,
+                        user
+                    }
+                    if (!body.remember_token) {
+                        newToken.exp = Math.floor(Date.now() / 1000) + 3600
+                    } 
+                    const token = jwt.sign(newToken, process.env.HASH)
+                    res.cookie('name', result[0].name)
+                    res.cookie('email', result[0].email)
+                    res.cookie('auth', true)
+                    res.cookie('isAdmin', result[0].is_admin)
+                    res.cookie('token', token)
+                    res.json({name:result[0].name})
+                }else{
+                    res.json({error:"wrong password"})
+                }
+             })
+
+        }
+      });
+})
+
+app.post("/user",async (req,res)=>{
+    if (!req.body){
+        res.status(400).send("content missing")
+    }
+    const {body} = req;
+    body.password = await bcrypt.hash(body.password,10)
+    const queryString = `INSERT INTO users SET ?`;
+    connection.query(queryString,body , (err, result)=> {
+        if (err) {
+            res.json({error:err.message});
+        } else {
+            const user = body.email
+            const newToken ={
+                isAdmin: result.is_admin,
+                user
+            }
+            if (!body.remember_token) {
+                newToken.exp = Math.floor(Date.now() / 1000) + 3600
+            } 
+            const token = jwt.sign(newToken, process.env.HASH)
+            res.cookie('name', result.name)
+            res.cookie('email', result.email)
+            res.cookie('auth', true)
+            res.cookie('isAdmin', result.is_admin)
+            res.cookie('token', token)
+            res.json({name:result[0].name})
+        }
+      });
+})
+
+app.use(ensureToken);
+
+
+function ensureToken(req, res, next) {
+    const bearerHeader = req.headers['token'];
+    if (typeof bearerHeader !== 'undefined') {
+      const decoded = jwt.decode(bearerHeader);
+      console.log(decoded);
+      jwt.verify(bearerHeader, process.env.HASH, (error, data) => {
+        if (error) {
+          res.status(403).send('incoreccet token');
+        } else {
+          res.token = bearerHeader;
+          next();
+        }
+      })
+    } else {
+      res.sendStatus(403);
+    }
+  }
+
+
+app.delete("/song/:id",async (req,res)=>{
+        connection.query(`DELETE FROM songs WHERE id= ${req.params.id}`,  (err, result) =>{
+            if (err)  res.send("An error occurred.");
+            res.send("One song deleted");
+          });
+  
+})
+
+app.put("/song/:id",async (req,res)=>{
     if (!req.body){
         res.status(400).send("content missing")
     }
@@ -67,46 +189,6 @@ app.post("/song",(req,res)=>{
 
 })
 
-app.post("/login",async (req,res)=>{
-    if (!req.body){
-        res.status(400).send("content missing")
-    }
-    const {body} = req;
-    console.log(body);
-    const queryString = `select * from users where users.email="${body.email}"`;
-    connection.query(queryString,body , async (err, result)=> {
-        if (err) {
-            res.send({error:err.message});
-        } else {
-             await bcrypt.compare(body.password,result[0].password,(err, success)=>{
-                if(err){
-                    res.json({error:err.message})
-                }else if(success){
-                    res.json({name:result[0].name,token:result[0].password.slice(0,result[0].password.length/2)+"token"})
-                }else{
-                    res.json({error:"wrong password"})
-                }
-             })
-
-        }
-      });
-})
-
-app.post("/user",async (req,res)=>{
-    if (!req.body){
-        res.status(400).send("content missing")
-    }
-    const {body} = req;
-    body.password = await bcrypt.hash(body.password,10)
-    const queryString = `INSERT INTO users SET ?`;
-    connection.query(queryString,body , (err, result)=> {
-        if (err) {
-            res.json({error:err.message});
-        } else {
-            res.json({name:body.name,token:body.password.slice(0,body.password.length/2)+"token"});
-        }
-      });
-})
 
 app.post("/yoursongs",async (req,res)=>{
     if (!req.body){
@@ -168,47 +250,6 @@ app.post("/yourartists",async (req,res)=>{
       });
 })
 
-app.get("/checkmail/:email",async (req,res)=>{
-    const email = req.params.email
-    if (!email){
-        res.status(400).send("content missing")
-    }
-    const queryString = `Select * from users where users.email="${email}"`;
-    connection.query(queryString, (err, result)=> {
-        if (err) {
-            res.send("error");
-        } else {
-            if(result.length===0){
-                res.json({"emailOk":true})
-            }else{
-                res.json({"emailOk":false,"name":result[0].name})
-            }
-        }
-      });
-})
-app.get("/checktoken",async (req,res)=>{
-    const email = req.headers.email
-    const token = req.headers.token
-    if (!email||!token){
-        res.status(400).send("content missing")
-    }
-    const queryString = `Select * from users where users.email="${email}"`;
-    connection.query(queryString, (err, result)=> {
-        if (err) {
-            res.send("error");
-        } else {
-            if(result.length===0){
-                res.json({error:"user not found"})
-            }else{
-                if(token===result[0].password.slice(0,result[0].password.length/2)+"token"){
-                    res.json({auth:true})
-                }else{
-                    res.json({auth:false})
-                }
-            }
-        }
-      });
-})
 
 app.get("/songs",(req,res)=>{
     connection.query("SELECT songs.*, albums.name As album, artists.name As artist FROM songs Join artists ON artists.id = songs.artist_id JOIN albums ON albums.id = songs.album_id ORDER BY upload_at",  (err, result, fields) =>{

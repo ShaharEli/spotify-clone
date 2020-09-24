@@ -14,7 +14,6 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReactPlayer from "react-player"
-// import Youtube from "react-youtube"
 
 const controlStyle = {cursor:"pointer"}
 function Header({animate}) {

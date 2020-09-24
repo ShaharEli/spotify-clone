@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import { Tooltip } from '@material-ui/core';
+import Cookie from "js-cookie"
 
 function TopAlbum({album,noAdd}) {
     const Auth = useContext(AuthApi)
@@ -12,7 +13,9 @@ function TopAlbum({album,noAdd}) {
     const date = album.upload_at.slice(0,10)
     const artist = album.artist
     const addAlbum = async()=>{
-        await axios.post("/youralbums",{email:Auth.email,album_id:album.id})
+        await axios.post("/youralbums",{email:Auth.email,album_id:album.id},{headers:{
+            token:Cookie.get("token")
+        }})
     }
     return (
         <div className="topAlbum">

@@ -8,6 +8,7 @@ import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
 import {motion} from 'framer-motion'
+import Cookie from "js-cookie"
 
 
 import Share from './Share';
@@ -49,7 +50,9 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     const artist = song.artist
     const length = song.length
     const addSong = async()=>{
-      await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+      await axios.post("/yoursongs",{email:Auth.email,song_id:song.id},{headers:{
+        token:Cookie.get("token")
+    }})
   }
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);

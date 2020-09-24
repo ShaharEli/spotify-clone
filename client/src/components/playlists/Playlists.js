@@ -4,7 +4,7 @@ import axios from 'axios'
 import PlaylistItem from "./PlaylistItem"
 import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
-
+import Cookie from "js-cookie"
 function Playlists() {
     function generateTime() {
         let today = new Date();
@@ -20,7 +20,9 @@ function Playlists() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/playlists")
+            const {data} = await axios.get("/playlists",{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             data.map(playlist=> {
                 if(playlist.uploaded_at===null){
                     playlist.uploaded_at=generateTime()

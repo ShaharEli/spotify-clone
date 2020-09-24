@@ -6,6 +6,7 @@ import SongItem from '../songs/SongItem'
 import { Link } from 'react-router-dom'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
+import Cookie from "js-cookie"
 
 function generateTime() {
     let today = new Date();
@@ -25,7 +26,9 @@ function OneAlbum() {
     useEffect(() => {
         (async ()=>{
             try{
-                const {data} = await axios.get(`/album/${id}`)
+                const {data} = await axios.get(`/album/${id}`,{headers:{
+                    token:Cookie.get("token")
+                }})
             data.map(album=> {
                 if(album.upload_at===null){
                     album.upload_at=generateTime()

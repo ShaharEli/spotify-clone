@@ -8,6 +8,7 @@ import Share from './Share';
 import AuthApi from "../Aoth/AuthApi"
 import axios from 'axios';
 import Tooltip from '@material-ui/core/Tooltip';
+import Cookie from "js-cookie"
 
 
   function getModalStyle() {  
@@ -39,7 +40,9 @@ function TopSong({song,query,noImg,oneArtist,noAdd}) {
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const addSong = async()=>{
-        await axios.post("/yoursongs",{email:Auth.email,song_id:song.id})
+        await axios.post("/yoursongs",{email:Auth.email,song_id:song.id},{headers:{
+          token:Cookie.get("token")
+      }})
     }
     const handleOpen = () => {
         setOpen(true);

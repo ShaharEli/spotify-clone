@@ -32,6 +32,7 @@ function App() {
     const [counter,setCounter] =useState(0)
     const [playing,setPlaying] = useState(true)
     const [restore,setRestore] = useState(false)
+    const [remember,setRemember] =useState(false)
     const pause =()=>{
       setPlaying(false)
   }
@@ -73,13 +74,8 @@ function App() {
         const authEmail =await  Cookie.get("email")
         const authName = await  Cookie.get("name")
         const token = await Cookie.get("token")
-        const ok= await axios.get(`/checkmail/${authEmail}`)
-        const {data:checkToken} = await axios.get("/checkToken", {
-            headers: {
-              token: `${token}`,
-              email: `${authEmail}`
-            }});
-        if (isAuth==="true" && checkToken.auth===true &&  !ok.data.emailOk && ok.data.name===authName){
+        const ok = await axios.post("/checktoken",{token:token})
+        if (ok&&isAuth && authEmail &&  authName && token){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
@@ -98,7 +94,7 @@ function App() {
     },[])  
     return (
         <>
-        <AuthApi.Provider value={{auth, setAuth,name,setName, email,setEmail,song,setSong
+        <AuthApi.Provider value={{remember,setRemember,auth, setAuth,name,setName, email,setEmail,song,setSong
         ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying,play,pause,next,previous}}>
        <Router>
          {

@@ -7,7 +7,7 @@ import Loading from '../loading/Loading'
 import Carousel from 'react-elastic-carousel';
 import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
-
+import Cookie from "js-cookie"
 function generateTime() {
     let today = new Date();
     const dd = String(today.getDate()).padStart(2, '0');
@@ -36,7 +36,9 @@ function OneArtist() {
         (async ()=>{
             try{
             try{
-            const albumsData = await axios.get(`/albumByArtistId/${id}`)
+            const albumsData = await axios.get(`/albumByArtistId/${id}`,{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
             const dataToSet=albumsData.data.map(album=> {
                 if(album.upload_at===null){
                     album.upload_at=generateTime()

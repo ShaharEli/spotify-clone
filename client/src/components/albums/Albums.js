@@ -4,6 +4,7 @@ import axios from 'axios'
 import AlbumItem from "./AlbumItem"
 import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
+import Cookie from "js-cookie"
 
 function Albums() {
     function generateTime() {
@@ -20,7 +21,9 @@ function Albums() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/albums")
+            const {data} = await axios.get("/albums",{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(album=> {
                 if(album.upload_at===null){
                     album.upload_at=generateTime()

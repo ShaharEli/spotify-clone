@@ -6,7 +6,7 @@ import axios from 'axios';
 import Select from 'react-select'
 import { useHistory } from "react-router-dom";
 import TextArea from "@material-ui/core/TextField"
-
+import Cookie from "js-cookie"
   const useStyles = makeStyles((theme) => ({
     paper: {
       position: 'absolute',
@@ -32,14 +32,18 @@ function AddSong() {
 
     useEffect(()=>{
         (async()=>{
-           const {data} =await axios.get("/artists")
+           const {data} =await axios.get("/artists",{headers:{
+            token:Cookie.get("token"),email:Cookie.get("email")
+        }})
            const artistsData = data
             const artistsOptions = []
             for (let artist of artistsData){
                 artistsOptions.push({value:artist.id,label:artist.name})
             }
             setArtists(artistsOptions)
-            const albumsList =await axios.get("/albums")
+            const albumsList =await axios.get("/albums",{headers:{
+              token:Cookie.get("token"),email:Cookie.get("email")
+          }})
             const albumsData = albumsList.data
             const albumsOptions = []
             for (let album of albumsData){
@@ -94,7 +98,9 @@ function AddSong() {
           else{
           const song={title:songName,length:`00:${length}`,artist_id:chosenArtist.value,album_id:chosenAlbum.value,
          youtube_link:link,lyrics:lyrics,upload_at:generateTime(),track_number:track}
-          axios.post("/song",song)
+          axios.post("/song",song,{headers:{
+            token:Cookie.get("token"),email:Cookie.get("email")
+        }})
           .then(handleClose)
         }
 

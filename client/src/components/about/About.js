@@ -47,7 +47,9 @@ function About() {
       useEffect(() => {
         (async ()=>{
             try{
-                const {data} = await axios.get(`/allfavorites/${Auth.email}`)
+                const {data} = await axios.get(`/allfavorites/${Auth.email}`,{headers:{
+                    token:Cookie.get("token")
+                }})
                 let songsList = []
                 for (let i=0;i<data[0].length;i++){
                     if (songsList.find(element=>element.id===data[0][i].id)){

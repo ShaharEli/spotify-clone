@@ -5,7 +5,7 @@ import axios from "axios"
 import SongItem from '../songs/SongItem'
 import NotFound from '../../NotFound/NotFound'
 import Loading from '../loading/Loading'
-
+import Cookie from "js-cookie"
 
 function OnePlaylist() {
     const {id} =useParams()
@@ -22,7 +22,9 @@ function OnePlaylist() {
     useEffect(() => {
         (async ()=>{
             try{
-            const {data} = await axios.get(`/playlist/${id}`)
+            const {data} = await axios.get(`/playlist/${id}`,{headers:{
+                token:Cookie.get("token")
+            }})
             data.map(playlist=> {
             if(playlist.playlist_date===null){
                 playlist.playlist_date=generateTime()
