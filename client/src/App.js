@@ -70,11 +70,11 @@ function App() {
       }
   }
     const getAutorizied = async ()=>{
-        const isAuth = await Cookie.get("auth")
-        const authEmail =await  Cookie.get("email")
-        const authName = await  Cookie.get("name")
-        const token = await Cookie.get("token")
-        const ok = await axios.post("/checktoken",{token:token})
+        const isAuth =  Cookie.get("auth")
+        const authEmail =  Cookie.get("email")
+        const authName =   Cookie.get("name")
+        const token =  Cookie.get("token")
+        const ok =  axios.post("/checktoken",{token:token})
         if (ok&&isAuth && authEmail &&  authName && token){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
