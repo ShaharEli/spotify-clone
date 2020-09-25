@@ -74,8 +74,8 @@ function App() {
         const authEmail =  Cookie.get("email")
         const authName =   Cookie.get("name")
         const token =  Cookie.get("token")
-        const ok =  axios.post("/checktoken",{token:token})
-        if (ok&&isAuth && authEmail &&  authName && token){
+        const {data:ok} =await  axios.post("/checktoken",{token:token})
+        if (ok &&isAuth && authEmail &&  authName && token){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
             setAuth(true)  
