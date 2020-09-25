@@ -50,6 +50,7 @@ function About() {
                 const {data} = await axios.get(`/favorites/all/${Auth.email}`,{headers:{
                     token:Cookie.get("token")
                 }})
+                console.log(data)
                 let songsList = []
                 for (let i=0;i<data[0].length;i++){
                     if (songsList.find(element=>element.id===data[0][i].id)){

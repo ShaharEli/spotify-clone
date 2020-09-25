@@ -7,33 +7,20 @@ import {motion} from 'framer-motion'
 import Cookie from "js-cookie"
 
 function Albums() {
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
     
     const [albums,setAlbums] =useState([])
     const [unfiltredAlbums,setUnfiltredAlbums] =useState([])
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/albums",{headers:{
-                token:Cookie.get("token")
-            }})
-            data.map(album=> {
-                if(album.uploadAt===null){
-                    album.uploadAt=generateTime()
-                } 
-                if(album.createdAt===null){
-                    album.createdAt=generateTime()
-                } 
-                return album})
-            setAlbums(data)
-            setUnfiltredAlbums(data)
+            try{
+                const {data} = await axios.get("/albums",{headers:{
+                    token:Cookie.get("token")
+                }})
+                setAlbums(data)
+                setUnfiltredAlbums(data)
+            }catch(e){console.error(e.message)}
+ 
         })()
     }, [])
 

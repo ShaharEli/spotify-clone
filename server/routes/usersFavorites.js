@@ -1,6 +1,6 @@
 const {Router} = require("express")
 const router = Router()
-const {User,User_album,User_playlist,User_song,User_artist,Song,Playlist} = require("../ORM/models")
+const {User_album,User_playlist,User_song,User_artist,Song,Playlist,Album,Artist} = require("../ORM/models")
 
 router.post("/song",async (req,res)=>{
     if (!req.body){
@@ -18,15 +18,16 @@ router.get("/all/:email",async (req,res)=>{
             where:{email:req.params.email},
             include:[
                 {
-                    model:Album,
-                    attributes:[["cover_img","img"],["name","album"]]
-                },
-                {
-                    model:Artist,
-                    attributes:[["name","artist"]]    
-                },
-                {
-                    model:Song
+                    model:Song,include:[
+                        {
+                            model:Album,
+                            attributes:[["cover_img","img"],["name","album"]]
+                        },
+                        {
+                            model:Artist,
+                            attributes:[["name","artist"]]    
+                        },
+                    ]
                 }
             ]
         })
@@ -34,11 +35,11 @@ router.get("/all/:email",async (req,res)=>{
             where:{email:req.params.email},
             include:[
                 {
-                    model:Album
-                },
-                {
-                    model:Artist,
-                    attributes:[["name","artist"]]    
+                    model:Album,include:[
+                        {
+                            model:Artist,
+                            attributes:[["name","artist"]]    
+                        }]
                 }
             ]
         })

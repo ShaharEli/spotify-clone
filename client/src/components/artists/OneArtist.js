@@ -8,14 +8,7 @@ import Carousel from 'react-elastic-carousel';
 import TopSong from '../songs/TopSong'
 import TopAlbum from '../albums/TopAlbum'
 import Cookie from "js-cookie"
-function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
+
 
 function OneArtist() {
     const {id} =useParams()
@@ -67,7 +60,6 @@ function OneArtist() {
              breakPoints={breakPoints}>
                  {
             songs.map(song=>{
-                console.log(song);
                 const songData = {album:song.Album.name,artistId:song.artistId, createdAt:song.createdAt, title:song.title,artist:song.name,length:song.length,youtubeLink:song.youtubeLink,albumId:song.albumId,id:song.id}
                 return <TopSong oneArtist={true} query={["artist",id]} noImg={true} key={song.title} song={songData} maxWidth={true} />
             })

@@ -7,14 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { Link } from 'react-router-dom';
 import { Tooltip } from '@material-ui/core';
 import Cookie from "js-cookie"
-function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
+
   
 const Songs = () => {
 
@@ -23,16 +16,13 @@ const Songs = () => {
     const [songsUnfiltered,setSongsUnfiltered] = useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/songs",{headers:{
-                token:Cookie.get("token")
-            }})
-            data.map(song=> {
-                if(song.uploadAt===null){
-                    song.uploadAt=generateTime()
-                } 
-                return song})
-            setSongs(data)
-            setSongsUnfiltered(data)
+            try{
+                const {data} = await axios.get("/songs",{headers:{
+                    token:Cookie.get("token")
+                }})
+                setSongs(data)
+                setSongsUnfiltered(data)
+            }catch(e){console.error(e.message)}
         })()
 
     }, [])

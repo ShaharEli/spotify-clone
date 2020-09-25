@@ -10,54 +10,42 @@ import Cookie from "js-cookie"
 function OnePlaylist() {
     const {id} =useParams()
     const [playlist,setPlaylist] = useState([])
+    const [songs,setSongs] = useState([])
     const [loading,setLoading] = useState(true)
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
+
     useEffect(() => {
         (async ()=>{
             try{
-            const {data} = await axios.get(`/playlist/${id}`,{headers:{
+            const {data} = await axios.get(`/playlists/${id}`,{headers:{
                 token:Cookie.get("token")
             }})
-            data.map(playlist=> {
-            if(playlist.playlistDate===null){
-                playlist.playlistDate=generateTime()
-            }
-            if(playlist.uploadAt===null){
-                playlist.uploadAt=generateTime()
-            }
-            return playlist
-         }
-            )
             setPlaylist(data)
+            setSongs(data.Playlists_songs)
+            console.log(data);
         }catch(e){
+            console.error(e.message)
         }setLoading(false)
         })()
     }, [id])
     
     return (
-        playlist.length>0?
+        playlist.name?
         <>
         <div 
         className="onePlaylist">
         <h2>
             {
-            playlist[0].playlist
+            playlist.name
             }
         </h2>
-            <img className="coverImg" alt="" src={playlist[0].coverImg}/>
-        <h3>{playlist[0].playlistDate}</h3>
+            <img className="coverImg" alt="" src={playlist.coverImg}/>
+        <h3>{playlist.createdAt.slice(0,10)}</h3>
         <div className="playlistMedia">
         {
-            playlist.map(playlist=>{
-                const song = {id:playlist.id,artistId:playlist.artistId,uploadAt:playlist.uploadAt,title:playlist.title,artist:playlist.artist,length:playlist.length,youtubeLink:playlist.youtubeLink,album:playlist.album,albumId:playlist.albumId}
-                return <SongItem key={playlist.title} query={["playlist",playlist.playlistId]} song={song} maxWidth={true} />
+            songs.map(song=>{
+                console.log(song);
+                const data = {id:song.id,album:song.Album.name,createdAt:song.createdAt,artistId:song.artistId,uploadAt:song.uploadAt,title:song.title,artist:song.Artist.name,length:song.length,youtubeLink:song.youtubeLink,albumId:song.albumId}
+                return <SongItem key={data.title} query={["playlist",playlist.id]} song={data} maxWidth={true} />
             })
         }
         </div>

@@ -22,6 +22,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'artistId',
       })
 
+
     }
   };
   Artist.init({

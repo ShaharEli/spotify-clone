@@ -12,9 +12,12 @@ function PlaylistItem({playlist}) {
     const image =playlist.coverImg
     const date = playlist.uploadedAt.slice(0,10)
     const addPlaylist = async()=>{
-        await axios.post("/yourplaylists",{email:Auth.email,playlistId:playlist.id},{headers:{
-            token:Cookie.get("token"),email:Cookie.get("email")
-        }})
+        try{
+            await axios.post("/yourplaylists",{email:Auth.email,playlistId:playlist.id},{headers:{
+                token:Cookie.get("token")
+            }})
+        }catch(e){console.error(e)}
+
     }
     return (
         <div className="playlists">

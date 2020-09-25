@@ -29,14 +29,7 @@ import Share from './Share';
   
     },
   }));
-  function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
+
 
 function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
   const Auth = React.useContext(AuthApi)
@@ -45,9 +38,9 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     styles=background? {...styles,backgroundColor:"#00C700"}:styles
     const title = song.title
     const link =song.youtubeLink.replace("watch?v=","embed/").split("&list")[0]+"?autoplay=1"
-    const date = song.uploadAt?song.uploadAt.slice(0,10) : generateTime()
-    const album =song.album
-    const artist = song.artist
+    const date = song.createdAt.slice(0,10) 
+    const album =song.Album["name"]
+    const artist =song.Artist?song.Artist["name"]:"no artist"
     const length = song.length
     const addSong = async()=>{
       await axios.post("/yoursongs",{email:Auth.email,songId:song.id},{headers:{

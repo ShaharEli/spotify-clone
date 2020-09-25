@@ -20,17 +20,20 @@ function Playlists() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/playlists",{headers:{
-                token:Cookie.get("token"),email:Cookie.get("email")
-            }})
-            data.map(playlist=> {
-                if(playlist.uploadedAt===null){
-                    playlist.uploadedAt=generateTime()
-                } 
-                return playlist})
+            try{
+                const {data} = await axios.get("/playlists",{headers:{
+                    token:Cookie.get("token"),email:Cookie.get("email")
+                }})
+                data.map(playlist=> {
+                    if(playlist.uploadedAt===null){
+                        playlist.uploadedAt=generateTime()
+                    } 
+                    return playlist})
+    
+                setPlaylists(data)
+                setUnfiltrePlaylists(data)
+            }catch(e){console.error(e)}
 
-            setPlaylists(data)
-            setUnfiltrePlaylists(data)
 
         })()
     }, [])

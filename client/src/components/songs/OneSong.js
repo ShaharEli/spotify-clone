@@ -35,24 +35,25 @@ function OneSong() {
     useEffect(()=>{
             (async ()=>{
                 try{
-                    let {data}= await axios.get(`/song/${id}`,{headers:{
+                    let {data}= await axios.get(`/songs/${id}`,{headers:{
                         token:Cookie.get("token"),email:Cookie.get("email")
                     }})
-                    Auth.setSong(data[0])
+                    Auth.setSong(data)
                     if(query.get("artist")){
-                        data =  await axios.get(`/artist/${query.get("artist")}`,{headers:{
+                        data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
                             token:Cookie.get("token"),email:Cookie.get("email")
                         }})
-                        Auth.setList(data.data)
+                        Auth.setList(data.data.Songs)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){
-                        data =  await axios.get(`/favorites_songs/${Auth.email}`,{headers:{
+                        data =  await axios.get(`/favorites/songs/${Auth.email}`,{headers:{
                             token:Cookie.get("token"),email:Cookie.get("email")
                         }})
                         data=data.data
+                        console.log(data);
                         let songsList = []
                         for (let i=0;i<data.length;i++){
                         // eslint-disable-next-line

@@ -12,19 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.hasMany(models.User_album,{
-        foreignKey:"userId"
+        foreignKey:"email"
       })
       this.hasMany(models.User_playlist,{
-        foreignKey:"userId"
+        foreignKey:"email"
       })
       this.hasMany(models.User_artist,{
-        foreignKey:"userId"
+        foreignKey:"email"
       })
       this.hasMany(models.User_song,{
-        foreignKey:"userId"
+        foreignKey:"email"
       })
       this.hasMany(models.Interaction,{
-        foreignKey:"userId"
+        foreignKey:"email"
       })
 
     }
