@@ -33,7 +33,7 @@ connection.connect((err) =>{
 app.post("/checktoken",async (req,res)=>{
     jwt.verify(req.body.token, process.env.HASH, (error, data) => {
         if (error) {
-          res.status(403)
+          res.status(403).end()
         } else {
           res.send(true)
         }
@@ -138,9 +138,8 @@ function ensureToken(req, res, next) {
       console.log(decoded);
       jwt.verify(bearerHeader, process.env.HASH, (error, data) => {
         if (error) {
-          res.status(403).send('incoreccet token');
+          res.status(403).send('incorecct token');
         } else {
-          res.token = bearerHeader;
           next();
         }
       })

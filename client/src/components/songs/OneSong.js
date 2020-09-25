@@ -96,7 +96,10 @@ function OneSong() {
                         }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line
+                        // const checker = data.data.findIndex(e=>e.id==id)
+                        // Auth.setCounter(checker>-1?checker:0)
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
+
                         setNextQuery(["top_songs","true"])
 
                     }

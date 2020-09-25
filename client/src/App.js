@@ -41,6 +41,7 @@ function App() {
   }
 
   const next = ()=>{
+    
       if(counter===list.length-1){
           Swal.fire("You finished the list","","success")
           setRestore(prev=>!prev)
@@ -48,8 +49,8 @@ function App() {
           setCounter(0)
       }
       else{
-          setCounter(prev=>prev+1)
-          if(list[counter].title===song.title){
+          setCounter(prev=>prev+1)         
+          if(counter>-1 &&list[counter].title===song.title){
               setSong(list[counter+1])
               setPlaying(true)
           }
@@ -74,7 +75,14 @@ function App() {
         const authEmail =  Cookie.get("email")
         const authName =   Cookie.get("name")
         const token =  Cookie.get("token")
-        const {data:ok} =await  axios.post("/checktoken",{token:token})
+        let ok = false
+        if(token){
+            try{
+                const  {data}=await  axios.post("/checktoken",{token})
+                data===true?ok=true:ok=false
+            }catch(e){console.error(e)}
+        }
+        console.log(ok);
         if (ok &&isAuth && authEmail &&  authName && token){
           try{
             Swal.fire("Welcome back",`${authName}`,"success")  
@@ -92,10 +100,11 @@ function App() {
         })()
 
     },[])  
+    const values = {remember,setRemember,auth, setAuth,name,setName, email,setEmail,song,setSong
+    ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying,play,pause,next,previous}
     return (
         <>
-        <AuthApi.Provider value={{remember,setRemember,auth, setAuth,name,setName, email,setEmail,song,setSong
-        ,list, setList,counter,setCounter,restore,setRestore,playing,setPlaying,play,pause,next,previous}}>
+        <AuthApi.Provider value={values}>
        <Router>
          {
              !auth? 
