@@ -49,7 +49,7 @@ function App() {
       }
       else{
           setCounter(prev=>prev+1)
-          if(list[counter].title===song.title){
+          if(counter>-1&& list[counter].title===song.title){
               setSong(list[counter+1])
               setPlaying(true)
           }

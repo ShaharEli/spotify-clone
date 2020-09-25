@@ -62,7 +62,7 @@ router.get("/top",async (req,res)=>{
                  attributes:["name"]
              },
              {model:Album,
-                attributes:["name"]
+                attributes:["name","coverImg"]
             }
          ]
          })

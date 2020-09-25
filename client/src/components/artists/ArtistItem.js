@@ -11,7 +11,7 @@ function ArtistItem({artist}) {
     const image =artist.coverImg
     const date = artist.createdAt.slice(0,10)
     const addArtist = async()=>{
-        await axios.post("/yourartists",{email:Auth.email,artistId:artist.id},{headers:{
+        await axios.post("/favorites/artist",{email:Auth.email,artistId:artist.id},{headers:{
             token:Cookie.get("token"),email:Cookie.get("email")
         }})
     }

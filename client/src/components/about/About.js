@@ -11,14 +11,7 @@ import TopArtist from '../artists/TopArtist'
 import TopPlaylist from '../playlists/TopPlaylist'
 import {motion} from 'framer-motion'
 
-function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
+
   const breakPoints = [
     { width: 270, itemsToShow: 2 },
     { width: 371, itemsToShow: 3 },
@@ -47,55 +40,39 @@ function About() {
       useEffect(() => {
         (async ()=>{
             try{
-                const {data} = await axios.get(`/favorites/all/${Auth.email}`,{headers:{
+                let {data} = await axios.get(`/favorites/all/${Auth.email}`,{headers:{
                     token:Cookie.get("token")
                 }})
-                console.log(data)
                 let songsList = []
                 for (let i=0;i<data[0].length;i++){
-                    if (songsList.find(element=>element.id===data[0][i].id)){
+                    if (songsList.find(element=>element.id===data[0][i].Song.id)){
                         continue
                     }
-                    if(data[0][i].uploadAt===null){
-                        data[0][i].uploadAt=generateTime()
-                    } 
-                    songsList.push(data[0][i])        
+                    songsList.push(data[0][i].Song)        
                 }
                 setSongs(songsList)
                 let albumsList = []
                 for (let i=0;i<data[1].length;i++){
-                    if (albumsList.find(element=>element.id===data[1][i].id)){
+                    if (albumsList.find(element=>element.id===data[1][i].Album.id)){
                         continue
-                    }
-                    if(data[1][i].uploadAt===null){
-                        data[1][i].uploadAt=generateTime()
-                    } 
-                    if(data[1][i].createdAt===null){
-                        data[1][i].createdAt=generateTime()
-                    } 
-                    albumsList.push(data[1][i])        
+                    }  
+                    albumsList.push(data[1][i].Album)        
                 }
                 setAlbums(albumsList)
                 let artistsList = []
                 for (let i=0;i<data[2].length;i++){
-                    if (artistsList.find(element=>element.id===data[2][i].id)){
+                    if (artistsList.find(element=>element.id===data[2][i].Artist.id)){
                         continue
                     }
-                    if(data[2][i].uploadedAt===null){
-                        data[2][i].uploadedAt=generateTime()
-                    } 
-                    artistsList.push(data[2][i])        
+                    artistsList.push(data[2][i].Artist)        
                 }
                 setArtists(artistsList)
                 let playlistsList = []
                 for (let i=0;i<data[3].length;i++){
-                    if (playlistsList.find(element=>element.id===data[3][i].id)){
+                    if (playlistsList.find(element=>element.id===data[3][i].Playlist.id)){
                         continue
                     }
-                    if(data[3][i].uploadedAt===null){
-                        data[3][i].uploadedAt=generateTime()
-                    } 
-                    playlistsList.push(data[3][i])        
+                    playlistsList.push(data[3][i].Playlist)        
                 }               
                 setPlaylists(playlistsList)                   
             }catch(e){console.log(e.message)}

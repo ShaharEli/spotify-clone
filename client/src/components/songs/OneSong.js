@@ -10,20 +10,13 @@ import MyPlayer from "./MyPlayer"
 import AuthApi from '../Aoth/AuthApi';
 import Cookie from "js-cookie"
 
-function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
  }
 function OneSong() {
     const Auth = React.useContext(AuthApi)
+    const email = Cookie.get("email")
     const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
@@ -49,21 +42,18 @@ function OneSong() {
                         setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){
-                        data =  await axios.get(`/favorites/songs/${Auth.email}`,{headers:{
-                            token:Cookie.get("token"),email:Cookie.get("email")
+                        
+                        data =  await axios.get(`/favorites/songs/${email}`,{headers:{
+                            token:Cookie.get("token")
                         }})
                         data=data.data
-                        console.log(data);
                         let songsList = []
                         for (let i=0;i<data.length;i++){
                         // eslint-disable-next-line
-                            if (songsList.find(element=>element.id===data[i].id)){
+                            if (songsList.find(element=>element.id===data[i].Song.id)){
                                 continue
                             }
-                            if(data[i].uploadAt===null){
-                                data[i].uploadAt=generateTime()
-                            } 
-                            songsList.push(data[i])        
+                            songsList.push(data[i].Song)        
                         }
                         Auth.setList(songsList)
                         setNextQuery(["favorites","true"])

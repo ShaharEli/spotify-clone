@@ -43,7 +43,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
     const artist =song.Artist?song.Artist["name"]:"no artist"
     const length = song.length
     const addSong = async()=>{
-      await axios.post("/yoursongs",{email:Auth.email,songId:song.id},{headers:{
+      await axios.post("/favorites/song",{email:Auth.email,songId:song.id},{headers:{
         token:Cookie.get("token")
     }})
   }

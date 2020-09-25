@@ -6,14 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import {motion} from 'framer-motion'
 import Cookie from "js-cookie"
 function Playlists() {
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
+
     
     const [playlists,setPlaylists] =useState([])
     const [unfiltredPlaylists,setUnfiltrePlaylists] =useState([])
@@ -24,12 +17,6 @@ function Playlists() {
                 const {data} = await axios.get("/playlists",{headers:{
                     token:Cookie.get("token"),email:Cookie.get("email")
                 }})
-                data.map(playlist=> {
-                    if(playlist.uploadedAt===null){
-                        playlist.uploadedAt=generateTime()
-                    } 
-                    return playlist})
-    
                 setPlaylists(data)
                 setUnfiltrePlaylists(data)
             }catch(e){console.error(e)}

@@ -10,10 +10,10 @@ function PlaylistItem({playlist}) {
     const Auth = useContext(AuthApi)
     const name = playlist.name
     const image =playlist.coverImg
-    const date = playlist.uploadedAt.slice(0,10)
+    const date = playlist.createdAt.slice(0,10)
     const addPlaylist = async()=>{
         try{
-            await axios.post("/yourplaylists",{email:Auth.email,playlistId:playlist.id},{headers:{
+            await axios.post("/favorites/playlist",{email:Auth.email,playlistId:playlist.id},{headers:{
                 token:Cookie.get("token")
             }})
         }catch(e){console.error(e)}

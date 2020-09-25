@@ -14,29 +14,18 @@ function TopPlaylists() {
         { width:730 , itemsToShow: 7 },
         { width: 950, itemsToShow: 8 },
       ]
-    function generateTime() {
-        let today = new Date();
-        const dd = String(today.getDate()).padStart(2, '0');
-        const mm = String(today.getMonth() + 1).padStart(2, '0');
-        const yyyy = today.getFullYear();
-        today = `${yyyy}-${mm}-${dd}`;
-        return `${today}`;
-      }
     
     const [playlists,setPlaylists] =useState([])
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/top_playlists",{headers:{
-                token:Cookie.get("token"),email:Cookie.get("email")
-            }})
-            data.map(playlist=> {
-                if(playlist.uploadedAt===null){
-                    playlist.uploadedAt=generateTime()
-                } 
-                return playlist})
+            try{
+                const {data} = await axios.get("/playlists/top",{headers:{
+                    token:Cookie.get("token")
+                }})
+                setPlaylists(data)
+            }catch(e){console.error(e.message)}
 
-            setPlaylists(data)
 
         })()
     }, [])

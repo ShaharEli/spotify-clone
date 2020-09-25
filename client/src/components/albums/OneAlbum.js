@@ -25,6 +25,7 @@ function OneAlbum() {
             setAlbum(data.Songs)
             setAlbumInfo(data)
             setLoading(false)
+            console.log(data);
             }
             catch(e){
                 console.error(e.message)
@@ -56,8 +57,7 @@ function OneAlbum() {
         <div className="albumMedia">
         {
                 album.map(album=>{
-                const song = {id:album.id,artistId:album.artistId,createdAt:album.createdAt,title:album.title,artist:album.Artist.name,length:album.length,youtubeLink:album.youtubeLink,truckNumber:album.truckNumber}
-                return <SongItem key={album.song} query={["album",id]} song={song} />
+                return <SongItem key={album.song} query={["album",id]} song={{...album,albumInfo}} />
             })
         }
         </div>

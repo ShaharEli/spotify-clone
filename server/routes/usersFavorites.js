@@ -21,11 +21,11 @@ router.get("/all/:email",async (req,res)=>{
                     model:Song,include:[
                         {
                             model:Album,
-                            attributes:[["cover_img","img"],["name","album"]]
+                            attributes:[["cover_img","coverImg"],"name"]
                         },
                         {
                             model:Artist,
-                            attributes:[["name","artist"]]    
+                            attributes:["name"]    
                         },
                     ]
                 }
@@ -35,14 +35,16 @@ router.get("/all/:email",async (req,res)=>{
             where:{email:req.params.email},
             include:[
                 {
-                    model:Album,include:[
+                    model:Album
+                    ,include:[
                         {
                             model:Artist,
-                            attributes:[["name","artist"]]    
+                            attributes:["name"]
                         }]
-                }
+                },
             ]
         })
+
         const favoriteArtists = await User_artist.findAll({
             where:{email:req.params.email},
             include:[
@@ -70,15 +72,16 @@ router.get("/songs/:email",async (req,res)=>{
             where:{email:req.params.email},
             include:[
                 {
-                    model:Album,
-                    attributes:[["cover_img","img"],["name","album"]]
-                },
-                {
-                    model:Artist,
-                    attributes:[["name","artist"]]    
-                },
-                {
-                    model:Song
+                    model:Song,include:[
+                        {
+                            model:Album,
+                            attributes:[["cover_img","coverImg"],"name"]
+                        },
+                        {
+                            model:Artist,
+                            attributes:["name"]    
+                        },
+                    ]
                 }
             ]
         })

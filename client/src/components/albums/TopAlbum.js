@@ -13,7 +13,7 @@ function TopAlbum({album,noAdd}) {
     const date = album.createdAt.slice(0,10)
     const artist = album.artist
     const addAlbum = async()=>{
-        await axios.post("/favorite/youralbums",{email:Auth.email,albumId:album.id},{headers:{
+        await axios.post("/favorites/album",{email:Auth.email,albumId:album.id},{headers:{
             token:Cookie.get("token")
         }})
     }

@@ -13,7 +13,7 @@ function AlbumItem({album}) {
     const date = album.createdAt.slice(0,10)
     const artist = album.Artist?album.Artist.name:"no artist"
     const addAlbum = async()=>{
-        await axios.post("/youralbums",{email:Auth.email,albumId:album.id},{headers:{
+        await axios.post("/favorites/album",{email:Auth.email,albumId:album.id},{headers:{
             token:Cookie.get("token")
         }})
     }

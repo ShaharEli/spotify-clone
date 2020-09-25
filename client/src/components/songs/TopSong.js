@@ -29,20 +29,18 @@ import Cookie from "js-cookie"
   }));
 
 function TopSong({song,query,noImg,oneArtist,noAdd}) {
-  // console.log(song)
-
     const Auth = React.useContext(AuthApi)
     const title = song.title
     const link =song.youtubeLink.replace("watch?v=","embed/").split("&list")[0]
-    const album =song.album
-    const artist = song.artist
-    const imgSrc = song.img
+    const album =song.Album["name"]
+    const artist = song.Artist["name"]
+    const imgSrc = song.Album["coverImg"]
     const [showImg,setShowImg]=useState(noImg?false:true)
     const classes = useStyles();
     const [modalStyle] = React.useState(getModalStyle);
     const [open, setOpen] = React.useState(false);
     const addSong = async()=>{
-        await axios.post("/yoursongs",{email:Auth.email,songId:song.id},{headers:{
+        await axios.post("/favorites/song",{email:Auth.email,songId:song.id},{headers:{
           token:Cookie.get("token")
       }})
     }

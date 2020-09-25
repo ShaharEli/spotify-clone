@@ -37,7 +37,7 @@ function OneArtist() {
             setAlbums(dataToSet)
             setSongs(artistData.Songs)
             
-            }catch(e){console.log(e.message)}
+            }catch(e){console.error(e.message)}
             setLoading(false)
         })()
     }, [id])
@@ -60,8 +60,7 @@ function OneArtist() {
              breakPoints={breakPoints}>
                  {
             songs.map(song=>{
-                const songData = {album:song.Album.name,artistId:song.artistId, createdAt:song.createdAt, title:song.title,artist:song.name,length:song.length,youtubeLink:song.youtubeLink,albumId:song.albumId,id:song.id}
-                return <TopSong oneArtist={true} query={["artist",id]} noImg={true} key={song.title} song={songData} maxWidth={true} />
+                return <TopSong oneArtist={true} query={["artist",id]} noImg={true} key={song.title} song={{...song,Artist:artist}} maxWidth={true} />
             })
 
                  }

@@ -3,6 +3,13 @@ const router = Router()
 const {Playlist,Playlists_song,Artist,Album,Song} =  require("../ORM/models") 
 
 
+router.get("/top",async (req,res)=>{
+    try{
+        const topPlaylist = await Playlist.findAll({limit:20})
+        res.json(topPlaylist)
+    }catch(e){res.json({error:e.message})}
+})
+
 
 
 router.delete("/:id",async (req,res)=>{
@@ -82,13 +89,6 @@ router.get("/:id",async (req,res)=>{
 
     
     
-})
-
-router.get("/top",async (req,res)=>{
-    try{
-        const topPlaylist = await Playlist.findAll({limit:20})
-        res.json(topPlaylist)
-    }catch(e){res.json({error:e.message})}
 })
 
 
