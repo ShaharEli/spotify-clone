@@ -12,7 +12,7 @@ function TopArtist({artist,noAdd}) {
     const date = artist.createdAt.slice(0,10)
     const addArtist = async()=>{
         await axios.post("/favorites/artist",{email:Auth.email,artistId:artist.id},{headers:{
-            token:Cookie.get("token"),email:Cookie.get("email")
+            token:Cookie.get("token")
         }})
     }
     return (

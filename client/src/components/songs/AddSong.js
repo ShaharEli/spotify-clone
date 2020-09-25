@@ -33,7 +33,7 @@ function AddSong() {
     useEffect(()=>{
         (async()=>{
            const {data} =await axios.get("/artists",{headers:{
-            token:Cookie.get("token"),email:Cookie.get("email")
+            token:Cookie.get("token")
         }})
            const artistsData = data
             const artistsOptions = []
@@ -42,7 +42,7 @@ function AddSong() {
             }
             setArtists(artistsOptions)
             const albumsList =await axios.get("/albums",{headers:{
-              token:Cookie.get("token"),email:Cookie.get("email")
+              token:Cookie.get("token")
           }})
             const albumsData = albumsList.data
             const albumsOptions = []
@@ -98,8 +98,8 @@ function AddSong() {
           else{
           const song={title:songName,length:`00:${length}`,artistId:chosenArtist.value,albumId:chosenAlbum.value,
          youtubeLink:link,lyrics:lyrics,uploadAt:generateTime(),trackNumber:track}
-          axios.post("/song",song,{headers:{
-            token:Cookie.get("token"),email:Cookie.get("email")
+          axios.post("/songs",song,{headers:{
+            token:Cookie.get("token")
         }})
           .then(handleClose)
         }

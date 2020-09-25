@@ -15,7 +15,7 @@ function Playlists() {
         (async ()=>{
             try{
                 const {data} = await axios.get("/playlists",{headers:{
-                    token:Cookie.get("token"),email:Cookie.get("email")
+                    token:Cookie.get("token")
                 }})
                 setPlaylists(data)
                 setUnfiltrePlaylists(data)

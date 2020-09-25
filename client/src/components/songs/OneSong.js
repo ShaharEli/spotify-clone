@@ -29,12 +29,12 @@ function OneSong() {
             (async ()=>{
                 try{
                     let {data}= await axios.get(`/songs/${id}`,{headers:{
-                        token:Cookie.get("token"),email:Cookie.get("email")
+                        token:Cookie.get("token")
                     }})
                     Auth.setSong(data)
                     if(query.get("artist")){
                         data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
-                            token:Cookie.get("token"),email:Cookie.get("email")
+                            token:Cookie.get("token")
                         }})
                         Auth.setList(data.data.Songs)
                         // eslint-disable-next-line
@@ -61,7 +61,7 @@ function OneSong() {
                     }
                     else if(query.get("album")){
                         data =  await axios.get(`/album/${query.get("album")}`,{headers:{
-                            token:Cookie.get("token"),email:Cookie.get("email")
+                            token:Cookie.get("token")
                         }})
                         const albumsSongs = data.data.map((song)=>{
                             song.id = song.songId
@@ -74,7 +74,7 @@ function OneSong() {
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlist/${query.get("playlist")}`,{headers:{
-                            token:Cookie.get("token"),email:Cookie.get("email")
+                            token:Cookie.get("token")
                         }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line
@@ -83,7 +83,7 @@ function OneSong() {
                     }
                     else{
                         data =  await axios.get(`/top_songs`,{headers:{
-                            token:Cookie.get("token"),email:Cookie.get("email")
+                            token:Cookie.get("token")
                         }})
                         Auth.setList(data.data)
                         // eslint-disable-next-line

@@ -13,7 +13,7 @@ function Artist() {
         (async ()=>{
             try{
                 const {data} = await axios.get("/artists",{headers:{
-                    token:Cookie.get("token"),email:Cookie.get("email")
+                    token:Cookie.get("token")
                 }})
                 setArtists(data)
                 setUnfilteredArtists(data)

@@ -12,7 +12,7 @@ function TopPlaylist({playlist,noAdd}) {
     const date = playlist.createdAt.slice(0,10)
     const addPlaylist = async()=>{
         await axios.post("/favrite/playlist",{email:Auth.email,playlistId:playlist.id},{headers:{
-            token:Cookie.get("token"),email:Cookie.get("email")
+            token:Cookie.get("token")
         }})
     }
     return (
