@@ -29,18 +29,21 @@ function TopAlbums() {
     const [albums,setAlbums] =useState([])
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/albums/top",{headers:{
-                token:Cookie.get("token")
-            }})
-            data.map(album=> {
-                if(album.uploadAt===null){
-                    album.uploadAt=generateTime()
-                } 
-                if(album.createdAt===null){
-                    album.createdAt=generateTime()
-                } 
-                return album})
-            setAlbums(data)
+            try{
+                const {data} = await axios.get("/albums/top",{headers:{
+                    token:Cookie.get("token")
+                }})
+                data.map(album=> {
+                    if(album.uploadAt===null){
+                        album.uploadAt=generateTime()
+                    } 
+                    if(album.createdAt===null){
+                        album.createdAt=generateTime()
+                    } 
+                    return album})
+                setAlbums(data)
+            }catch(e){console.error(e.message)}
+
         })()
     }, [])
 

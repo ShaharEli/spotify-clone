@@ -32,7 +32,6 @@ app.use(morgan(function (tokens, req, res) {
           if (error) {
             res.status(403).send('incoreccet token');
           } else {
-            res.token = bearerHeader;
             next();
           }
         })

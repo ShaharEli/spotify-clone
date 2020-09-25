@@ -20,16 +20,14 @@ function Artist() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/artists",{headers:{
-                token:Cookie.get("token"),email:Cookie.get("email")
-            }})
-            data.map(artist=> {
-                if(artist.uploadedAt===null){
-                    artist.uploadedAt=generateTime()
-                } 
-                return artist})
-            setArtists(data)
-            setUnfilteredArtists(data)
+            try{
+                const {data} = await axios.get("/artists",{headers:{
+                    token:Cookie.get("token"),email:Cookie.get("email")
+                }})
+                setArtists(data)
+                setUnfilteredArtists(data)
+            }catch(e){console.error(e.message)}
+
         })()
     }, [])
     const handleChange=(e)=>{

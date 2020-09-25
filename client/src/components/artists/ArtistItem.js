@@ -9,7 +9,7 @@ function ArtistItem({artist}) {
     const Auth = useContext(AuthApi)
     const name = artist.name
     const image =artist.coverImg
-    const date = artist.uploadedAt.slice(0,10)
+    const date = artist.createdAt.slice(0,10)
     const addArtist = async()=>{
         await axios.post("/yourartists",{email:Auth.email,artistId:artist.id},{headers:{
             token:Cookie.get("token"),email:Cookie.get("email")

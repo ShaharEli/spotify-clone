@@ -31,15 +31,13 @@ function TopArtists() {
 
     useEffect(() => {
         (async ()=>{
-            const {data} = await axios.get("/topArtists",{headers:{
-                token:Cookie.get("token"),email:Cookie.get("email")
-            }})
-            data.map(artist=> {
-                if(artist.uploadedAt===null){
-                    artist.uploadedAt=generateTime()
-                } 
-                return artist})
-            setArtists(data)
+            try{
+                const {data} = await axios.get("/artists/top",{headers:{
+                    token:Cookie.get("token")
+                }})
+                setArtists(data)
+            }catch(e){console.error(e)}
+
         })()
     }, [])
     return (

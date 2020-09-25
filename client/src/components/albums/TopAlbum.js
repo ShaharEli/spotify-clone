@@ -10,10 +10,10 @@ function TopAlbum({album,noAdd}) {
     const Auth = useContext(AuthApi)
     const name = album.name
     const image =album.coverImg
-    const date = album.uploadAt.slice(0,10)
+    const date = album.createdAt.slice(0,10)
     const artist = album.artist
     const addAlbum = async()=>{
-        await axios.post("/youralbums",{email:Auth.email,albumId:album.id},{headers:{
+        await axios.post("/favorite/youralbums",{email:Auth.email,albumId:album.id},{headers:{
             token:Cookie.get("token")
         }})
     }

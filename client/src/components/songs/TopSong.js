@@ -29,6 +29,8 @@ import Cookie from "js-cookie"
   }));
 
 function TopSong({song,query,noImg,oneArtist,noAdd}) {
+  // console.log(song)
+
     const Auth = React.useContext(AuthApi)
     const title = song.title
     const link =song.youtubeLink.replace("watch?v=","embed/").split("&list")[0]

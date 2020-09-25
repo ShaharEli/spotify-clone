@@ -29,6 +29,18 @@ router.put("/:id",async (req,res)=>{
     }
 })
 
+router.get("/:id",async (req,res)=>{
+    try{
+       const artistsData= await Artist.findByPk(req.params.id,{
+            include:[{
+                model:Song,
+                include:[{model:Album,attributes:["name"]}]
+            },Album]
+        })
+        res.json(artistsData)
+    }catch(e){res.json({error:e.message})}
+})
+
 router.post("/",async(req,res)=>{
   try{
     const {body} =req
@@ -36,6 +48,10 @@ router.post("/",async(req,res)=>{
     res.json({success:"one artist added"})
   }catch(e){res.json({error:e.message})}
 })
+
+
+
+module.exports = router
 
 router.get("/",async (req,res)=>{
     try{
@@ -49,14 +65,4 @@ router.get("/",async (req,res)=>{
 })
 
 
-router.get("/:id",async (req,res)=>{
-    try{
-       const artistsData= await Artist.findByPk(req.params.id,{
-            include:[Song,Album]
-        })
-        res.json(artistsData)
-    }catch(e){res.json({error:e.message})}
-})
-
-module.exports = router
 
