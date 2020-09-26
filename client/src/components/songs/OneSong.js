@@ -17,7 +17,6 @@ function useQuery() {
 function OneSong() {
     const Auth = React.useContext(AuthApi)
     const email = Cookie.get("email")
-    const [nextQuery,setNextQuery] = useState([])
     let query = useQuery();
     const {id} = useParams()
     const [loading,setLoading]=  useState(true) 
@@ -40,7 +39,6 @@ function OneSong() {
                         Auth.setList(listOfArtistSongs)
                         // eslint-disable-next-line
                         Auth.setCounter(listOfArtistSongs.findIndex(e=>e.id==id))
-                        setNextQuery(["artist",query.get("artist")])
                         Auth.setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){           
@@ -57,7 +55,6 @@ function OneSong() {
                             songsList.push(data[i].Song)        
                         }
                         Auth.setList(songsList)
-                        setNextQuery(["favorites","true"])
                         Auth.setNextQuery(["favorites","true"])
                         
 
@@ -70,7 +67,6 @@ function OneSong() {
                         Auth.setList(listOfAlbumSongs)
                         // eslint-disable-next-line
                         Auth.setCounter(listOfAlbumSongs.findIndex(e=>e.id==id))
-                        setNextQuery(["album",query.get("album")])
                         Auth.setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
@@ -81,7 +77,6 @@ function OneSong() {
                         Auth.setList(data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.findIndex(e=>e.id==id))
-                        setNextQuery(["playlist",query.get("playlist")])
                         Auth.setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
@@ -91,7 +86,6 @@ function OneSong() {
                         Auth.setList(data.data)
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
-                        setNextQuery(["top_songs","true"])
                         Auth.setNextQuery(["top_songs","true"])
 
                     }
@@ -133,7 +127,7 @@ function OneSong() {
                 {
                     Auth.list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem background={item.title===Auth.song.title} animation={false} query={nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem background={item.title===Auth.song.title} animation={false} query={Auth.nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
                     })
                 }
             </div>
