@@ -1,7 +1,8 @@
-'use strict';
+
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Artist extends Model {
     /**
@@ -13,18 +14,17 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       this.hasMany(models.Song, {
         foreignKey: 'artistId',
-      })
+      });
       this.hasMany(models.Album, {
         foreignKey: 'artistId',
-
-      })
+      });
       this.hasMany(models.User_artist, {
         foreignKey: 'artistId',
-      })
+      });
 
 
     }
-  };
+  }
   Artist.init({
     name: DataTypes.STRING,
     uploadedAt: {

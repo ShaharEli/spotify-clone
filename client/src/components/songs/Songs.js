@@ -38,9 +38,7 @@ const Songs = () => {
     }
     return (
         <>
-        <div id="songs"
-                
-                >
+        <div id="songs" >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
             <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />

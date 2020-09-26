@@ -1,7 +1,8 @@
-'use strict';
+
 const {
   Model
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Album extends Model {
     /**
@@ -14,17 +15,17 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Song, {
         foreignKey: "albumId",
 
-      })
+      });
       this.hasMany(models.User_album, {
         foreignKey: 'albumId',
 
-      })
+      });
       this.belongsTo(models.Artist, {
         foreignKey: "artistId"
-      })
+      });
 
     }
-  };
+  }
   Album.init({
     artistId: {
       field: 'artist_id',

@@ -36,13 +36,13 @@ function OneSong() {
                         data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
                             token:Cookie.get("token")
                         }})
-                        Auth.setList(data.data.Songs)
+                        const listOfArtistSongs = data.data.Songs
+                        Auth.setList(listOfArtistSongs)
                         // eslint-disable-next-line
-                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(listOfArtistSongs.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
                     }
-                    else if(query.get("favorites")){
-                        
+                    else if(query.get("favorites")){           
                         data =  await axios.get(`/favorites/songs/${email}`,{headers:{
                             token:Cookie.get("token")
                         }})
@@ -60,29 +60,27 @@ function OneSong() {
 
                     }
                     else if(query.get("album")){
-                        data =  await axios.get(`/album/${query.get("album")}`,{headers:{
+                        data =  await axios.get(`/albums/${query.get("album")}`,{headers:{
                             token:Cookie.get("token")
                         }})
-                        const albumsSongs = data.data.map((song)=>{
-                            song.id = song.songId
-                            return song
-                        })
-                        Auth.setList(albumsSongs)
+                        const listOfAlbumSongs =data.data.Songs
+                        Auth.setList(listOfAlbumSongs)
                         // eslint-disable-next-line
-                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(listOfAlbumSongs.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
-                        data =  await axios.get(`/playlist/${query.get("playlist")}`,{headers:{
+                        data =  await axios.get(`/playlists/${query.get("playlist")}`,{headers:{
                             token:Cookie.get("token")
                         }})
-                        Auth.setList(data.data)
+                        data =data.data.Playlists_songs
+                        Auth.setList(data)
                         // eslint-disable-next-line
-                        Auth.setCounter(data.data.findIndex(e=>e.id==id))
+                        Auth.setCounter(data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
-                        data =  await axios.get(`/top_songs`,{headers:{
+                        data =  await axios.get(`/songs/top`,{headers:{
                             token:Cookie.get("token")
                         }})
                         Auth.setList(data.data)
