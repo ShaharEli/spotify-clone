@@ -18,6 +18,7 @@ router.post("/login",async (req,res)=>{
                 const user = body.email
                 const newToken ={
                     isAdmin: result.is_admin,
+                    remember_token:body.remember_token,
                     user
                 }
                 if (!body.remember_token) {
@@ -47,6 +48,7 @@ router.post("/register",async (req,res)=>{
         const user = body.email
         const newToken ={
             isAdmin: result.is_admin,
+            remember_token:body.remember_token,
             user
         }
         if (!body.remember_token) {

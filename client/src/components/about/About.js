@@ -29,6 +29,7 @@ function About() {
         await  Cookie.remove("name")
         await Cookie.remove("auth")
         await Cookie.remove("token")
+        await Cookie.remove("isAdmin")
         Auth.setAuth(false)
     }
     const [songs,setSongs] = useState([])
