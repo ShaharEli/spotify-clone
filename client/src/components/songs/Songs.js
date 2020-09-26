@@ -41,7 +41,7 @@ const Songs = () => {
         <div id="songs" >
             <div style={{width:"80%"}}>
             <div className="searchDiv">
-            <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label="Search song" onChange={(e) => handleChange(e)} />
+            <TextField style={{marginTop: 10 }}  id="searchInput" autoComplete="off" label={`Showing ${songs.length} songs`} onChange={(e) => handleChange(e)} />
             </div>
             <h2  id="songsTitle">Songs</h2>
             <div style={{width:"100%",display:"flex",justifyContent:"flex-end",marginBottom:10}}>
