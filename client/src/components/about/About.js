@@ -76,7 +76,11 @@ function About() {
                     playlistsList.push(data[3][i].Playlist)        
                 }               
                 setPlaylists(playlistsList)                   
-            }catch(e){console.log(e.message)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
         })()
     }, [Auth.email])
     return (

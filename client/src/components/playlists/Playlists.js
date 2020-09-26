@@ -19,7 +19,11 @@ function Playlists() {
                 }})
                 setPlaylists(data)
                 setUnfiltrePlaylists(data)
-            }catch(e){console.error(e)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
 
 
         })()

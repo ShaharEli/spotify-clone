@@ -23,7 +23,9 @@ function OnePlaylist() {
             setSongs(data.Playlists_songs)
             console.log(data);
         }catch(e){
-            console.error(e.message)
+            if(e.response.status===403){
+                window.location.reload();
+            }
         }setLoading(false)
         })()
     }, [id])

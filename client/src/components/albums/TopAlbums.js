@@ -5,14 +5,7 @@ import {motion} from 'framer-motion'
 import Carousel from 'react-elastic-carousel';
 import TopAlbum from "./TopAlbum"
 import Cookie from "js-cookie"
-function generateTime() {
-    let today = new Date();
-    const dd = String(today.getDate()).padStart(2, '0');
-    const mm = String(today.getMonth() + 1).padStart(2, '0');
-    const yyyy = today.getFullYear();
-    today = `${yyyy}-${mm}-${dd}`;
-    return `${today}`;
-  }
+
 
 function TopAlbums() {
     const breakPoints = [
@@ -33,16 +26,12 @@ function TopAlbums() {
                 const {data} = await axios.get("/albums/top",{headers:{
                     token:Cookie.get("token")
                 }})
-                data.map(album=> {
-                    if(album.uploadAt===null){
-                        album.uploadAt=generateTime()
-                    } 
-                    if(album.createdAt===null){
-                        album.createdAt=generateTime()
-                    } 
-                    return album})
                 setAlbums(data)
-            }catch(e){console.error(e.message)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
 
         })()
     }, [])

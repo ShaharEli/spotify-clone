@@ -37,7 +37,11 @@ function OneArtist() {
             setAlbums(dataToSet)
             setSongs(artistData.Songs)
             
-            }catch(e){console.error(e.message)}
+            }catch(e){
+            if(e.response.status===403){
+                window.location.reload();
+            }
+        }
             setLoading(false)
         })()
     }, [id])

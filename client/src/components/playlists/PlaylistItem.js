@@ -16,7 +16,11 @@ function PlaylistItem({playlist}) {
             await axios.post("/favorites/playlist",{email:Auth.email,playlistId:playlist.id},{headers:{
                 token:Cookie.get("token")
             }})
-        }catch(e){console.error(e)}
+        }catch(e){
+            if(e.response.status===403){
+                window.location.reload();
+            }
+        }
 
     }
     return (

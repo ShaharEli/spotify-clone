@@ -19,7 +19,11 @@ function Albums() {
                 }})
                 setAlbums(data)
                 setUnfiltredAlbums(data)
-            }catch(e){console.error(e.message)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
  
         })()
     }, [])

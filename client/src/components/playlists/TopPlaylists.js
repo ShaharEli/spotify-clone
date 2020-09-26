@@ -24,7 +24,11 @@ function TopPlaylists() {
                     token:Cookie.get("token")
                 }})
                 setPlaylists(data)
-            }catch(e){console.error(e.message)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
 
 
         })()

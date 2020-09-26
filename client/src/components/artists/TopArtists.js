@@ -29,7 +29,11 @@ function TopArtists() {
                     token:Cookie.get("token")
                 }})
                 setArtists(data)
-            }catch(e){console.error(e)}
+            }catch(e){
+                if(e.response.status===403){
+                    window.location.reload();
+                }
+            }
 
         })()
     }, [])

@@ -27,10 +27,10 @@ app.use(morgan(function (tokens, req, res) {
       const token = req.headers['token'];
       if (typeof token !== 'undefined') {
         jwt.verify(token, process.env.HASH, (error, data) => {
+          console.log(data);
           if (error) {
             res.status(403).send('incurrect token');
           } else {
-            console.log(data);
             if(!data.remember_token){
               const newToken ={...data}
               newToken.exp = Math.floor(Date.now() / 1000) + 3600

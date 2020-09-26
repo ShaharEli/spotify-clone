@@ -92,6 +92,9 @@ function OneSong() {
 
                     }
                 }catch(e){
+                    if(e.response.status===403){
+                        window.location.reload();
+                    }
                 }
     
                 setLoading(false)
@@ -104,7 +107,7 @@ function OneSong() {
             try{
                 const words= await solenolyrics.requestLyricsFor(Auth.song.title)
                 setLyrics(words)
-            }catch(e){}
+            }catch(e){console.error(`lyrics not found for ${Auth.song.title}`)}
         })()
     },[Auth.song])
     const spanStyle = { fontSize : 12 }
