@@ -1,6 +1,6 @@
 import React from 'react'
 import "./Header.css"
-import {NavLink} from "react-router-dom";
+import {NavLink,Link} from "react-router-dom";
 import {useSpring, animated} from 'react-spring'
 import AudiotrackIcon from '@material-ui/icons/Audiotrack';
 import HomeIcon from '@material-ui/icons/Home';
@@ -83,9 +83,11 @@ function Header({animate}) {
        {
                 Auth.song.title&&      
                 <div  className="mainPlayer">
+                <Link to={Auth.nextQuery?`/song/${Auth.song.id}?${Auth.nextQuery[0]}=${Auth.nextQuery[1]}`:`/song/${Auth.song.id}?all_songs=true`} style={{textDecoration:"none",color:"white"}}>
                 <div>
                 &nbsp; currently playing: &nbsp; {Auth.song.title}&nbsp;
                 </div>
+                </Link>
                 <div className="controls">
                 <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtubeLink} width="0%" height="0"/>
                 <SkipPreviousIcon style={controlStyle} onClick={Auth.previous} />

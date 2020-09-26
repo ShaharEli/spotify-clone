@@ -41,6 +41,7 @@ function OneSong() {
                         // eslint-disable-next-line
                         Auth.setCounter(listOfArtistSongs.findIndex(e=>e.id==id))
                         setNextQuery(["artist",query.get("artist")])
+                        Auth.setNextQuery(["artist",query.get("artist")])
                     }
                     else if(query.get("favorites")){           
                         data =  await axios.get(`/favorites/songs/${email}`,{headers:{
@@ -57,6 +58,8 @@ function OneSong() {
                         }
                         Auth.setList(songsList)
                         setNextQuery(["favorites","true"])
+                        Auth.setNextQuery(["favorites","true"])
+                        
 
                     }
                     else if(query.get("album")){
@@ -68,6 +71,7 @@ function OneSong() {
                         // eslint-disable-next-line
                         Auth.setCounter(listOfAlbumSongs.findIndex(e=>e.id==id))
                         setNextQuery(["album",query.get("album")])
+                        Auth.setNextQuery(["album",query.get("album")])
                     }
                     else if(query.get("playlist")){
                         data =  await axios.get(`/playlists/${query.get("playlist")}`,{headers:{
@@ -78,6 +82,7 @@ function OneSong() {
                         // eslint-disable-next-line
                         Auth.setCounter(data.findIndex(e=>e.id==id))
                         setNextQuery(["playlist",query.get("playlist")])
+                        Auth.setNextQuery(["playlist",query.get("playlist")])
                     }
                     else{
                         data =  await axios.get(`/songs/top`,{headers:{
@@ -87,6 +92,7 @@ function OneSong() {
                         // eslint-disable-next-line
                         Auth.setCounter(data.data.findIndex(e=>e.id==id))
                         setNextQuery(["top_songs","true"])
+                        Auth.setNextQuery(["top_songs","true"])
 
                     }
                 }catch(e){
