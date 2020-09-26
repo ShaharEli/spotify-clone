@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class Interaction extends Model {
     /**
@@ -12,36 +10,37 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       this.belongsTo(models.Song, {
-        foreignKey: 'songId'
+        foreignKey: "songId",
       });
       this.belongsTo(models.User, {
-        foreignKey: 'userId'
+        foreignKey: "userId",
       });
     }
-
-  };
-  Interaction.init({
-    userId:{
-      field:"user_id",
-      type:DataTypes.INTEGER
+  }
+  Interaction.init(
+    {
+      userId: {
+        field: "user_id",
+        type: DataTypes.INTEGER,
+      },
+      songId: {
+        field: "song_id",
+        type: DataTypes.INTEGER,
+      },
+      isLiked: {
+        field: "is_liked",
+        type: DataTypes.BOOLEAN,
+      },
+      playCount: {
+        field: "play_count",
+        type: DataTypes.INTEGER,
+      },
     },
-    songId:{
-      field:"song_id",
-      type:DataTypes.INTEGER
-    },
-    isLiked:{
-      field:"is_liked",
-      type: DataTypes.BOOLEAN,
-    },
-    playCount:{
-      field:"play_count",
-      type:DataTypes.INTEGER
+    {
+      sequelize,
+      modelName: "Interaction",
+      paranoid: true,
     }
-  }, {
-    sequelize,
-    modelName: 'Interaction',
-    paranoid:true
-    
-  });
+  );
   return Interaction;
 };
