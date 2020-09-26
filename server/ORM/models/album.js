@@ -11,34 +11,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      this.hasMany(models.Song,{
+      this.hasMany(models.Song, {
         foreignKey: "albumId",
 
       })
-      this.hasMany(models.User_album,{
+      this.hasMany(models.User_album, {
         foreignKey: 'albumId',
 
       })
-      this.belongsTo(models.Artist,{
-        foreignKey:"artistId"
+      this.belongsTo(models.Artist, {
+        foreignKey: "artistId"
       })
 
     }
   };
   Album.init({
-    artistId:{
-      field:'artist_id',
+    artistId: {
+      field: 'artist_id',
       type: DataTypes.STRING
-      },
+    },
     name: DataTypes.STRING,
-    coverImg:{
-      field:'cover_img',
+    coverImg: {
+      field: 'cover_img',
       type: DataTypes.TEXT
-      }
+    }
   }, {
     sequelize,
     modelName: 'Album',
-    paranoid:true
+    paranoid: true
   });
   return Album;
 };

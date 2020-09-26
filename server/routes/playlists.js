@@ -1,94 +1,92 @@
-const {Router} = require("express")
+const { Router } = require("express")
 const router = Router()
-const {Playlist,Playlists_song,Artist,Album,Song} =  require("../ORM/models") 
+const { Playlist, Playlists_song, Artist, Album, Song } = require("../ORM/models")
 
 
-router.get("/top",async (req,res)=>{
-    try{
-        const topPlaylist = await Playlist.findAll({limit:20})
+router.get("/top", async (req, res) => {
+    try {
+        const topPlaylist = await Playlist.findAll({ limit: 20 })
         res.json(topPlaylist)
-    }catch(e){res.json({error:e.message})}
+    } catch (e) { res.json({ error: e.message }) }
 })
 
-
-
-router.delete("/:id",async (req,res)=>{
-    try{
+router.delete("/:id", async (req, res) => {
+    try {
         await Playlist.destory({
-            where:{id:req.params.id}
+            where: { id: req.params.id }
         })
-        res.json({success:`playlist with id ${req.params.id} deleted`})
-    }catch(e){res.json({error:e.message})}
+        res.json({ success: `playlist with id ${req.params.id} deleted` })
+    } catch (e) { res.json({ error: e.message }) }
 })
 
-router.put("/:id",async (req,res)=>{
-    if (!req.body){
+router.put("/:id", async (req, res) => {
+    if (!req.body) {
         res.status(400).send("content missing")
     }
-    const {body} = req;
-    try{
-        await Playlist.update(body,{
-            where:{id:req.params.id}
+    const { body } = req;
+    try {
+        await Playlist.update(body, {
+            where: { id: req.params.id }
         })
-        res.json({success:"one playlist updated"})
-    }catch(e){res.json({error:e.message})}
+        res.json({ success: "one playlist updated" })
+    } catch (e) { res.json({ error: e.message }) }
 })
 
-router.post("/",async (req,res)=>{
-    if (!req.body){
+router.post("/", async (req, res) => {
+    if (!req.body) {
         res.status(400).send("content missing")
     }
-    const {body} = req;
-    try{
+    const { body } = req;
+    try {
         await Playlist.create(body)
-        res.json({success:"one playlist added"})
-    }catch(e){res.json({error:e.message})}
+        res.json({ success: "one playlist added" })
+    } catch (e) { res.json({ error: e.message }) }
 
 })
 
-router.get("/",async (req,res)=>{
-    try{
+router.get("/", async (req, res) => {
+    try {
         const playlists = await Playlist.findAll()
         res.json(playlists)
-    }catch(e){res.json({error:screen.message})}
+    } catch (e) { res.json({ error: screen.message }) }
 })
 
-router.get("/:id",async (req,res)=>{
-    try{
-    const result = await Playlist.findByPk(req.params.id, {
-        include: [
-            {
-                model: Playlists_song,
-                where: {playlist_id: req.params.id},
-                
-                include: [
-                    {
-                        model: Song,
-                        include: [
-                            {
-                                model: Artist,
-                                attributes: ["name"],
-                            },
-                            {
-                                model: Album,
-                                attributes: ["name"],
-                            },
-                        ],
-                        
-                    }
-                ],
-                attributes: ['id']
-            }
-        ]
-    })
-    for(let i = 0; i < result.Playlists_songs.length; i++) {
-        result.Playlists_songs[i] = result.Playlists_songs[i].Song
-    }
-    res.json(result)
-}catch(e){res.json({error:e.message})}
+router.get("/:id", async (req, res) => {
+    try {
+        const result = await Playlist.findByPk(req.params.id, {
+            include: [
+                {
+                    model: Playlists_song,
+                    where: { playlist_id: req.params.id },
 
-    
-    
+                    include: [
+                        {
+                            model: Song,
+                            include: [
+                                {
+                                    model: Artist,
+                                    attributes: ["name"],
+                                },
+                                {
+                                    model: Album,
+                                    attributes: ["name"],
+                                },
+                            ],
+
+                        }
+                    ],
+                    attributes: ['id']
+                }
+            ]
+        })
+        for (let i = 0; i < result.Playlists_songs.length; i++) {
+            result.Playlists_songs[i] = result.Playlists_songs[i].Song
+        }
+        res.json(result)
+    } catch (e) { res.json({ error: e.message }) }
+
+
+
 })
 
 

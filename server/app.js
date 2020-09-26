@@ -1,7 +1,6 @@
 const express = require("express")
 const app=express()
 app.use(express.json())
-const mysql = require('mysql2');
 const morgan = require("morgan")
 const cors = require("cors")
 const songs = require("./routes/songs")
@@ -12,6 +11,7 @@ const users = require("./routes/users")
 const favorites = require("./routes/usersFavorites")
 const jwt = require("jsonwebtoken")
 app.use(cors())
+
 app.use(morgan(function (tokens, req, res) {
     const myTiny =[tokens.method(req, res),
       tokens.url(req, res),
@@ -21,8 +21,6 @@ app.use(morgan(function (tokens, req, res) {
       return myTiny.join(' ')
   }));
   
-
-
   function ensureToken(req, res, next) {
       const token = req.headers['token'];
       if (typeof token !== 'undefined') {
