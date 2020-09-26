@@ -112,11 +112,12 @@ function OneSong() {
     return (
         Auth.song.title?
         <>
+        <div id="oneSongForMobile">
         <div className="oneSong">
             <div  className="playOneSong">  
             <h2>{Auth.song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
-            <span style={spanStyle}>by: &nbsp;{Auth.song.artist}</span>&nbsp;&nbsp;
-            <span style={spanStyle}>album: &nbsp;{Auth.song.album}</span>
+            <span style={spanStyle}>by: &nbsp;{Auth.song.Artist["name"]}</span>&nbsp;&nbsp;
+            <span style={spanStyle}>album: &nbsp;{Auth.song.Album["name"]}</span>
             <span style={spanStyle}> |&nbsp;{Auth.song.length.slice(3,10)}</span>
             <MyPlayer  />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
@@ -130,6 +131,7 @@ function OneSong() {
                     })
                 }
             </div>
+        </div>
         </div>
         </>
         :

@@ -23,10 +23,16 @@
         width: 97vw;
         height: 140vh;
         justify-content: space-between;
+        
+    }
+    #oneSongForMobile{
+        height: 100vh;
+        overflow-y: scroll;
     }
     .queue{
         width: 93vw;
         height: 60vh;
+        margin-bottom: 20px;
         overflow-y: scroll;
     }
     .playOneSong{

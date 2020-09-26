@@ -5,9 +5,9 @@
     overflow: hidden; 
     justify-content: center;
 	width: 100%;
-	background-color:#FDB515 ;
 	border-radius:7px;
 	height: 100vh;
+
 
 }
 .topAlbum{
@@ -37,6 +37,9 @@
 	border-radius: 7px;
 	background-color: transparent;
 	border: none;
+	background: rgb(89,179,182);
+	background: radial-gradient(circle, rgba(89,179,182,1) 9%, rgba(86,134,189,1) 100%);
+	
 }
 #albums:hover{
 	overflow-y: scroll; 

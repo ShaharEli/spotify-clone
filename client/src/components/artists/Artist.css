@@ -4,7 +4,9 @@
     overflow: hidden; 
     justify-content: center;
 	width: 100%;
-	background-color:#FDB515 ;
+	background: rgb(89,179,182);
+	background: radial-gradient(circle, rgba(89,179,182,1) 9%, rgba(86,134,189,1) 100%);
+	
 	border-radius: 7px;
 	max-height: 89.5vh;
 	height: 100vh;
