@@ -11,6 +11,7 @@ import AuthApi from '../Aoth/AuthApi';
 import Cookie from "js-cookie"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import Swal from 'sweetalert2';
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
@@ -23,13 +24,33 @@ function OneSong() {
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
     const [liked,setLiked] = useState(false)
-    console.log(Auth.song);
+
     const handleLike =async()=>{
         try{
             await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
                 token:Cookie.get("token")
             }})
-            // Auth.setSong(prev=>({...prev,isLiked:!prev.isLiked}))
+            if(!liked){
+                const {data} = await axios.post("/favorites/song",{email:Auth.email,songId:Auth.song.id},{headers:{
+                    token:Cookie.get("token")
+                }})
+                if(data.error){
+                    Swal.fire({
+                        title:`${Auth.song.title} is already in your list ${Auth.name}`,
+                        timer: 2000,
+                        timerProgressBar: true,
+                        icon:"error"
+                    })
+                }else{
+
+                    Swal.fire({
+                        title:"added to your favorites songs",
+                        timer: 2000,
+                        timerProgressBar: true,
+                        icon:"success"
+                    })
+                }
+            }
             setLiked(prev=>!prev)
         }catch(e){
             console.error(e.message)
