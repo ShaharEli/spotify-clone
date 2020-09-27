@@ -57,23 +57,6 @@ router.get("/top", async (req, res) => {
   }
 });
 
-router.get("/top", async (req, res) => {
-  try {
-    const albums = await Album.findAll({
-      limit: 20,
-      include: [
-        {
-          model: Artist,
-          attributes: ["name"],
-        },
-      ],
-    });
-    res.json(albums);
-  } catch (e) {
-    res.json({ error: e.message });
-  }
-});
-
 router.delete("/:id", async (req, res) => {
   try {
     await Album.destory({

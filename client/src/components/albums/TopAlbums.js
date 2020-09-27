@@ -51,7 +51,7 @@ function TopAlbums() {
             >
              <Carousel itemsToShow={8} itemPadding={[10]} breakPoints={breakPoints}>
             {
-            albums.map((album)=><TopAlbum key={album.id} album={album} />)
+            albums.map((album)=><TopAlbum views={true} key={album.id} album={album} />)
             } 
             </Carousel>
             </motion.div>
