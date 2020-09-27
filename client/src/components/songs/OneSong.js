@@ -42,7 +42,6 @@ function OneSong() {
                         icon:"error"
                     })
                 }else{
-
                     Swal.fire({
                         title:"added to your favorites songs",
                         timer: 2000,

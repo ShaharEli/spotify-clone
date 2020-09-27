@@ -1,11 +1,12 @@
 const { Router } = require("express");
+const sequelize = require("sequelize");
 
 const router = Router();
 const { Song, Artist, Album, Interaction, User } = require("../ORM/models");
 
-const sequelize = require("sequelize");
 
-router.post("/view", async (req, res) => {  
+
+router.post("/view", async (req, res) => {
   try {
     const user = await User.findOne({
       where: {
@@ -38,7 +39,7 @@ router.post("/view", async (req, res) => {
       });
     }
     res.send("viewd");
-  } catch (e) {    
+  } catch (e) {
     res.json({ error: e.message });
   }
 });
@@ -104,7 +105,6 @@ router.get("/", async (req, res) => {
 router.get("/top", async (req, res) => {
   try {
     const allSongs = await Song.findAll({
-      limit: 20,
       include: [
         {
           model: Artist,
@@ -112,11 +112,31 @@ router.get("/top", async (req, res) => {
         },
         {
           model: Album,
-          attributes: ["name", "coverImg"],
+          attributes: ["name"],
         },
       ],
     });
-    res.json(allSongs);
+    const interacrtions = await Interaction.findAll({
+      attributes: [
+        "songId",
+        [sequelize.fn("sum", sequelize.col("play_count")), "views"],
+      ],
+      group: ["songId"],
+    });
+    const mostViewedSongs = [];
+    for (let i = 0; i < interacrtions.length; i++) {
+      for (let x = 0; x < allSongs.length; x++) {
+        if (interacrtions[i].toJSON().songId === allSongs[x].toJSON().id) {
+          mostViewedSongs.push({
+            ...allSongs[x].toJSON(),
+            views: interacrtions[i].toJSON().views,
+          });
+          break;
+        }
+      }
+    }
+    mostViewedSongs.sort((a, b) => b.views - a.views);
+    res.json(mostViewedSongs.slice(0,20));
   } catch (e) {
     res.json({ error: e.message });
   }
@@ -143,25 +163,25 @@ router.get("/:id", async (req, res) => {
       attributes: [[sequelize.fn("sum", sequelize.col("play_count")), "views"]],
     });
     const user = await User.findOne({
-        where: {
-          email: req.headers.email,
-        },
-      });
-    let liked = await Interaction.findOne({
-        where: {
-          userId: user.id,
-          songId: req.params.id,
-        },
+      where: {
+        email: req.headers.email,
+      },
     });
-    if(!liked){    
-        liked={isLiked:false}
-    }else{
-        liked = liked.toJSON()
+    let liked = await Interaction.findOne({
+      where: {
+        userId: user.id,
+        songId: req.params.id,
+      },
+    });
+    if (!liked) {
+      liked = { isLiked: false };
+    } else {
+      liked = liked.toJSON();
     }
     const playCount = views[0].toJSON();
     const song = allSongs.toJSON();
     song.playCount = Number(playCount.views);
-    song.isLiked = liked.isLiked
+    song.isLiked = liked.isLiked;
     res.json(song);
   } catch (e) {
     res.json({ error: e.message });

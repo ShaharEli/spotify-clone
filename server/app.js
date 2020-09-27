@@ -49,7 +49,7 @@ function ensureToken(req, res, next) {
 
 
 app.use("/users", users);
-app.use(ensureToken);
+// app.use(ensureToken);
 app.use("/favorites", favorites);
 app.use("/songs", songs);
 app.use("/albums", albums);
