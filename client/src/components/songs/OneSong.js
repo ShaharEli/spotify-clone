@@ -27,7 +27,7 @@ function OneSong() {
 
     const handleLike =async()=>{
         try{
-            await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
+            const like = await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
                 token:Cookie.get("token")
             }})
             setLiked(!liked)
@@ -133,7 +133,7 @@ function OneSong() {
             <h2 >{Auth.song.title} </h2>
             <div style={{cursor:"pointer",textAlign:"right",width:"10px",float:"right"}} onClick={handleLike}>
                 {
-                    liked?
+                    !liked?
                     <FavoriteBorderIcon />
                     :
                     <FavoriteIcon color="secondary"/>

@@ -5,7 +5,7 @@ const { Song, Artist, Album, Interaction, User } = require("../ORM/models");
 
 const sequelize = require("sequelize");
 
-router.post("/view", async (req, res) => {
+router.post("/view", async (req, res) => {  
   try {
     const user = await User.findOne({
       where: {
@@ -37,8 +37,10 @@ router.post("/view", async (req, res) => {
         userId: user.id,
       });
     }
-    res.send("liked");
+    res.send("viewd");
   } catch (e) {
+    console.log("Xxxxxxxxxxxxxxxxxx"+e.message);
+    
     res.json({ error: e.message });
   }
 });
@@ -153,8 +155,12 @@ router.get("/:id", async (req, res) => {
           songId: req.params.id,
         },
     });
+    if(!liked){
+        liked.isLiked=false
+    }else{
+        liked = liked.toJSON()
+    }
     const playCount = views[0].toJSON();
-    liked = liked.toJSON()
     const song = allSongs.toJSON();
     song.playCount = Number(playCount.views);
     song.isLiked = liked.isLiked

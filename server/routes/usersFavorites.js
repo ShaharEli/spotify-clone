@@ -65,7 +65,7 @@ router.post("/likedSong", async (req, res) => {
             songId: body.song.id,
             isLiked:true
           })
-        res.json({success:"one interacrion updated"})
+        res.send(true)
 
       }
     }
