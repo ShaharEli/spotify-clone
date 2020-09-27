@@ -11,7 +11,7 @@ function TopPlaylist({playlist,noAdd}) {
     const image =playlist.coverImg
     const date = playlist.createdAt.slice(0,10)
     const addPlaylist = async()=>{
-        await axios.post("/favrite/playlist",{email:Auth.email,playlistId:playlist.id},{headers:{
+        await axios.post("/favorites/playlist",{email:Auth.email,playlistId:playlist.id},{headers:{
             token:Cookie.get("token")
         }})
     }
