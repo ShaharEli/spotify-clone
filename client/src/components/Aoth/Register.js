@@ -31,6 +31,7 @@ function Register() {
     return (
       !Auth.auth?
         <>
+        <div className="wallpaper">
         <motion.div className="authForms"
         initial={{scale:0.03}}
          animate={{ scale: 1 }}
@@ -89,6 +90,7 @@ function Register() {
             </div>
         </motion.form>
         </motion.div>
+        </div>
         </>:
         <Redirect to="/" />
          

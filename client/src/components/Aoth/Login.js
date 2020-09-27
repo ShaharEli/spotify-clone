@@ -31,6 +31,7 @@ function Login() {
     return (
         !Auth.auth?
         <>
+        <div className="wallpaper">
         <motion.div className="authForms"
             initial={{scale:0.03}}
              animate={{ scale: 1 }}
@@ -74,6 +75,7 @@ function Login() {
         </div>
         </motion.form>
         </motion.div>
+        </div>
         </>
         :
         <Redirect to="/" />

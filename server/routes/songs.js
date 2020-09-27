@@ -38,9 +38,7 @@ router.post("/view", async (req, res) => {
       });
     }
     res.send("viewd");
-  } catch (e) {
-    console.log("Xxxxxxxxxxxxxxxxxx"+e.message);
-    
+  } catch (e) {    
     res.json({ error: e.message });
   }
 });

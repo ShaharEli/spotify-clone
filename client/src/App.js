@@ -42,33 +42,34 @@ function App() {
         setPlaying(true)
     }
 
-    const next = () => {
+    const next =async () => {
         if (counter === list.length - 1) {
             Swal.fire("You finished the list", "", "success")
             setRestore(prev => !prev)
-            setSong(list[0])
+            let {data}= await axios.get(`/songs/${list[0].id}`,{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
+            setSong(data)
             setCounter(0)
         }
         else {
             setCounter(prev => prev + 1)
-            if (counter > -1 && list[counter].title === song.title) {
-                setSong(list[counter + 1])
-                setPlaying(true)
-            }
-            else {
-                setSong(list[counter + 1])
-                setPlaying(true)
-
-            }
+            let {data}= await axios.get(`/songs/${list[counter+1].id}`,{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
+            setSong(data)
         }
     }
-    const previous = () => {
+    const previous =async () => {
         if (counter === 0) {
             Swal.fire("You got to the start of the list", "", "error")
         }
         else {
+            let {data}= await axios.get(`/songs/${list[counter-1].id}`,{headers:{
+                token:Cookie.get("token"),email:Cookie.get("email")
+            }})
+            setSong(data)
             setCounter(prev => prev - 1)
-            setSong(list[counter - 1])
         }
     }
     const getAutorizied = async () => {

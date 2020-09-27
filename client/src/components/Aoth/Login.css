@@ -12,3 +12,8 @@
     border-radius: 4px;
     height: 18px;
 }
+.wallpaper{
+    width: 100vw;
+    height: 100vh;
+    /* background-image: url("./pexels-travis-blessing-1363876.jpg"); */
+}

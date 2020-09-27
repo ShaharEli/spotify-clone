@@ -29,10 +29,6 @@
     padding-left:10px ;
     padding-right:10px ;
     text-align: center;
-    border:1px solid black;
-    background-color:#F7ED6A;
-    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
-    border-radius:4px;
     display: flex;
     justify-content:space-between;
     flex-direction: column;
@@ -41,6 +37,8 @@
 	width: 70px;
 	position: relative;
 	
+	
+	
 }
 .searchDiv{
 	display: flex;
@@ -48,8 +46,12 @@
 }
 .topImages{
 	width: 100%;
-	height:60px;
+	height:90px;
 	margin-top: 10px;
+	border-radius: 8px;
+	bottom: 0;
+    box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.75);
+
 	
 }
 

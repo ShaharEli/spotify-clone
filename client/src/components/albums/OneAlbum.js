@@ -25,7 +25,6 @@ function OneAlbum() {
             setAlbum(data.Songs)
             setAlbumInfo(data)
             setLoading(false)
-            console.log(data);
             }
             catch(e){
                 console.error(e.message)

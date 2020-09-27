@@ -27,7 +27,7 @@ function OneSong() {
 
     const handleLike =async()=>{
         try{
-            const like = await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
+            await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
                 token:Cookie.get("token")
             }})
             setLiked(!liked)
@@ -43,8 +43,8 @@ function OneSong() {
                     let {data}= await axios.get(`/songs/${id}`,{headers:{
                         token:Cookie.get("token"),email:Cookie.get("email")
                     }})
-                    Auth.setSong(data)
                     setLiked(data.isLiked)
+                    Auth.setSong(data)
                     if(query.get("artist")){
                         data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
                             token:Cookie.get("token")
