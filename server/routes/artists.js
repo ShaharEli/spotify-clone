@@ -26,7 +26,7 @@ router.put("/:id", async (req, res) => {
             where: { id: req.params.id }
         });
         // eslint-disable-next-line no-unused-expressions
-        updated[1] === 0 ? res.json({ 0: "updated" }) : res.json({ 1: "updated" });
+        updated[0] === 0 ? res.json({ 0: "updated" }) : res.json({ 1: "updated" });
     } catch (e) {
         res.json({ error: e.message });
     }

@@ -143,7 +143,7 @@ function OneSong() {
             try{
                 const words= await solenolyrics.requestLyricsFor(Auth.song.title)
                 setLyrics(words)
-            }catch(e){console.error(`lyrics not found for ${Auth.song.title}`)}
+            }catch(e){}
         })()
     },[Auth.song])
     const spanStyle = { fontSize : 12 }
@@ -177,7 +177,7 @@ function OneSong() {
                 {
                     Auth.list.map((item,index)=>{
                         item.title=item.song?item.song:item.title
-                        return <SongItem background={item.title===Auth.song.title} animation={false} query={Auth.nextQuery} key={item.id+index}  oneSongProp={true} song={item} />
+                        return <SongItem background={item.title===Auth.song.title} animation={false} query={Auth.nextQuery} key={item.id+Math.random()}  oneSongProp={true} song={item} />
                     })
                 }
             </div>
