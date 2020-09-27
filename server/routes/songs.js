@@ -153,8 +153,8 @@ router.get("/:id", async (req, res) => {
           songId: req.params.id,
         },
     });
-    if(!liked){
-        liked.isLiked=false
+    if(!liked){    
+        liked={isLiked:false}
     }else{
         liked = liked.toJSON()
     }

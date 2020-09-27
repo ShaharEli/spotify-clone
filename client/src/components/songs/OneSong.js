@@ -22,15 +22,15 @@ function OneSong() {
     const {id} = useParams()
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
-    const [liked,setLiked]=  useState(false)
-
-
+    const [liked,setLiked] = useState(false)
+    console.log(Auth.song);
     const handleLike =async()=>{
         try{
             await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
                 token:Cookie.get("token")
             }})
-            setLiked(!liked)
+            // Auth.setSong(prev=>({...prev,isLiked:!prev.isLiked}))
+            setLiked(prev=>!prev)
         }catch(e){
             console.error(e.message)
         }
@@ -43,7 +43,6 @@ function OneSong() {
                     let {data}= await axios.get(`/songs/${id}`,{headers:{
                         token:Cookie.get("token"),email:Cookie.get("email")
                     }})
-                    setLiked(data.isLiked)
                     Auth.setSong(data)
                     if(query.get("artist")){
                         data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
@@ -115,6 +114,11 @@ function OneSong() {
      // eslint-disable-next-line
     },[id])
     useEffect(()=>{
+        (()=>{
+         setLiked(Auth.song.isLiked)   
+        })()
+    },[Auth.song])
+    useEffect(()=>{
         (async()=>{
             try{
                 const words= await solenolyrics.requestLyricsFor(Auth.song.title)
@@ -133,10 +137,10 @@ function OneSong() {
             <h2 >{Auth.song.title} </h2>
             <div style={{cursor:"pointer",textAlign:"right",width:"10px",float:"right"}} onClick={handleLike}>
                 {
-                    !liked?
-                    <FavoriteBorderIcon />
-                    :
+                    liked?
                     <FavoriteIcon color="secondary"/>
+                    :
+                    <FavoriteBorderIcon />
                 }
             </div>
             </div>  
