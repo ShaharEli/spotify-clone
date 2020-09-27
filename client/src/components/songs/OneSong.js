@@ -9,7 +9,8 @@ import SongItem from './SongItem';
 import MyPlayer from "./MyPlayer"
 import AuthApi from '../Aoth/AuthApi';
 import Cookie from "js-cookie"
-
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 
 function useQuery() {    
     return new URLSearchParams(useLocation().search);
@@ -21,16 +22,29 @@ function OneSong() {
     const {id} = useParams()
     const [loading,setLoading]=  useState(true) 
     const [lyrics,setLyrics]=  useState("")
+    const [liked,setLiked]=  useState(false)
 
+
+    const handleLike =async()=>{
+        try{
+            await axios.post("/favorites/likedSong",{song:Auth.song,email:Auth.email},{headers:{
+                token:Cookie.get("token")
+            }})
+            setLiked(!liked)
+        }catch(e){
+            console.error(e.message)
+        }
+    }
 
 
     useEffect(()=>{
             (async ()=>{
                 try{
                     let {data}= await axios.get(`/songs/${id}`,{headers:{
-                        token:Cookie.get("token")
+                        token:Cookie.get("token"),email:Cookie.get("email")
                     }})
                     Auth.setSong(data)
+                    setLiked(data.isLiked)
                     if(query.get("artist")){
                         data =  await axios.get(`/artists/${query.get("artist")}`,{headers:{
                             token:Cookie.get("token")
@@ -114,11 +128,23 @@ function OneSong() {
         <>
         <div id="oneSongForMobile">
         <div className="oneSong">
-            <div  className="playOneSong">  
-            <h2>{Auth.song.title} </h2><hr style={{  border: "1.5px solid black"}}/>
+            <div  className="playOneSong">
+            <div className="mainSong">
+            <h2 >{Auth.song.title} </h2>
+            <div style={{cursor:"pointer",textAlign:"right",width:"10px",float:"right"}} onClick={handleLike}>
+                {
+                    liked?
+                    <FavoriteBorderIcon />
+                    :
+                    <FavoriteIcon color="secondary"/>
+                }
+            </div>
+            </div>  
+            <hr style={{  border: "1.5px solid black"}}/>
             <span style={spanStyle}>by: &nbsp;{Auth.song.Artist["name"]}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{Auth.song.Album["name"]}</span>
             <span style={spanStyle}> |&nbsp;{Auth.song.length.slice(3,10)}</span>
+            <span style={spanStyle}> |&nbsp;viewes: {Auth.song.playCount+1}</span>
             <MyPlayer  />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
          </div> 

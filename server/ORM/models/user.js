@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey:"email"
       })
       this.hasMany(models.Interaction,{
-        foreignKey:"email"
+        foreignKey:"userId"
       })
 
     }

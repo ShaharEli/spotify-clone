@@ -29,6 +29,11 @@
         height: 100vh;
         overflow-y: scroll;
     }
+    .mainSong{
+        display: flex;
+        align-items: center;
+        justify-content:space-around ;
+    }
     .queue{
         width: 93vw;
         height: 60vh;

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "./Header.css"
 import {NavLink,Link} from "react-router-dom";
 import {useSpring, animated} from 'react-spring'
@@ -14,6 +14,10 @@ import SkipNextIcon from '@material-ui/icons/SkipNext';
 import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import ReactPlayer from "react-player"
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import axios from 'axios';
+import Cookie from "js-cookie"
 
 const controlStyle = {cursor:"pointer"}
 function Header({animate}) {
@@ -29,6 +33,19 @@ function Header({animate}) {
         },delay:800,config:{duration:1000}
 
     })
+    useEffect(()=>{
+        (async ()=>{
+            try{
+                await axios.post("/songs/view",{email:Cookie.get("email"),songId:Auth.song.id},{
+                    headers:{token:Cookie.get("token")}
+                })
+            }
+            catch(e){
+                console.log(e.message);
+            }
+        })()
+    },[Auth.song])
+
     return (
         <>
        <animated.header id="header" style={animate&&fade}>
@@ -86,7 +103,7 @@ function Header({animate}) {
                 <Link to={Auth.nextQuery?`/song/${Auth.song.id}?${Auth.nextQuery[0]}=${Auth.nextQuery[1]}`:`/song/${Auth.song.id}?all_songs=true`} style={{textDecoration:"none",color:"white"}}>
                 <div>
                 &nbsp; currently playing: &nbsp; {Auth.song.title}&nbsp;
-                </div>
+                </div>          
                 </Link>
                 <div className="controls">
                 <ReactPlayer onEnded={Auth.next} onPlay={Auth.play} onPause={Auth.pause} playing={Auth.playing} url={Auth.song.youtubeLink} width="0%" height="0"/>
