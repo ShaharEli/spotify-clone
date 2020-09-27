@@ -1,7 +1,61 @@
 const { Router } = require("express");
-const { Album, Artist, Song } = require("../ORM/models");
+const sequelize = require("sequelize");
+const { Album, Artist, Song, Interaction } = require("../ORM/models");
 
 const router = Router();
+
+router.get("/top", async (req, res) => {
+  try {
+    const albums = await Album.findAll({
+      include: [
+        {
+          model: Artist,
+          attributes: ["name"],
+        },
+        { model: Song, attributes: ["id"] },
+      ],
+    });
+    const interacrtions = await Interaction.findAll({
+      attributes: [
+        "songId",
+        [sequelize.fn("sum", sequelize.col("play_count")), "views"],
+      ],
+      group: ["songId"],
+    });
+    const mostViewedAlbums = [];
+    const albumsNames = [];
+    for (let i = 0; i < interacrtions.length; i++) {
+      for (let x = 0; x < albums.length; x++) {
+        for (let y = 0; y < albums[x].toJSON().Songs.length; y++) {
+          if (
+            interacrtions[i].toJSON().songId === albums[x].toJSON().Songs[y].id
+          ) {
+            const checker = albumsNames.findIndex(
+              (album) => album === albums[x].toJSON().name
+            );
+            if (checker < 0) {
+              mostViewedAlbums.push({
+                ...albums[x].toJSON(),
+                views: Number(interacrtions[i].toJSON().views),
+              });
+              albumsNames.push(albums[x].toJSON().name);
+              break;
+            } else {
+              mostViewedAlbums[checker].views += Number(
+                interacrtions[i].toJSON().views
+              );
+              break;
+            }
+          }
+        }
+      }
+    }
+    mostViewedAlbums.sort((a, b) => b.views - a.views);
+    res.json(mostViewedAlbums.slice(0, 20));
+  } catch (e) {
+    res.json({ error: e.message });
+  }
+});
 
 router.get("/top", async (req, res) => {
   try {
