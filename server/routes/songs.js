@@ -46,7 +46,7 @@ router.post("/view", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    await Song.destory({
+    await Song.destroy({
       where: { id: req.params.id },
     });
     res.json({ success: `song with id ${req.params.id} deleted` });

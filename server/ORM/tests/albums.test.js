@@ -110,17 +110,4 @@ describe("testing albums endpoints", () => {
     expect(body.Songs[0].Album.name).toBe(dekelAlbum);
     done();
   });
-  xit("get top albums", async (done) => {
-    const mockArtistsMultiplied = [];
-    for (let i = 0; i < 10; i++) {
-      mockArtistsMultiplied.push(...artistsMock);
-    }
-    expect(mockArtistsMultiplied.length).toBe(30);
-    await Artist.bulkCreate(mockArtistsMultiplied);
-    const { body: allArtists } = await request(app).get("/artists/top");
-    expect(allArtists.length).toBe(20);
-    expect(allArtists[0].name).toEqual(mockArtistsMultiplied[0].name);
-    expect(allArtists[19].name).toEqual(mockArtistsMultiplied[19].name);
-    done();
-  });
 });

@@ -13,7 +13,7 @@ router.get("/top", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
     try {
-        await Playlist.destory({
+        await Playlist.destroy({
             where: { id: req.params.id }
         });
         res.json({ success: `playlist with id ${req.params.id} deleted` });
