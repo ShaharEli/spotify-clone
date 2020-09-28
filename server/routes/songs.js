@@ -56,15 +56,13 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (!req.body) {
-    res.status(400).send("content missing");
-  }
   const { body } = req;
   try {
-    await Song.update(body, {
+    const updated = await Song.update(body, {
       where: { id: req.params.id },
     });
-    res.json({ success: "one song updated" });
+      // eslint-disable-next-line no-unused-expressions
+    updated[0] === 0 ? res.json({ 0: "updated" }) : res.json({ 1: "updated" });
   } catch (e) {
     res.json({ error: e.message });
   }

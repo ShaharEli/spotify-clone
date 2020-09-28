@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const request = require("supertest");
-const { Album ,Song ,Artist } = require("../models");
+const { Album, Song, Artist } = require("../models");
 const app = require("../../app");
 
 const shahar = "shahar";
@@ -15,34 +15,31 @@ const dekelSong = "dekel vaknin song";
 const hello = "hello world";
 
 const artistsMock = [
-  { name: shahar,id:1 },
-  { name: amir,id:2 },
-  { name: dekel,id:3  },
+  { name: shahar, id: 1 },
+  { name: amir, id: 2 },
+  { name: dekel, id: 3 },
 ];
 
 const albumsMock = [
-    { id:1,name: shaharAlbum,artistId:1  },
-    { id:2,name: amirAlbum,artistId:2 },
-    { id:3,name: dekelAlbum,artistId:3  },
+  { id: 1, name: shaharAlbum, artistId: 1 },
+  { id: 2, name: amirAlbum, artistId: 2 },
+  { id: 3, name: dekelAlbum, artistId: 3 },
 ];
 
 const songsMock = [
-    { title: shaharSong,albumId:1,artistId:1 },
-    { title: amirSong,albumId:2,artistId:2 },
-    { title: dekelSong,albumId:3,artistId:3 },
+  { title: shaharSong, albumId: 1, artistId: 1 },
+  { title: amirSong, albumId: 2, artistId: 2 },
+  { title: dekelSong, albumId: 3, artistId: 3 },
 ];
 
-
-
-
 describe("testing albums endpoints", () => {
-    beforeAll(async ()=>{
-        await Song.destroy({ truncate: true, force: true });
-         await Artist.destroy({ truncate: true, force: true });
-        await Song.bulkCreate(songsMock)
-        await Artist.bulkCreate(artistsMock)
-    })
-    beforeEach(async () => {
+  beforeAll(async () => {
+    await Song.destroy({ truncate: true, force: true });
+    await Artist.destroy({ truncate: true, force: true });
+    await Song.bulkCreate(songsMock);
+    await Artist.bulkCreate(artistsMock);
+  });
+  beforeEach(async () => {
     await Album.destroy({ truncate: true, force: true });
   });
   it("get all albums", async (done) => {
@@ -69,43 +66,48 @@ describe("testing albums endpoints", () => {
     expect(body[2].id).toBe(3);
     done();
   });
-  xit("post new album", async (done) => {
-    const { body } = await request(app).post("/artists").send(artistsMock[2]);
-    expect(body).toEqual({ success: "one artist added" });
-    const artists = await Artist.findAll();
-    const artist = artists[0];
-    expect(artist.name).toBe(dekel);
-    expect(artist.id).toBe(1);
+  it("post new album", async (done) => {
+    const { body } = await request(app).post("/albums").send(albumsMock[2]);
+    expect(body).toEqual({ success: "one album added" });
+    const albums = await Album.findAll();
+    const album = albums[0];
+    expect(album.name).toBe(dekelAlbum);
+    expect(album.id).toBe(3);
     done();
   });
 
-  xit("update album", async (done) => {
-    await Artist.create(artistsMock[0]);
+  it("update album", async (done) => {
+    const update = { name: hello };
+    await Album.create(albumsMock[0]);
     const { body: updateCheck } = await request(app)
-      .put("/artists/1")
-      .send({ name: hello });
+      .put("/albums/1")
+      .send(update);
     expect(updateCheck).toEqual({ 1: "updated" });
-    const allArtists = await Artist.findAll();
-    expect(allArtists[0].toJSON().name).toEqual(hello);
-    const { body } = await request(app).put("/artists/1").send({ name: hello });
+    const allAlbums = await Album.findAll();
+    expect(allAlbums[0].toJSON().name).toEqual(hello);
+    const { body } = await request(app).put("/albums/1").send(update);
     expect(body).toEqual({ 0: "updated" });
     done();
   });
-  xit("delete album", async (done) => {
-    await Artist.create(artistsMock[0]);
-    let artist = await Artist.findAll();
-    expect(artist.length).toBe(1);
-    const { body: deleteCheck } = await request(app).delete("/artists/1");
-    expect(deleteCheck).toEqual({ success: `artist with id 1 deleted` });
-    artist = await Artist.findAll();
-    expect(artist.length).toBe(0);
+  it("delete album", async (done) => {
+    await Album.create(albumsMock[0]);
+    let albums = await Album.findAll();
+    expect(albums.length).toBe(1);
+    const { body: deleteCheck } = await request(app).delete("/albums/1");
+    expect(deleteCheck).toEqual({ success: `album with id 1 deleted` });
+    albums = await Album.findAll();
+    expect(albums.length).toBe(0);
     done();
   });
-  xit("get album by id", async (done) => {
-    await Artist.bulkCreate(artistsMock);
-    const { body } = await request(app).get("/artists/2");
+  it("get album by id", async (done) => {
+    await Album.bulkCreate(albumsMock);
+    const { body } = await request(app).get("/albums/3");
     expect([body].length).toBe(1);
-    expect(body.name).toBe(amir);
+    expect(body.name).toBe(dekelAlbum);
+    expect(body.Artist.name).toBe(dekel);
+    expect(body.Songs[0].title).toBe(dekelSong);
+    expect(body.Songs[0].Artist.name).toBe(dekel);
+    expect(body.Songs[0].Album.name).toBe(dekelAlbum);
     done();
   });
   xit("get top albums", async (done) => {

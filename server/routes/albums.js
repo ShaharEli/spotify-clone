@@ -59,7 +59,7 @@ router.get("/top", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    await Album.destory({
+    await Album.destroy({
       where: { id: req.params.id },
     });
     res.json({ success: `album with id ${req.params.id} deleted` });
@@ -69,15 +69,14 @@ router.delete("/:id", async (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  if (!req.body) {
-    res.status(400).send("content missing");
-  }
+
   const { body } = req;
   try {
-    await Album.update(body, {
+    const updated = await Album.update(body, {
       where: { id: req.params.id },
     });
-    res.json({ success: "one album updated" });
+      // eslint-disable-next-line no-unused-expressions
+    updated[0] === 0 ? res.json({ 0: "updated" }) : res.json({ 1: "updated" });
   } catch (e) {
     res.json({ error: e.message });
   }
