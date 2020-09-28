@@ -1,37 +1,75 @@
 /* eslint-disable no-undef */
 const request = require("supertest");
-const { Artist } = require("../models");
+const { Album ,Song ,Artist } = require("../models");
 const app = require("../../app");
 
 const shahar = "shahar";
 const amir = "amir";
 const dekel = "dekel vaknin";
+const shaharAlbum = "shahar EP";
+const amirAlbum = "amir EP";
+const dekelAlbum = "dekel vaknin EP";
+const shaharSong = "shahar song";
+const amirSong = "amir song";
+const dekelSong = "dekel vaknin song";
 const hello = "hello world";
 
 const artistsMock = [
-  { name: shahar },
-  { name: amir },
-  { name: dekel },
+  { name: shahar,id:1 },
+  { name: amir,id:2 },
+  { name: dekel,id:3  },
+];
+
+const albumsMock = [
+    { id:1,name: shaharAlbum,artistId:1  },
+    { id:2,name: amirAlbum,artistId:2 },
+    { id:3,name: dekelAlbum,artistId:3  },
+];
+
+const songsMock = [
+    { title: shaharSong,albumId:1,artistId:1 },
+    { title: amirSong,albumId:2,artistId:2 },
+    { title: dekelSong,albumId:3,artistId:3 },
 ];
 
 
-describe("testing artists endpoints", () => {
-  beforeEach(async () => {
-    await Artist.destroy({ truncate: true, force: true });
+
+
+describe("testing albums endpoints", () => {
+    beforeAll(async ()=>{
+        await Song.destroy({ truncate: true, force: true });
+         await Artist.destroy({ truncate: true, force: true });
+        await Song.bulkCreate(songsMock)
+        await Artist.bulkCreate(artistsMock)
+    })
+    beforeEach(async () => {
+    await Album.destroy({ truncate: true, force: true });
   });
-  it("get all artists", async (done) => {
-    await Artist.bulkCreate(artistsMock);
-    const { body } = await request(app).get("/artists");
+  it("get all albums", async (done) => {
+    await Album.bulkCreate(albumsMock);
+    const { body } = await request(app).get("/albums");
     expect(body.length).toBe(3);
-    expect(body[0].name).toBe(shahar);
+    expect(body[0].name).toBe(shaharAlbum);
+    expect(body[0].Artist.name).toBe(shahar);
+    expect(body[0].Songs[0].title).toBe(shaharSong);
+    expect(body[0].Songs[0].Artist.name).toBe(shahar);
+    expect(body[0].Songs[0].Album.name).toBe(shaharAlbum);
     expect(body[0].id).toBe(1);
-    expect(body[1].name).toBe(amir);
+    expect(body[1].name).toBe(amirAlbum);
+    expect(body[1].Artist.name).toBe(amir);
+    expect(body[1].Songs[0].title).toBe(amirSong);
+    expect(body[1].Songs[0].Artist.name).toBe(amir);
+    expect(body[1].Songs[0].Album.name).toBe(amirAlbum);
     expect(body[1].id).toBe(2);
-    expect(body[2].name).toBe(dekel);
+    expect(body[2].name).toBe(dekelAlbum);
+    expect(body[2].Artist.name).toBe(dekel);
+    expect(body[2].Songs[0].title).toBe(dekelSong);
+    expect(body[2].Songs[0].Artist.name).toBe(dekel);
+    expect(body[2].Songs[0].Album.name).toBe(dekelAlbum);
     expect(body[2].id).toBe(3);
     done();
   });
-  it("post new artist", async (done) => {
+  xit("post new album", async (done) => {
     const { body } = await request(app).post("/artists").send(artistsMock[2]);
     expect(body).toEqual({ success: "one artist added" });
     const artists = await Artist.findAll();
@@ -41,7 +79,7 @@ describe("testing artists endpoints", () => {
     done();
   });
 
-  it("update artist", async (done) => {
+  xit("update album", async (done) => {
     await Artist.create(artistsMock[0]);
     const { body: updateCheck } = await request(app)
       .put("/artists/1")
@@ -53,7 +91,7 @@ describe("testing artists endpoints", () => {
     expect(body).toEqual({ 0: "updated" });
     done();
   });
-  it("delete artist", async (done) => {
+  xit("delete album", async (done) => {
     await Artist.create(artistsMock[0]);
     let artist = await Artist.findAll();
     expect(artist.length).toBe(1);
@@ -63,14 +101,14 @@ describe("testing artists endpoints", () => {
     expect(artist.length).toBe(0);
     done();
   });
-  it("get artist by id", async (done) => {
+  xit("get album by id", async (done) => {
     await Artist.bulkCreate(artistsMock);
     const { body } = await request(app).get("/artists/2");
     expect([body].length).toBe(1);
     expect(body.name).toBe(amir);
     done();
   });
-  it("get top artists", async (done) => {
+  xit("get top albums", async (done) => {
     const mockArtistsMultiplied = [];
     for (let i = 0; i < 10; i++) {
       mockArtistsMultiplied.push(...artistsMock);
