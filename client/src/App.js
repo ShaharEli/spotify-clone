@@ -34,6 +34,12 @@ function App() {
     const [restore, setRestore] = useState(false)
     const [remember, setRemember] = useState(false)
     const [nextQuery, setNextQuery] = useState([])
+    
+    const apiValues ={
+        remember, setRemember, auth, setAuth, name, setName, email, setEmail, song, setSong,nextQuery,setNextQuery
+        , list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
+    }
+
 
     const pause = () => {
         setPlaying(false)
@@ -99,55 +105,53 @@ function App() {
         })()
 
     }, [])
+
     return (
-        <>
-            <AuthApi.Provider value={{
-                remember, setRemember, auth, setAuth, name, setName, email, setEmail, song, setSong,nextQuery,setNextQuery
-                , list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
-            }}>
-                <Router>
-                    {
-                        !auth ?
-                            !loading ?
-                                <>
-                                    <Switch>
-                                        <Route exact path="/login" component={Login} />
-                                        <Route exact path="/register" component={Register} />
-                                        <Route path="/" component={Login} />
-                                    </Switch>
-                                </>
-                                :
-                                <Loading />
-                            :
-                            <>
-                                <Header />
-                                <Route render={({ location }) => (
-                                    <Switch location={location} key={location.pathname}>
-                                        <Route exact path="/login" component={Login} />
-                                        <Route exact path="/register" component={Register} />
-                                        <Route path="/song/:id" component={OneSong} />
-                                        <Route exact path="/addSong" component={AddSong} />
-                                        <Route path="/album/:id" component={OneAlbum} />
-                                        <Route path="/playlist/:id" component={OnePlaylist} />
-                                        <Route path="/artist/:id" component={OneArtist} />
-                                        <Route exact path="/playlists" component={Playlists} />
-                                        <Route exact path="/artists" component={Artist} />
-                                        <Route exact path="/albums" component={Albums} />
-                                        <Route exact path="/songs" component={Songs} />
-                                        <Route exact path="/about" component={About} />
-                                        <Route exact path="/" component={Home} />
-                                        <Route path="*" component={NotFound} />
-                                    </Switch>
+<>
+    <AuthApi.Provider value={apiValues}>
+        <Router>
+            {
+                !auth ?
+                    !loading ?
+                        <>
+                            <Switch>
+                                <Route exact path="/login" component={Login} />
+                                <Route exact path="/register" component={Register} />
+                                <Route path="/" component={Login} />
+                            </Switch>
+                        </>
+                        :
+                        <Loading />
+                    :
+                    <>
+                        <Header />
+                        <Route render={({ location }) => (
+                            <Switch location={location} key={location.pathname}>
+                                <Route exact path="/login" component={Login} />
+                                <Route exact path="/register" component={Register} />
+                                <Route path="/song/:id" component={OneSong} />
+                                <Route exact path="/addSong" component={AddSong} />
+                                <Route path="/album/:id" component={OneAlbum} />
+                                <Route path="/playlist/:id" component={OnePlaylist} />
+                                <Route path="/artist/:id" component={OneArtist} />
+                                <Route exact path="/playlists" component={Playlists} />
+                                <Route exact path="/artists" component={Artist} />
+                                <Route exact path="/albums" component={Albums} />
+                                <Route exact path="/songs" component={Songs} />
+                                <Route exact path="/about" component={About} />
+                                <Route exact path="/" component={Home} />
+                                <Route path="*" component={NotFound} />
+                            </Switch>
 
 
-                                )} />
+                        )} />
 
-                            </>
-                    }
+                    </>
+            }
 
-                </Router>
-            </AuthApi.Provider>
-        </>
+        </Router>
+    </AuthApi.Provider>
+</>
     )
 }
 
