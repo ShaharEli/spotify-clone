@@ -35,12 +35,6 @@ function App() {
     const [remember, setRemember] = useState(false)
     const [nextQuery, setNextQuery] = useState([])
     
-    const apiValues ={
-        remember, setRemember, auth, setAuth, name, setName, email, setEmail, song, setSong,nextQuery,setNextQuery
-        , list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
-    }
-
-
     const pause = () => {
         setPlaying(false)
     }
@@ -98,6 +92,12 @@ function App() {
             catch (e) { }
         }
     }
+
+    const apiValues ={
+        remember, setRemember, auth, setAuth, name, setName, email, setEmail, song, setSong,nextQuery,setNextQuery
+        , list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
+    }
+
     useEffect(() => {
         (async () => {
             await getAutorizied()
