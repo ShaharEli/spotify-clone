@@ -168,14 +168,14 @@ function OneSong() {
             <span style={spanStyle}>by: &nbsp;{Auth.song.Artist["name"]}</span>&nbsp;&nbsp;
             <span style={spanStyle}>album: &nbsp;{Auth.song.Album["name"]}</span>
             <span style={spanStyle}> |&nbsp;{Auth.song.length.slice(3,10)}</span>
-            <span style={spanStyle}> |&nbsp;viewes: {Auth.song.playCount+1}</span>
+            <span style={spanStyle}> |&nbsp;views: {Auth.song.playCount+1}</span>
             <MyPlayer  />
             <div style={{width:"100%",height:"40%",overflowY:"scroll"}}>{lyrics}</div>
          </div> 
             <div className="queue">
                 <h2>Queue</h2>
                 {
-                    Auth.list.map((item,index)=>{
+                    Auth.list.map((item)=>{
                         item.title=item.song?item.song:item.title
                         return <SongItem background={item.title===Auth.song.title} animation={false} query={Auth.nextQuery} key={item.id+Math.random()}  oneSongProp={true} song={item} />
                     })

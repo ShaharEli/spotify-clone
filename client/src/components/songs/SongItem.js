@@ -65,14 +65,14 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
         </div>
         </div>
       );
+      
       return (
         <motion.div 
-        initial={{opacity:0,x:"-100%"}}
+        initial={index&&{opacity:0,x:"-100%"}}
         animate={{opacity:1,x:0}}
         transition={{
           default: { duration: 0.6 },
           delay:index<10?index/9:0
-
       }}
         className={album?"songs":"albumSongs"} style={styles} >
           <Tooltip title="add to your songs">
