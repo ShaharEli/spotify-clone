@@ -31,14 +31,15 @@ function ensureToken(req, res, next) {
       // eslint-disable-next-line no-console
       console.log(data);
       if (error) {
-        res.status(403).send('incurrect token');
+        res.status(403).send('incorrect token');
       } else {
         if (!data.remember_token) {
           const newToken = { ...data };
           newToken.exp = Math.floor(Date.now() / 1000) + 3600;
           const updatedToken = jwt.sign(newToken, process.env.HASH);
           res.cookie('token', updatedToken);
-        }
+          jwt.destroy(token);
+        };
         next();
       }
     });
