@@ -68,7 +68,7 @@ function SongItem({song,maxWidth,index,query,oneSongProp,background}) {
       
       return (
         <motion.div 
-        initial={index&&{opacity:0,x:"-100%"}}
+        initial={index>-1&&{opacity:0,x:"-100%"}}
         animate={{opacity:1,x:0}}
         transition={{
           default: { duration: 0.6 },
