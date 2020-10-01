@@ -34,6 +34,7 @@ function App() {
     const [restore, setRestore] = useState(false)
     const [remember, setRemember] = useState(false)
     const [nextQuery, setNextQuery] = useState([])
+
     
     const pause = () => {
         setPlaying(false)
@@ -89,13 +90,13 @@ function App() {
                 setEmail(authEmail)
                 setName(authName)
             }
-            catch (e) { }
+            catch (e) { console.log(e.message);}
         }
     }
 
     const apiValues ={
         remember, setRemember, auth, setAuth, name, setName, email, setEmail, song, setSong,nextQuery,setNextQuery
-        , list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
+        ,list, setList, counter, setCounter, restore, setRestore, playing, setPlaying, play, pause, next, previous
     }
 
     useEffect(() => {
