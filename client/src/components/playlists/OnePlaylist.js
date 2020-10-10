@@ -42,7 +42,6 @@ function OnePlaylist() {
         <div className="playlistMedia">
         {
             songs.map(song=>{
-                console.log(song);
                 return <SongItem key={song.title} query={["playlist",playlist.id]} song={song} maxWidth={true} />
             })
         }
