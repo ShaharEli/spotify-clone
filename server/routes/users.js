@@ -25,7 +25,7 @@ router.post("/login", async (req, res) => {
         if (!body.remember_token) {
           newToken.exp = Math.floor(Date.now() / 1000) + 3600;
         } else {
-          newToken.exp = "1y";
+          newToken.exp = Math.floor(Date.now() / 1000) + 3600 * 24 * 365;
         }
         const token = jwt.sign(newToken, process.env.HASH);
         res.cookie("name", result.name);
@@ -43,7 +43,6 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
 router.post("/register", async (req, res) => {
   if (!req.body) {
     res.status(400).send("content missing");
@@ -58,6 +57,7 @@ router.post("/register", async (req, res) => {
       remember_token: body.remember_token,
       user,
     };
+    newToken.exp = Math.floor(Date.now() / 1000) + 3600 * 24 * 365;
     if (!body.remember_token) {
       newToken.exp = Math.floor(Date.now() / 1000) + 3600;
     }
