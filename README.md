@@ -1,5 +1,7 @@
 # spotify-clone
 
+My first fullstack project with sql, jwt authentication, orm and react router.
+
 Spotify like site that allows you to browse your favorite music
 with likes, views, ratings and personal page.
 
