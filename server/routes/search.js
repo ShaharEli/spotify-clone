@@ -12,7 +12,7 @@ const {
 } = require("../ORM/models");
 
 const { Client } = require("@elastic/elasticsearch");
-const client = new Client({
+export const client = new Client({
   cloud: {
     id: process.env.SEARCH_ID,
   },
@@ -21,29 +21,12 @@ const client = new Client({
     password: process.env.SEARCH_PASS,
   },
 });
-router.get("/", (req, res) => {
-  client.search(
-    {
-      index: "spotify",
-      body: {
-        query: {
-          match_all: {},
-        },
-      },
-    },
-    (err, result) => {
-      if (err) console.log(err);
-      if (result) res.json(result);
-    }
-  );
-});
-//playlist
-//song
+
 router.get("/songs", async (req, res) => {
   const { all, search } = req.query;
   let size = 3;
   if (all === "all") {
-    size = undefined;
+    size = 1000;
   }
   client.search(
     {
@@ -61,7 +44,7 @@ router.get("/songs", async (req, res) => {
     },
     (err, result) => {
       if (err) console.log(err);
-      if (result) res.json(result);
+      if (result) res.json(result.body.hits.hits.map((item) => item._source));
     }
   );
 });
@@ -70,7 +53,7 @@ router.get("/albums", async (req, res) => {
   const { all, search } = req.query;
   let size = 3;
   if (all === "all") {
-    size = undefined;
+    size = 1000;
   }
   client.search(
     {
@@ -88,7 +71,7 @@ router.get("/albums", async (req, res) => {
     },
     (err, result) => {
       if (err) console.log(err);
-      if (result) res.json(result);
+      if (result) res.json(result.body.hits.hits.map((item) => item._source));
     }
   );
 });
@@ -96,7 +79,7 @@ router.get("/artists", async (req, res) => {
   const { all, search } = req.query;
   let size = 3;
   if (all === "all") {
-    size = undefined;
+    size = 1000;
   }
   client.search(
     {
@@ -114,7 +97,7 @@ router.get("/artists", async (req, res) => {
     },
     (err, result) => {
       if (err) console.log(err);
-      if (result) res.json(result);
+      if (result) res.json(result.body.hits.hits.map((item) => item._source));
     }
   );
 });
@@ -122,7 +105,7 @@ router.get("/playlists", async (req, res) => {
   const { all, search } = req.query;
   let size = 3;
   if (all === "all") {
-    size = undefined;
+    size = 1000;
   }
   client.search(
     {
@@ -140,7 +123,7 @@ router.get("/playlists", async (req, res) => {
     },
     (err, result) => {
       if (err) console.log(err);
-      if (result) res.json(result);
+      if (result) res.json(result.body.hits.hits.map((item) => item._source));
     }
   );
 });

@@ -4,7 +4,7 @@ const sequelize = require("sequelize");
 const router = Router();
 const { Song, Artist, Album, Interaction, User } = require("../ORM/models");
 
-
+import { client } from "./search";
 
 router.post("/view", async (req, res) => {
   try {
@@ -61,7 +61,7 @@ router.put("/:id", async (req, res) => {
     const updated = await Song.update(body, {
       where: { id: req.params.id },
     });
-      // eslint-disable-next-line no-unused-expressions
+    // eslint-disable-next-line no-unused-expressions
     updated[0] === 0 ? res.json({ 0: "updated" }) : res.json({ 1: "updated" });
   } catch (e) {
     res.json({ error: e.message });
@@ -75,6 +75,11 @@ router.post("/", async (req, res) => {
   try {
     await Song.create(req.body);
     res.json({ success: "one song added" });
+    client.create({
+      index: "song",
+      type: "song",
+      body: req.body,
+    });
   } catch (e) {
     res.json({ error: e.message });
   }
@@ -110,7 +115,7 @@ router.get("/top", async (req, res) => {
         },
         {
           model: Album,
-          attributes: ["name","coverImg"],
+          attributes: ["name", "coverImg"],
         },
       ],
     });
@@ -134,7 +139,7 @@ router.get("/top", async (req, res) => {
       }
     }
     mostViewedSongs.sort((a, b) => b.views - a.views);
-    res.json(mostViewedSongs.slice(0,20));
+    res.json(mostViewedSongs.slice(0, 20));
   } catch (e) {
     res.json({ error: e.message });
   }

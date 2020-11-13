@@ -17,7 +17,6 @@ function Login() {
   const [checked, setChecked] = useState(false);
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async (values) => {
-    console.log(values);
     const { data } = await axios.post("/users/login", {
       ...values,
       remember_token: checked,

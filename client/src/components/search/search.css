@@ -1,0 +1,53 @@
+.search-modal {
+  /* background-color: red; */
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border-left: 1px solid #ccc;
+  height: 78vh;
+  width: 40vw;
+  min-width: 250px;
+  padding-top: 15px;
+  margin: auto;
+}
+.searched-song {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 0.2fr);
+}
+
+.show-all {
+  border: 1px solid black;
+  background: rgb(89, 179, 182);
+  padding: 5px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.all-searchers {
+  display: flex;
+  justify-content: space-around;
+}
+
+.searched-album {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 0.2fr);
+}
+.searched-artist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 0.2fr);
+}
+
+.searched-playlist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(5, 0.2fr);
+}
+
+.show-more {
+  text-align: left;
+  margin-top: 15px;
+  cursor: pointer;
+}
