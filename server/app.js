@@ -10,9 +10,15 @@ const users = require("./routes/users");
 const favorites = require("./routes/usersFavorites");
 const search = require("./routes/search");
 const app = express();
+const path = require("path");
 app.use(express.json());
 
 app.use(cors());
+
+app.use(express.static("../client/build"));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+});
 
 // eslint-disable-next-line func-names
 app.use(
@@ -52,7 +58,7 @@ function ensureToken(req, res, next) {
     res.sendStatus(403);
   }
 }
-app.use("/search", search);
+app.use("/search", search.router);
 app.use("/users", users);
 app.use(ensureToken);
 app.use("/favorites", favorites);

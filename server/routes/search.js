@@ -12,7 +12,7 @@ const {
 } = require("../ORM/models");
 
 const { Client } = require("@elastic/elasticsearch");
-export const client = new Client({
+const client = new Client({
   cloud: {
     id: process.env.SEARCH_ID,
   },
@@ -127,4 +127,4 @@ router.get("/playlists", async (req, res) => {
     }
   );
 });
-module.exports = router;
+module.exports = { router: router, client: client };

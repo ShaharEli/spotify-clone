@@ -4,7 +4,7 @@ const sequelize = require("sequelize");
 const router = Router();
 const { Song, Artist, Album, Interaction, User } = require("../ORM/models");
 
-import { client } from "./search";
+const { client } = require("./search");
 
 router.post("/view", async (req, res) => {
   try {
