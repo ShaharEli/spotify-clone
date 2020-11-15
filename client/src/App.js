@@ -153,8 +153,8 @@ function App() {
   }, [history]);
 
   return (
-    <>
-      <AuthApi.Provider value={apiValues}>
+    <AuthApi.Provider value={apiValues}>
+      <Router>
         {!auth ? (
           !loading ? (
             <>
@@ -192,8 +192,8 @@ function App() {
             />
           </>
         )}
-      </AuthApi.Provider>
-    </>
+      </Router>
+    </AuthApi.Provider>
   );
 }
 

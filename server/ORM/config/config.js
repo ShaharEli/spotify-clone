@@ -5,7 +5,8 @@ module.exports = {
     username: "root",
     password: process.env.PASSWORD,
     database: "spotify_development",
-    host: "127.0.0.1",
+    // host: "127.0.0.1",
+    host: "db",
     dialect: "mysql",
     define: {
       underscored: true,

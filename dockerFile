@@ -8,8 +8,8 @@ FROM node:12 AS server-build
 WORKDIR /root/
 COPY --from=ui-build /spotifyClone/src/app/client/build ./client/build
 COPY server/package*.json ./server/
-RUN cd server && npm install
 COPY server/ ./server/
+RUN cd server && npm install
 
 EXPOSE 8080
 

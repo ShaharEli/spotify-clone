@@ -1,0 +1,6 @@
+FROM node:12
+WORKDIR /server
+COPY . .
+RUN npm install && git clone https://github.com/vishnubob/wait-for-it.git
+EXPOSE 8080 
+CMD ["node","."]
